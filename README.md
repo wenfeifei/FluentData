@@ -1,10 +1,9 @@
 原作者暂时打不开国外博客，协议为MIT协议，源文件 license里面有详情
-原开源地址:https://archive.codeplex.com/?p=fluentdata
-鉴于codeplex问题   不想此开源orm沉没 ，故放在guithub上供大家使用
+鉴于codeplex问题，故放在guithub上供大家使用,让更多人知道这个orm
 一切权益归原作者所有
 
 FluentData：一种使用Fluent API的新型轻量级ORM模型 
-FluentData 是微型 ORM（micro-ORM）家族的一名新成员，旨在比大型 ORM（full ORM）更加易用。FluentData 于本月推出，它使用 fluent API 并支持 SQL Server、SQL Azure、Oracle 和 MYSQL。 
+FluentData 是微型 ORM（micro-ORM）家族的一名新成员，旨在比大型 ORM（full ORM）更加易用。它使用 fluent API 并支持 SQL Server、SQL Azure、Oracle 和 MYSQL。 
 FluentData 的设计者 Lars-Erik Kindblad 谈到：
 	当前市面上的 ORM 框架，如 Entity Framework 和 NHibernate，都过于复杂而且难于学习。此外，由于这些框架自身抽象的查询语言以及从数据库到 .NET 对象的映射太过麻烦，导致它们生成的 SQL 都很低效。 
  FluentData 另辟蹊径，它是一个轻量级框架，拥有简单的 fluent API 并且很容易学会。与其他微型 ORM（如 Dapper 和 Massive）类似，FluentData 关注性能和易用性。它允许开发人员拥有对 SQL 较多的控制，而不是依赖 ORM 进行自动生成。它不仅可以使用 SQL 来执行查询、增添和更新操作，还可以支持使用存储过程和事务。根据文档描述，FluentData 可以在不改动已有结构的情况下，与任何业务对象一同工作。 
@@ -68,3 +67,7 @@ var productId = QueryDB().Insert(\"Product\").Column(\"Name\", \"The Warren Buff
 https://www.cnblogs.com/babietongtianta/p/4365195.html
 
 https://www.cnblogs.com/_popc/archive/2012/12/26/2834726.html 
+
+QQ交流群:180489351
+
+
