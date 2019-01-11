@@ -71,7 +71,7 @@ namespace FluentData
 			if (data.PagingItemsPerPage > 0
 				&& data.PagingCurrentPage > 0)
 			{
-				sql += string.Format(" limit {0}, {1}", data.GetFromItems() - 1, data.GetToItems());
+				sql += string.Format(" limit {0}, {1}", data.GetFromItems() - 1, data.PagingItemsPerPage);
 			}
 			
 			return sql;
