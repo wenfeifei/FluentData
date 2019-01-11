@@ -102,6 +102,42 @@ namespace FluentData
 				                             data.GetToItems());
 				return pagedSql;
 			}
+			
+			#region SqlServer 2012以上版本的分页(此效率更高,以上版本通用)
+
+            //if (!string.IsNullOrWhiteSpace(data.Select))
+            //{
+            //    sql += "select " + data.Select;
+            //}
+            //if (!string.IsNullOrWhiteSpace(data.From))
+            //{
+            //    sql += " from " + data.From;
+            //}
+            //if (!string.IsNullOrWhiteSpace(data.WhereSql))
+            //{
+            //    sql += " where " + data.WhereSql;
+            //}
+            //if (!string.IsNullOrWhiteSpace(data.GroupBy))
+            //{
+            //    sql += " group by " + data.GroupBy;
+            //}
+            //if (!string.IsNullOrWhiteSpace(data.Having))
+            //{
+            //    sql += " having " + data.Having;
+            //}
+            //if (!string.IsNullOrWhiteSpace(data.OrderBy))
+            //{
+            //    sql += " order by " + data.OrderBy;
+            //}
+            //if (data.PagingItemsPerPage > 0)
+            //{
+            //    sql += " offset " + data.GetFormItemsRowsIndex + " rows";
+            //    sql += " fetch next " + data.PagingItemsPerPage + " rows only";
+            //}
+            //return sql;
+
+            #endregion
+
 		}
 
 		public string GetSqlForInsertBuilder(BuilderData data)

@@ -78,6 +78,8 @@ https://www.cnblogs.com/babietongtianta/p/4365195.html
 
 https://www.cnblogs.com/_popc/archive/2012/12/26/2834726.html 
 
-QQ交流群:180489351
+Sqlserver 2012以上版本分页 可以在SqlServerProvider.cs文件中看到注释内容，本方法由Fulentdata忠实使用者提供
+
+QQ交流群:180489351  
 
 

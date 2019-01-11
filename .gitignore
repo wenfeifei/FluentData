@@ -1,0 +1,9 @@
+/Source/v4/FluentData.UnitTests/obj/Debug
+*.dtbcache
+/Source/v4/FluentData.SingleSourceFile/obj/Debug/FluentData.SingleSourceFile.csprojAssemblyReference.cache
+*.lock
+/Source/v4/.vs/FluentData/v15/Server/sqlite3/*.ide-wal
+/Source/v4/.vs/FluentData/v15/*.suo
+*.ide
+*.ide-shm
+*.cache
