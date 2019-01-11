@@ -1,5 +1,11 @@
-原作者 https://archive.codeplex.com/?p=fluentdata
+原作者暂时打不开国外博客，协议为MIT协议，源文件 license里面有详情
+原开源地址:https://archive.codeplex.com/?p=fluentdata
+鉴于codeplex问题   不想此开源orm 沉没，故放在guithub上供大家使用
+一切权益归原作者所有
 
+fluentdata
+fluentdata - 微型 ORM 的 API ， 其使得简单的数据库查询
+使用一个简单的微型 ORM 非常流利 ， API 使您很容易选择、插入、更新和删除数据库中的数据。支持数据库 ： Microsoft SQL Server, MS SQL Server, MS SQL Azure 、 Oracle 和 MySQL
 
 新闻
 2015 年 3 月 ： 版本 3.0. 1 发布在 CodePlex nuguet 和、以及版本 4 目前正在酝酿中。支持 Sybase ， 请参见文档选项卡。
