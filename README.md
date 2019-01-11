@@ -1,6 +1,5 @@
 原作者暂时打不开国外博客，协议为MIT协议，源文件 license里面有详情
-原开源地址:https://archive.codeplex.com/?p=fluentdata
-鉴于codeplex问题   不想此开源orm沉没 ，故放在guithub上供大家使用
+鉴于codeplex问题，故放在guithub上供大家使用,让更多人知道这个orm
 一切权益归原作者所有
 
 FluentData：一种使用Fluent API的新型轻量级ORM模型 
