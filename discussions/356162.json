@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "837711",
+    "ThreadId": "356162",
+    "Html": "<p>I have a legacy project. A lots of calls&nbsp; (thousands) are made to the database <br /> during a single request to the appserver.<br /> Is any possibility to make only one call (bulk statements) to the db with FluentData <br /> something like:<br /> begin<br /> insert into table1 ....<br /> insert into table2 ...<br /> update table1 .....<br /> update table2 .....<br /> delete from table3 ...<br /> end;</p>\n<p>Is any possibility to push those statements into a queue and execute all ?</p>",
+    "PostedDate": "2012-05-17T07:37:50.38-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "837766",
+    "ThreadId": "356162",
+    "Html": "<p>What database do you use?&nbsp;If you use SQL Server then you can execute everything inside a single call to the database:</p>\r\n<p><br />context.Sql(\"insert into table1;\")<br /><span style=\"white-space: pre;\"> </span>.Sql(\"insert into table2;\")<br /><span style=\"white-space: pre;\"> </span>.Sql(\"insert into table3;\")<br /><span style=\"white-space: pre;\"> </span>.Sql(\"delete from table3;\")<br /><span style=\"white-space: pre;\"> </span>.Execute();&nbsp;</p>\r\n<p>The ';' is used to separate each statement and the SQL method appends everything into a single string that is executed once. It might be a limit on the SQL length but I can't remember that now...</p>\r\n<p>Did this help?</p>",
+    "PostedDate": "2012-05-17T09:55:25.78-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "837993",
+    "ThreadId": "356162",
+    "Html": "<p>It's ok. Thank you!</p>",
+    "PostedDate": "2012-05-18T00:02:33.12-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

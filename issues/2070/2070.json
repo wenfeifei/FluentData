@@ -1,0 +1,39 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "I tried the code below having some exception \"binding parameter invalid\" 4 times over 1000\nAny idea ?\n\nSystem.ArgumentException: Liaison de paramètre non valide\nNom du paramètre : ::sql_date\n   à FluentData.ExecuteQueryHandler.HandleQueryException(Exception exception)\n   à FluentData.ExecuteQueryHandler.ExecuteQuery(Boolean useReader, Action action)\n   à FluentData.DbCommand.Execute()\n   à CA_FluentD.Program.insert_obj(IDbContext context, Int32 index) dans d:\\_PROJETS\\MICROORM\\CA_FluentD\\Program.cs:ligne 49\n\n\n\nusing (IDbContext context = Context())\n\t\t\t\t\t{\n\t\t\t\t\t\t//for( int cpt = 0; cpt<1000; cpt++)\n\t\t\t\t\t\t//insert_obj(context, cpt);\n\t\t\t\t\t\tParallel.For(0, 1001, new ParallelOptions() { MaxDegreeOfParallelism = 10 }, p =>\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tinsert_obj(context, p);\n\t\t\t\t\t\t});\n\t\t\t\t\t}\n\nstatic bool insert_obj(IDbContext context, int index)\n\t\t{\n\t\t\t\ttry\n\t\t\t\t{\n\t\t\t\t\t\treturn context.Sql(@\"INSERT INTO LOG \n\t\t\t\t\t\t( LOGLEVEL , LOGDATE, USERNAME, APPLICATION, HOST, MESSAGE, STACKTRACE)\n\t\t\t\t\t\tVALUES (  :sql_level,  :sql_date,  :sql_user,  :sql_app,  :sql_host,  :sql_message,  :sql_stack)\")\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t.Parameter(\":sql_level\", \"TEST\", DataTypes.String)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t.Parameter(\":sql_date\", DateTime.Now)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t.Parameter(\":sql_user\", \"TEST\" + index)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t.Parameter(\":sql_app\", \"CA_FluentD\" + index)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t.Parameter(\":sql_host\", \"c55084\" + index)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t.Parameter(\":sql_message\", \"Message \" + index)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t.Parameter(\":sql_stack\", \"\")\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t.Execute() > 0;\n\t\t\t\t}\n\t\t\t\tcatch (Exception err)\n\t\t\t\t{\n\t\t\t\t\tLogHelper.Manage(\"CA_FluentD\", err);\n\t\t\t\t\treturn false;\n\t\t\t\t}\n\t\t}",
+    "LastUpdatedDate": "2015-01-27T09:56:35.387-08:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Unassigned",
+      "Severity": 0,
+      "Id": 0
+    },
+    "ProjectName": "FluentData",
+    "ReportedDate": "2015-01-27T09:56:35.387-08:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Support for Parallel ?",
+    "Type": {
+      "Name": "Unassigned",
+      "Id": 5
+    },
+    "VoteCount": 1,
+    "Id": 2070
+  },
+  "FileAttachments": [],
+  "Comments": []
+}

@@ -1,0 +1,39 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "Queries executed on a tablename without a namespace should automatically resolve to the proper namespace. For example, if I run \"Select * from batches\" and the table batches has a namespace of dbo.batches in one environment, but in another environment the table namespace is vendor.batches, it should automatically recognize that schema.",
+    "LastUpdatedDate": "2014-06-23T10:43:28.173-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Unassigned",
+      "Severity": 0,
+      "Id": 0
+    },
+    "ProjectName": "FluentData",
+    "ReportedDate": "2014-06-23T10:43:28.173-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Automatically Detect Table Schema/Namespace",
+    "Type": {
+      "Name": "Unassigned",
+      "Id": 5
+    },
+    "VoteCount": 1,
+    "Id": 1992
+  },
+  "FileAttachments": [],
+  "Comments": []
+}

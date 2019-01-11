@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "1340976",
+    "ThreadId": "577459",
+    "Html": "Hi,\r<br />\n<br />\nI'm using FluentData on an older Vb.Net website and I'm having problems creating a custom mapper using this C# example:\r<br />\n<br />\nList&lt;Product&gt; products = <a href=\"mailto:Context.Sql(@&quot;select\" rel=\"nofollow\">Context.Sql(@\"select</a> * from Product&quot;)<br />\n<pre><code>        .QueryMany&lt;Product&gt;(Custom_mapper_using_datareader);\n</code></pre>\n\npublic void Custom_mapper_using_datareader(Product product, IDataReader row)\r<br />\n{<br />\n<pre><code>product.ProductId = row.GetInt32(&quot;ProductId&quot;);\nproduct.Name = row.GetString(&quot;Name&quot;);</code></pre>\n\n}\r<br />\n<br />\nThe problem is around the signature for the &quot;Public Sub&quot; that would replace &quot;Custom_mapper_using_datareader&quot; and I am not sure how to define it.\r<br />\n<br />\nAny help appreciated.<br />\n",
+    "PostedDate": "2015-01-12T00:40:53.67-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1352450",
+    "ThreadId": "577459",
+    "Html": "I don't confirm it's a problem,and it's new year for Chinese.\r<br />\n<br />\nIf you no mind,I can try fix it after 2 month later.\r<br />\n<br />\nand may you can try use Custom mapping using dynamic.<br />\n",
+    "PostedDate": "2015-02-14T03:47:21.923-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1487657",
+    "ThreadId": "577459",
+    "Html": "@gcyoung2015 \r<br />\n<br />\nIf you (or anyone else, I suppose) are still trying to figure this out, here's the VB.NET equivalent:<br />\n<pre><code>.QueryMany(Of Product)(AddressOf Custom_mapper_using_datareader)</code></pre>\n\nwith<br />\n<pre><code>public Sub Custom_mapper_using_datareader(product as Product, row as IDataReader)\n\nproduct.ProductId = row.GetInt32(&quot;ProductId&quot;);\nproduct.Name = row.GetString(&quot;Name&quot;);\n\nEnd Sub </code></pre>\n\nThe key is the <code>AddressOf</code> modifier in the <code>QueryMany</code> argument. You can see an example of this on the <a href=\"https://msdn.microsoft.com/en-us/library/018hxwa8(v=vs.110).aspx?cs-save-lang=1&amp;cs-lang=vb#code-snippet-2\" rel=\"nofollow\">MSDN</a> - not exactly straight-forward if (like me) you mostly live in the C# world.<br />\n",
+    "PostedDate": "2016-11-09T17:25:58.493-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

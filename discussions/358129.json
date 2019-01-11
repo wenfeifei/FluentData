@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "844045",
+    "ThreadId": "358129",
+    "Html": "\r\n<p>when use the update auto map. if the paramater value is null, the auto map will fail. how to fix this issue? Thanks.</p>\r\n",
+    "PostedDate": "2012-06-03T06:27:55.233-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "844059",
+    "ThreadId": "358129",
+    "Html": "<p>I have just created a new release where this issue should be fixed, version 2.2.2.</p>",
+    "PostedDate": "2012-06-03T07:38:45.793-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

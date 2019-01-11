@@ -1,0 +1,39 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "Hi All,\n\nSo far I love FluentData, but I am running into what I think is an issue with the following method on IQuery:\n\nvoid QueryComplexMany<TEntity>(IList<TEntity> list, Action<IList<TEntity>, dynamic> customMapper);\n\nI get an error like...\n\n'object' does not contain a definition for 'APRDRGKey'\n\n... where APRDRGKey is my dynamic property name.  The VS debugger seems to show the dynamic object is of type \"DataReader\".  Running down the implementation of dynamic mapping support for QueryMany(), I can see that creates a DynamicDataReader.  Is that smoething QueryComplexMany needs to do for dynamic scenarios as well?\n\nI tweaked line 1900 in the single FluentData.cs source file as follows...\n\ninternal partial class DbCommand\n{\n\t\tpublic void QueryComplexMany<TEntity>(IList<TEntity> list, Action<IList<TEntity>, dynamic> customMapper)\n\t\t{\n\t\t\tData.ExecuteQueryHandler.ExecuteQuery(true, () =>\n\t\t\t{\n\t\t\t\twhile (Data.Reader.Read())\n\t\t\t\t\tcustomMapper(list, new DynamicDataReader(Data.Reader)); // TODO: does this fix the problem?\n\t\t\t});\n\t\t}\n}\n\n... and it seems to work again!\n\nThanks,\n\nBrock",
+    "LastUpdatedDate": "2013-06-20T09:39:29.87-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Unassigned",
+      "Severity": 0,
+      "Id": 0
+    },
+    "ProjectName": "FluentData",
+    "ReportedDate": "2013-06-20T09:39:29.87-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Problem with QueryComplexMany and dynamic?",
+    "Type": {
+      "Name": "Unassigned",
+      "Id": 5
+    },
+    "VoteCount": 1,
+    "Id": 1723
+  },
+  "FileAttachments": [],
+  "Comments": []
+}

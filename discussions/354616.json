@@ -1,0 +1,34 @@
+[
+  {
+    "Id": "832463",
+    "ThreadId": "354616",
+    "Html": "<p>System.InvalidOperationException : String[1]: Size=0</p>\n<p>&nbsp;</p>\n<pre><span>ActionsHandler.cs</span>\n</pre>\n<pre><span><br /></span></pre>\n<pre><span>line 117</span></pre>\n<pre><span>fixed bug</span></pre>\n<pre><span><pre>_data.Command.Parameter(parameter.ParameterName,&nbsp;parameter.Value,&nbsp;parameter.DataTypes,&nbsp;parameter.Direction,size);\n</pre>\n<br /></span></pre>",
+    "PostedDate": "2012-05-05T01:57:10.597-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "833487",
+    "ThreadId": "354616",
+    "Html": "<p>What database do you use and what is your code? I just tried the following and it works with MS SQL:\r\n<div style=\"color: black; background-color: white;\">\r\n<pre>[TestMethod]\r\n<span style=\"color: blue;\">public</span> <span style=\"color: blue;\">void</span> Test()\r\n{\r\n\t<span style=\"color: blue;\">var</span> command = TestHelper.Context().Sql(<span style=\"color: #a31515;\">\"select top 1 @CategoryName = Name from Category\"</span>)\r\n\t\t\t\t\t\t\t\t\t\t.ParameterOut(<span style=\"color: #a31515;\">\"CategoryName\"</span>, DataTypes.String, 50);\r\n\tcommand.Execute();\r\n\r\n\t<span style=\"color: blue;\">var</span> categoryName = command.ParameterValue&lt;<span style=\"color: blue;\">string</span>&gt;(<span style=\"color: #a31515;\">\"CategoryName\"</span>);\r\n\r\n\tAssert.IsFalse(<span style=\"color: blue;\">string</span>.IsNullOrEmpty(categoryName));\r\n}</pre>\r\n</div>\r\n</p>\r\n<p>&nbsp;</p>",
+    "PostedDate": "2012-05-08T08:03:54.947-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "835489",
+    "ThreadId": "354616",
+    "Html": "<p>&nbsp;</p>\r\n<pre><span>var</span>&nbsp;builder&nbsp;=&nbsp;repository.IContext.Sql(<span>\"select&nbsp;@mid=mid&nbsp;from&nbsp;CustomerExtend&nbsp;where&nbsp;CustomerExtendID=21&nbsp;\"</span>)\r\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.ParameterOut(<span>\"mid\"</span>,&nbsp;<span>DataTypes</span>.String,&nbsp;20);\r\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;builder.Execute();\r\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>string</span>&nbsp;str&nbsp;=&nbsp;builder.ParameterValue&lt;<span>string</span>&gt;(<span>\"mid\"</span>);\r\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Console</span>.WriteLine(str);</pre>\r\n<pre>Test Sql outParameter is right</pre>\r\n<pre><br /></pre>\r\n<pre>Test Proc OutParamete is Bug</pre>\r\n<pre><pre>&nbsp;<span>IStoredProcedureBuilder</span>&nbsp;builder&nbsp;=&nbsp;repository.IContext.StoredProcedure(<span>\"TestProcParam\"</span>)\r\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.Parameter(<span>\"ProductID\"</span>,&nbsp;6)\r\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.ParameterOut(<span>\"ProductName\"</span>,&nbsp;<span>DataTypes</span>.String,20)</pre>\r\n<br /></pre>",
+    "PostedDate": "2012-05-12T06:32:52.833-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "835805",
+    "ThreadId": "354616",
+    "Html": "<p>Thanks, I have checked in a fix for it now but not made a build yet.</p>",
+    "PostedDate": "2012-05-13T14:10:33.85-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

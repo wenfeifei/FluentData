@@ -1,0 +1,34 @@
+[
+  {
+    "Id": "820828",
+    "ThreadId": "351453",
+    "Html": "\r\n<p>Can I use it this component to access the Microsoft Access database?&nbsp; Thanks in advance.</p>\r\n",
+    "PostedDate": "2012-04-06T07:14:15.343-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "823349",
+    "ThreadId": "351453",
+    "Html": "<p>Sorry for the late reply, you caught me while I was on Easter holiday ;) The latest version does not support MS Access, however I have prepared the code to support it and I will check it in to CodePlex this weekend. So when I do you can use FluentData to access a MS Access database. I will notify you when it's done.</p>\r\n<p>Regards,</p>\r\n<p>Lars-Erik Kindblad</p>",
+    "PostedDate": "2012-04-13T02:41:03.553-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "824070",
+    "ThreadId": "351453",
+    "Html": "<p>Support for MS Access has now been added and checked in, and its part of the new release (version 2.1) that you can download from CodePlex.</p>\r\n<p>&nbsp;</p>\r\n<p>Regards,</p>\r\n<p>Lars-Erik Kindblad</p>",
+    "PostedDate": "2012-04-15T12:15:50.2-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "824920",
+    "ThreadId": "351453",
+    "Html": "<p>Great job.</p>\r\n<p>Thank you very much..</p>",
+    "PostedDate": "2012-04-17T08:21:36.053-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

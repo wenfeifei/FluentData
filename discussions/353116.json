@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "826977",
+    "ThreadId": "353116",
+    "Html": "\r\n<p>i create a singleton for asp.net application.</p>\r\n<p>it seems nothing wrong happened...</p>\r\n<p>or any best practices?</p>\r\n",
+    "PostedDate": "2012-04-21T23:58:37.547-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "826981",
+    "ThreadId": "353116",
+    "Html": "<p>Do you use MVC or WebForm? I will make a small app that shows the best practice.</p>\r\n<p>I do not recommend using a singleton because this will not work with transactions. You will not get an error but when your application get more users then you will start experiencing strange behaviors. Even if you don't transactions now, but sooner or later you will and then you will need to refactor everything so its better to it correctly from the beginning. So best practice is one per request.</p>",
+    "PostedDate": "2012-04-22T00:27:56.77-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "827015",
+    "ThreadId": "353116",
+    "Html": "<p>mvc.</p>\r\n<p>yeah...I find that when I use TPL, it&nbsp;sometimes work weird...</p>\r\n<p>thank you.</p>",
+    "PostedDate": "2012-04-22T05:13:31.56-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

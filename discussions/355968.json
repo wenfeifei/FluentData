@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "837063",
+    "ThreadId": "355968",
+    "Html": "<p>When I try to insert/update something that is null I got an exception<br /> I use this construction <br /> var builder = context.Insert(\"Orders\");<br /> builder = builder.Column(\"Comments\", order.Comments);<br /> then builder.ExecuteReturnLastId&lt;long&gt;()</p>\n<p>; fails with the exception below:<br /> <br /> Implicit conversion from data type sql_variant to nvarchar is not allowed. Use the CONVERT function to run this query.<br /> <br /> The same problem occur when I have a Nullable&lt;decimal&gt;<br /> <br /> Implicit conversion from data type sql_variant to decimal is not allowed. Use the CONVERT function to run this query.<br /> <br /> The workaround for insert was :<br /> if(order.Comments != null)<br /> builder = builder.Column(\"Comments\", order.Comments);<br /> <br /> But now I have to update and don't know what to do.</p>\n<p>Here is the stack trace</p>\n<p>System.Data.SqlClient.SqlException (0x80131904): Implicit conversion from data type sql_variant to nvarchar is not allowed. Use the CONVERT function to run this query.<br />&nbsp;&nbsp; at FluentData.ExecuteQueryHandler.HandleQueryException(Exception exception)<br />&nbsp;&nbsp; at FluentData.ExecuteQueryHandler.ExecuteQuery(Boolean useReader, Action action)<br />&nbsp;&nbsp; at FluentData.Providers.SqlServer.SqlServerProvider.ExecuteReturnLastId[T](DbCommandData data, String identityColumnName)<br />&nbsp;&nbsp; at FluentData.DbCommand.ExecuteReturnLastId[T]()<br />&nbsp;&nbsp; at FluentData.BaseInsertBuilder.ExecuteReturnLastId[T]()</p>",
+    "PostedDate": "2012-05-16T01:20:08.91-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "837672",
+    "ThreadId": "355968",
+    "Html": "<p>Should be fixed now. See the issue you created under the Issue tracker for more information.</p>",
+    "PostedDate": "2012-05-17T06:20:27.787-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

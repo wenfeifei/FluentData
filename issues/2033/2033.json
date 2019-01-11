@@ -1,0 +1,50 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "Hi\n\nWould it be possible to get support added for the Oracle Managed Data Access Client please. We've tried it against the FluentData Single Source File all we had to do was create a copy of the OracleProvider and change the following property. Everything worked fine. Would be nice for us to still use the nuget package though.\n\n```\n        public static string ProviderName\n        {\n            get\n            {\n                return \"Oracle.ManagedDataAccess.Client\";\n            }\n        }\n```\n\nThanks",
+    "LastUpdatedDate": "2014-09-24T04:07:59.507-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Unassigned",
+      "Severity": 0,
+      "Id": 0
+    },
+    "ProjectName": "FluentData",
+    "ReportedDate": "2014-09-24T00:58:20.317-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Support for Oracle Managed Data Access Client",
+    "Type": {
+      "Name": "Unassigned",
+      "Id": 5
+    },
+    "VoteCount": 2,
+    "Id": 2033
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "Hi, this should already be supported if you grab the latest, through the .ConnectionString where the third parameter accepts the provider name:\nnew DbContext().ConnectionString(\"someconnectionstring\", new OracleProvider(), \"Oracle.ManagedDataAccess.Client\");\r\n\r\nWorks?",
+      "PostedDate": "2014-09-24T04:04:29.98-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "I'm on a 3 months holiday abroad, but I will setup the dev environment and make a new NuGet package soon",
+      "PostedDate": "2014-09-24T04:07:59.507-07:00",
+      "Id": -2147483648
+    }
+  ]
+}

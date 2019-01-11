@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "1078113",
+    "ThreadId": "452779",
+    "Html": "I will use FluentData with Ioc, but FluentData dose not Support for non-generic<br />\n<br />\nonly use EntityInterface<br />\n",
+    "PostedDate": "2013-08-08T01:20:35.763-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1080338",
+    "ThreadId": "452779",
+    "Html": "may be you can use dynamic type in fluentdata.<br />\n",
+    "PostedDate": "2013-08-13T21:49:42.587-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

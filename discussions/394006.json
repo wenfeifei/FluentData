@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "907138",
+    "ThreadId": "394006",
+    "Html": "\r\n<p>Hi, where can I find an example using oData?</p>\r\n",
+    "PostedDate": "2012-08-31T18:02:06.327-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "907370",
+    "ThreadId": "394006",
+    "Html": "<p>FluentData does not support OData, it only supports relational databases.</p>",
+    "PostedDate": "2012-09-01T14:27:53.05-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "1336793",
+    "ThreadId": "576138",
+    "Html": "You need to call AutoMap, so Connection.Insert(&quot;test&quot;, s).AutoMap().Execute()<br />\n",
+    "PostedDate": "2014-12-23T07:47:37.647-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1336801",
+    "ThreadId": "576138",
+    "Html": "I'm out xmas shopping so give me a few hours then I will test it out on my pc.<br />\n",
+    "PostedDate": "2014-12-23T08:07:46.613-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1352453",
+    "ThreadId": "576138",
+    "Html": "<img src=\"http://cdn2.chy001.com/gezimen/50c137cb0b5e4e97e019ae513f1d288b.jpg\" alt=\"Image\" /><br />\n",
+    "PostedDate": "2015-02-14T03:53:44.56-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

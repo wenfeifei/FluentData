@@ -1,0 +1,66 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "I think the method ExecuteReturnLastId<T>(string identityColumnName) is broken. It does a check if the Provider supports ExecuteReturnLastIdWithNoIdentityColumn but then throws an exception if that is true. I'm thinking that should there's a missing ! at the beginning or better yet something that validates that the identityColumnName being passed in is null or empty before throwing the exception.",
+    "LastUpdatedDate": "2013-02-21T15:35:10.813-08:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "FluentData",
+    "ReportedDate": "2012-08-06T09:43:49.917-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "ExecuteReturnLastId seems broken",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 1329
+  },
+  "FileAttachments": [
+    {
+      "FileId": 288,
+      "FileName": "ExecuteReturnLastId.cs",
+      "DownloadUrl": ".\\288"
+    }
+  ],
+  "Comments": [
+    {
+      "Message": "Thanks. What database is it?",
+      "PostedDate": "2012-08-06T10:15:54.9-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2012-08-06T13:24:21.773-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "It's in the DbCommand partial class, ExecuteReturnLastId.cs",
+      "PostedDate": "2012-08-06T13:24:22.983-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-02-21T15:35:10.813-08:00",
+      "Id": -2147483648
+    }
+  ]
+}

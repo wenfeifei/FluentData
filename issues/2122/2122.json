@@ -1,0 +1,56 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "Hi,\n\nI used ExecuteReturnLastId as follow sample\n\n```\nvar id = dbContext.Insert(\"app\").Column(\"name\", newAppName).ExecuteReturnLastId<Int32>(\"id\");\n```\n\nbut the result is null. I tried to debug from the lastest main code and I found that in the\nExecuteQueryHandler.cs I have the follow piece of code\n\n```\n_command.Data.InnerCommand.CommandText = _command.Data.Sql.ToString();\n```\n\nwith _command.Data.InnerCommand.CommandText == \"select lastval();\"\nand _command.Data.Sql.ToString() == \"insert into app(name) values(:name);\"\n\nas result the \"select lastval();\" not get appended to the sql query after the insert but the insert query simply overwrite the select last sql command text.\n\nAttached a workaround patch, not sure if works in all cases but for me it did the trick.",
+    "LastUpdatedDate": "2016-08-29T00:15:51.37-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Unassigned",
+      "Severity": 0,
+      "Id": 0
+    },
+    "ProjectName": "FluentData",
+    "ReportedDate": "2015-08-04T07:22:42.407-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "ExecuteReturnLastId within postgres",
+    "Type": {
+      "Name": "Unassigned",
+      "Id": 5
+    },
+    "VoteCount": 2,
+    "Id": 2122
+  },
+  "FileAttachments": [
+    {
+      "FileId": 472,
+      "FileName": "PostgreSqlProvider.cs.patch",
+      "DownloadUrl": ".\\472"
+    }
+  ],
+  "Comments": [
+    {
+      "Message": "It's seemd that column id is not primary key,or not be set to auto increment.can you have a check?",
+      "PostedDate": "2015-12-15T17:37:40.743-08:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2016-08-29T00:15:51.37-07:00",
+      "Id": -2147483648
+    }
+  ]
+}

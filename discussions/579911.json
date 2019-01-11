@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "1350624",
+    "ThreadId": "579911",
+    "Html": "I am working with a Postgresql database where the tables and column name must be quoted. \r<br />\nI have an insert method:<br />\n<pre><code>context.IgnoreIfAutoMapFails(true);\nid = context.Insert(&quot;\\&quot;Carriers\\&quot;&quot;, entity)\n    .AutoMap(x =&gt; x.Id,\n        x =&gt; x.IsDeleted,\n        x =&gt; x.IsDirty,\n        x =&gt; x.IsNew)\n    .ExecuteReturnLastId&lt;int&gt;();</code></pre>\n\nI get a column name does not exist error because the column name are not quoted. Is there a way to tell the builder to quote the column names.<br />\n",
+    "PostedDate": "2015-02-10T07:08:32.317-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1352448",
+    "ThreadId": "579911",
+    "Html": "It seems your problem is unusual,why don't you change your tables/columns name remove the quote?\r<br />\n<br />\nif you have to quote,you need modify your own fluentdata version.good luck!<br />\n",
+    "PostedDate": "2015-02-14T03:42:41.92-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1352471",
+    "ThreadId": "579911",
+    "Html": "Thank you for your response. I can't remove the quotes as this is a legacy database. I made the following changes to fluent data. I adding a Boolean property “UseQuotes” which has a default value of false. I then changes the EscapeColumnName method in the PostgreSqlProvider class to the following:<br />\n<pre><code>public string EscapeColumnName(string name)  {\n    return UseQuotes ? &quot;\\&quot;&quot; + name + &quot;\\&quot;&quot; : name;\n}</code></pre>\n\n",
+    "PostedDate": "2015-02-14T07:25:37.21-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": "2015-02-14T07:25:45.837-08:00"
+  }
+]

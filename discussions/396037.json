@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "914485",
+    "ThreadId": "396037",
+    "Html": "\r\n<pre>I have a question，that is</pre>\r\n<pre><div style=\"color:black; background-color:white\"><pre>addlist(T list)\n{\n<span style=\"color:blue\">using</span> (<span style=\"color:blue\">var</span> context = Context().UseTransaction)\n{\n\tcontext.Sql(<span style=\"color:#a31515\">&quot;update Product set Name = @0 where ProductId = @1&quot;</span>)\n\t\t\t\t.Parameters(<span style=\"color:#a31515\">&quot;The Warren Buffet Way&quot;</span>, 1)\n\t\t\t\t.Execute();\n<span style=\"color:blue\">for</span>(<span style=\"color:blue\">var</span> item <span style=\"color:blue\">in</span> list)\n{\n<span style=\"color:green\">//Here's code segment can not be executed</span>\ncontext .Insert(<span style=\"color:#a31515\">&quot;Product &quot;</span>)\n        .Column(<span style=\"color:#a31515\">&quot;something&quot;</span>, item. something)\n        .Execute();\n}\n\tcontext.Commit();\n}\n\n}\n</pre>\n</div>\n<br></pre>\r\n<pre><pre>Have you come across it? thank you<br></pre>\n<br></pre>\r\n",
+    "PostedDate": "2012-09-19T01:42:04.79-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "914496",
+    "ThreadId": "396037",
+    "Html": "<p>I understand, I use a static variable to instantiate, DbContext ()</p>",
+    "PostedDate": "2012-09-19T02:00:24.33-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

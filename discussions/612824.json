@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "1394932",
+    "ThreadId": "612824",
+    "Html": "Hi all,<br />\n<br />\nI stand to congratulate you for this excellent project. I have just a question, how to insert easily an entity containing a nested property.<br />\n<pre><code>public class Entity {\n   public string Property {get; set; }\n   public NestedEntity {get; set; }\n}\n\npublic class NestedEntity {\n    public string NestedProperty {get; set; }\n}</code></pre>\n\nMy insert method is :<br />\n<pre><code>   public int Insert&lt;T&gt;(T entity) where T : EntityWithID\n        {\n            return context.Insert&lt;T&gt;(typeof(T).Name, entity)\n            .AutoMap(x =&gt; x.ID)\n            .ExecuteReturnLastId&lt;int&gt;();\n        }</code></pre>\n\nI have the following error message :<br />\n<pre><code>You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Entity (`NestedEntity`....</code></pre>\n\nHave you got an idea or i dream on an inexistant fonctionnality ?<br />\n<br />\nBest regards,<br />\n<br />\nBenoit<br />\n",
+    "PostedDate": "2015-03-25T02:18:50.95-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1395224",
+    "ThreadId": "612824",
+    "Html": "Meanwhile I created an extension method :<br />\n<pre><code> public static class FluentDataExtension\n    {\n        public static IInsertBuilder&lt;T1&gt; AutoMapNestedProperty&lt;T1, T2&gt;(this IInsertBuilder&lt;T1&gt; builder, T2 entity, string prefix = &quot;&quot;)\n        {\n            typeof(T2).GetProperties().ToList().ForEach(\n                p =&gt; { builder.Column(string.Concat(string.IsNullOrEmpty(prefix) ? typeof(T2).Name : prefix, &quot;_&quot;, p.Name), p.GetValue(entity)); }\n                );\n            return builder;\n        }\n    }</code></pre>\n\nI'm a beginner (less than 1yr of c# dev xp) so tell me if it is not correct :-)<br />\n",
+    "PostedDate": "2015-03-25T04:04:42.86-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

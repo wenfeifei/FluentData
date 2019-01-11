@@ -1,0 +1,39 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "When I try to insert something that is tinyint I got an exception\nI use this construction\nusing (var command = context.UseSharedConnection(true))\n {\n                foreach (var m in modelList)\n                    command.Insert<History>(\"History\", m)\n                        .AutoMap(x => x.Id)\n                        .Execute();\n\n }\n\nthen Execute(); fails with the exception below:\n \nImplicit conversion from data type sql_variant to tinyint is not allowed. Use the CONVERT function to run this query.\n \nNow I have to insert and don't know what to do",
+    "LastUpdatedDate": "2013-07-20T20:31:44.313-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Unassigned",
+      "Severity": 0,
+      "Id": 0
+    },
+    "ProjectName": "FluentData",
+    "ReportedDate": "2013-07-20T20:31:44.313-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "conversion problem",
+    "Type": {
+      "Name": "Unassigned",
+      "Id": 5
+    },
+    "VoteCount": 1,
+    "Id": 1742
+  },
+  "FileAttachments": [],
+  "Comments": []
+}

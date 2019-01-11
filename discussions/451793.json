@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "1074461",
+    "ThreadId": "451793",
+    "Html": "Hello;\r<br />\nI'm new to using FluentData and working with an existing application that is using it. \r<br />\n<br />\nWhen I'm trying to build in Visual Studio I first downloaded the dll and added it as a reference. \r<br />\n<br />\nNow I get the following error: \r<br />\n'FluentData.IDbCommand' does not contain a definition for 'Query' and no extension method 'Query' accepting a first argument of type 'FluentData.IDbCommand' could be found (are you missing a using directive or an assembly reference?)\r<br />\n<br />\nThe line of code is as follows:<br />\n<pre><code>                var result = Proxy.Context.Sql(query.ToString()).Query&lt;T&gt;().FirstOrDefault();\n</code></pre>\n\nAny assistance will be greatly appreciated.\r<br />\n<br />\nThanks;\r<br />\nCatto<br />\n",
+    "PostedDate": "2013-07-29T13:55:34.87-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1074747",
+    "ThreadId": "451793",
+    "Html": "There is no such method Query&lt;T&gt; in FluentData IDbCommand. If you want to return single result then use QuerySingle&lt;T&gt; or if query will return multiple resluts then use QueryMultiple&lt;T&gt;. Your above code should be somthing like this<br />\n<pre><code>var result = Proxy.Context.Sql(query.ToStrin;g()).QuerySingle&lt;T&gt;();</code></pre>\n\n",
+    "PostedDate": "2013-07-30T08:17:58.683-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1074751",
+    "ThreadId": "451793",
+    "Html": "Thank you Leadfoot very useful information.<br />\n",
+    "PostedDate": "2013-07-30T08:33:14.76-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

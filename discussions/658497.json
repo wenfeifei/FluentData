@@ -1,0 +1,10 @@
+[
+  {
+    "Id": "1485361",
+    "ThreadId": "658497",
+    "Html": "I am using the statement to update a field in a table:<br />\n<pre><code>int rowsAffected = context.Update(&quot;Employees&quot;)\n    .Column(&quot;\\&quot;LastLogin\\&quot;&quot;, loginTime)\n    .Where(&quot;\\&quot;EmailAddress\\&quot;&quot;, emailAddr)\n    .Execute();</code></pre>\n\nWhen it runs I get the following error:\r<br />\nAn exception of type 'Npgsql.PostgresException' occurred in FluentData.dll but was not handled in user code\r<br />\n<br />\nsyntax error at or near &quot;:&quot;\r<br />\n<br />\nIn the Postgresql log I have the following enrty:\r<br />\n2016-10-05 12:42:00 EDT ERROR:  syntax error at or near &quot;:&quot; at character 36\r<br />\n2016-10-05 12:42:00 EDT STATEMENT:  update Employees set &quot;LastLogin&quot; = :&quot;LastLogin&quot; where &quot;EmailAddress&quot; = :&quot;EmailAddress&quot;\r<br />\n<br />\nI have no idea where the ':' are coming from. BTW - If I run scontent.Sqli it works. \r<br />\n<br />\nDo anyone have ant ideas?<br />\n",
+    "PostedDate": "2016-10-05T09:45:30.227-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

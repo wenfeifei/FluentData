@@ -1,0 +1,50 @@
+[
+  {
+    "Id": "895851",
+    "ThreadId": "390381",
+    "Html": "\r\n<p>Hi&nbsp;</p>\r\n<p>I have a table having a Primary Key (GUID) or may be INT</p>\r\n<p>How can i insert or update the record including the Primary Key set manually based on business logic from the code using this API?</p>\r\n<p>&nbsp;</p>\r\n<p>always having error and i had to automap it to ignore. But i do want to provide that primary key value from the code.</p>\r\n<p>&nbsp;</p>\r\n<p>regards,</p>\r\n<p>TIN</p>\r\n",
+    "PostedDate": "2012-08-05T20:54:02.403-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "895897",
+    "ThreadId": "390381",
+    "Html": "<p>This is fixed in this version: <a href=\"http://fluentdata.codeplex.com/releases/view/90977\">http://fluentdata.codeplex.com/releases/view/90977</a>. This version is in beta as I've been too busy the last couple of weeks to make a new release, however the code is stable. Instead of calling ExecuteReturnLastId you would call just Execute:</p>\r\n<p>var productId = context.Insert(\"Product\", product).AutoMap().Execute();</p>\r\n<p>Hope this helps.</p>\r\n<p>&nbsp;</p>",
+    "PostedDate": "2012-08-06T00:00:44.913-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "895939",
+    "ThreadId": "390381",
+    "Html": "\r\n<blockquote style=\"border:solid .1em #ccc; font-style:italic; margin:.25em 1em 0 1em; padding:0 .25em 0 .25em\">\r\n<br>\r\n</blockquote>\r\n<p>If I am using GUID is my primary key and not assigning GUID from code but auto generate form database, &nbsp;will it still return this newly create guid from database?</p>\r\n",
+    "PostedDate": "2012-08-06T02:33:18.967-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "895955",
+    "ThreadId": "390381",
+    "Html": "<p>No, the ExecuteReturnLastId only works with auto incremented numbers. If you want to return the GUID then you would have to do it manually using the context.Sql(\"insert into....\"). However if possible you should generate the GUID in code and not in the database.</p>",
+    "PostedDate": "2012-08-06T03:11:43.383-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "896280",
+    "ThreadId": "390381",
+    "Html": "<p>so it means, i can not use GUID field as primary key on my table?</p>",
+    "PostedDate": "2012-08-06T18:56:09.343-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "896694",
+    "ThreadId": "390381",
+    "Html": "<p>If you want to use the built in Context.Insert(\"....\") then you can use a GUID, but you must generate the GUID in the .NET code and not in the database. If you do it in the database and you use SQL Server then there is no way to return the newly generated GUID unless you generate it inside a stored procedure. So if you want to use a GUID, generate it in the .NET code and not in the database:</p>\r\n<p>var product = new Product();<br />product.ProductId = Guid.NewGuid();&nbsp;<br />product.Name = \"Apple iPad\";<br />context.Insert(\"Product\", product).Execute();&nbsp;</p>",
+    "PostedDate": "2012-08-07T15:25:34.497-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

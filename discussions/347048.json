@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "804485",
+    "ThreadId": "347048",
+    "Html": "\r\n<p>Since this library is using reflection its mappings may not be too fast... At least not as much as they are when using PetaPoco or Dapper. They both use\r\n<code>System.Reflection.Emit</code>&nbsp;namespace.</p>\r\n<p>I would like to suggest you do a similar thing here, because in a production environment, application's lifetime is long and schema doesn't change so having a cached compiled mapper makes things a lot faster.</p>\r\n",
+    "PostedDate": "2012-03-02T08:33:27.113-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "804677",
+    "ThreadId": "347048",
+    "Html": "<p>Performance testing and tuning is on our to-do list. The goal for FluentData is to be a simple and easy to use Micro ORM with good performance, and with a source code that can be easily understood and maintained by the developer who decide to use it. By  using Reflection Emit we would stay true to the performance principle but not to keeping the source code easy to understand and maintain.</p>\n<p>For 99.9% of the applications in the world reflection is not a problem (it's really fast on today's computers) and the time it takes is not something that is noticed by the end users (applications are usually slow due to poor SQL or too many database queries).</p>\n<p>Regards,<br />Lars-Erik Kindblad</p>",
+    "PostedDate": "2012-03-02T14:42:25.217-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

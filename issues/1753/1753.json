@@ -1,0 +1,45 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "I am trying to Update a table in SQL Server 2008. One of the columns (PointPhoto) being updated is a varbinary field, represented as byte[] in POCO.\n\n```\n\tContext.Sql(@\"\n\t\tUPDATE\tPatrolRunPointSession\n\t\tSET\t\tBarCodeScanned = @0,\n\t\t\t\tDtTmEntry = @1,\n\t\t\t\tPointPhoto = @2,\n\t\t\t\tReport = @3,\n\t\t\t\tDtTmModified = CASE WHEN @5 > DtTmModified THEN @5 ELSE DtTmModified END\n\t\tWHERE\tId = @4;\n\t\t\",\n\t\tPRun.BarCodeScanned, PRun.DtTmEntry, PRun.PointPhoto, PRun.Report, PRun.Id, PRun.DtTmModified\n\t).Execute();\n```\nThis gave the following error: \"The incoming tabular data stream (TDS) remote procedure call (RPC) protocol stream is incorrect. Too many parameters were provided in this RPC request. The maximum is 2100.\"\n\nSensing that the error is because of byte array, I tried to update the column this way:\n```\n\tIUpdateBuilder<PatrolRunPointSessionDb> Builder = Context.Update<PatrolRunPointSessionDb>(\"PatrolRunPointSession\", PRun);\n\tBuilder.Column(\"PointPhoto\", PRun.PointPhoto, DataTypes.Binary);\n\tBuilder.Where(\"Id\", PRun.Id);\n\tBuilder.Execute();\n```\nThe same error appears in this case too.\n\nKindly assist! Thanks in advance.\n\nBinu Pararath",
+    "LastUpdatedDate": "2013-08-06T03:46:21.273-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Unassigned",
+      "Severity": 0,
+      "Id": 0
+    },
+    "ProjectName": "FluentData",
+    "ReportedDate": "2013-08-05T02:08:57.82-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Too many parameters were provided in this RPC request. The maximum is 2100",
+    "Type": {
+      "Name": "Unassigned",
+      "Id": 5
+    },
+    "VoteCount": 1,
+    "Id": 1753
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "In the OnExecuting method, I figured out that every byte in PointPhoto was added as one parameter. i.e. PointPhoto0, PointPhoto1, PointPhoto2 etc. and hence exceeded the parameter limit. I did a workaround by converting byte[] to MemoryStream. But I think a straightforward implementation of byte[] directly into the binary field is appreciated.\r\n\r\nThanks,\r\n\r\nBinu Pararath",
+      "PostedDate": "2013-08-06T03:46:21.273-07:00",
+      "Id": -2147483648
+    }
+  ]
+}

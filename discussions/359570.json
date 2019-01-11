@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "848874",
+    "ThreadId": "359570",
+    "Html": "\r\n<p>now is return int rowsAffected&nbsp;</p>\r\n<p>how to&nbsp;Stored Procedure return List result ? &nbsp;<br>\r\n<br>\r\n也就是 存储过程 如何 返回列表 &nbsp;not&nbsp;&nbsp;int rowsAffected&nbsp;</p>\r\n<p>2012-6-14 19:06 update:<br>\r\nok了 &nbsp;<br>\r\n<br>\r\n&nbsp;dynamic citys = db.Context().Sql(&quot;Applet_RandomTop10City&quot;)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .CommandType(DbCommandTypes.StoredProcedure)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .Parameter(&quot;phones&quot;, phones).Query&lt;randomTop&gt;();&nbsp;</p>\r\n",
+    "PostedDate": "2012-06-14T03:36:49.98-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "849344",
+    "ThreadId": "359570",
+    "Html": "<p>You need to use var or List&lt;randomTop&gt; instead of dynamic:</p>\r\n<p><span><span>var citys = db.Context().Sql(\"Applet_RandomTop10City\")&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .CommandType(DbCommandTypes.StoredProcedure)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .Parameter(\"phones\", phones).Query&lt;randomTop&gt;();&nbsp;</span></span></p>\r\n<p><span><span>or</span></span></p>\r\n<p><span><span>List&lt;randomTop&gt; citys = db.Context().Sql(\"Applet_RandomTop10City\")&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .CommandType(DbCommandTypes.StoredProcedure)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .Parameter(\"phones\", phones).Query&lt;randomTop&gt;();&nbsp;</span></span></p>\r\n<p><span><span>Hope this helped</span></span></p>",
+    "PostedDate": "2012-06-14T22:13:55.72-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

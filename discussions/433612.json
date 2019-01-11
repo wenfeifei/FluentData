@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "1003188",
+    "ThreadId": "433612",
+    "Html": "The below query <br />\n<pre><code>int productId = \n                   objDbContext.Sql(@&quot;insert into Product(ProductId,ProductName,Price) \n                       values(@0, @1,@2 )&quot;)\n                    .Parameters(100011,&quot;sampleData&quot;, 2)\n                    .ExecuteReturnLastId&lt;Int32&gt;();</code></pre>\n\nreturns  &quot;Index was outside the bounds of the array&quot; Exception. can anybody help me why this error is occurring.<br />\n",
+    "PostedDate": "2013-02-18T21:42:42.463-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1010770",
+    "ThreadId": "433612",
+    "Html": "In your product table, is the ProductId field an identity field?\r<br />\n<br />\nIf yes, then you need to use this code:\r<br />\n<br />\nint productId = <br />\n<pre><code>               objDbContext.Sql(@&quot;insert into Product(ProductName,Price) \n                   values(@0, @1)&quot;)\n                .Parameters(&quot;sampleData&quot;, 2)\n                .ExecuteReturnLastId&lt;Int32&gt;();\n</code></pre>\n\nIf no, use this code:<br />\n<pre><code>               objDbContext.Sql(@&quot;insert into Product(ProductId,ProductName,Price) \n                   values(@0, @1,@2 )&quot;)\n                .Parameters(100011,&quot;sampleData&quot;, 2)\n                .Execute();\n</code></pre>\n\nDid this help?<br />\n",
+    "PostedDate": "2013-03-05T11:02:17.37-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

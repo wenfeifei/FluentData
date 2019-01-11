@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "1336803",
+    "ThreadId": "576141",
+    "Html": "No, thats something you need to handle manually per now.<br />\n",
+    "PostedDate": "2014-12-23T08:09:52.163-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1352452",
+    "ThreadId": "576141",
+    "Html": "The duplicate is only in MySql.\r<br />\nFluentData is a usual DAO,so if you very mind that,you need use Mysql Connector.<br />\n",
+    "PostedDate": "2015-02-14T03:51:46.343-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

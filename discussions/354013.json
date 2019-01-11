@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "830160",
+    "ThreadId": "354013",
+    "Html": "\r\n<p>Hi,<br>\r\nI can see that SQLite is on the todolist, but when realistically will it arrive?</p>\r\n<p>Is it just a matter of writing SqliteProvider.cs, or is there more to it?</p>\r\n<p>thanks</p>\r\n<p>John</p>\r\n",
+    "PostedDate": "2012-04-30T06:10:18.55-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "830322",
+    "ThreadId": "354013",
+    "Html": "<p>Hi John, how fast do you need it? Do you use SqlLite today, if so what provider do you use to connect to it?</p>\r\n<p>Yes, it's just to create a SqlLiteProvider and maybe make some adjustments to the generated sql for the insert, update and delete builders.</p>\r\n<p>&nbsp;</p>\r\n<p>Regards,</p>\r\n<p>Lars-Erik Kindblad</p>",
+    "PostedDate": "2012-04-30T11:45:09.26-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "860479",
+    "ThreadId": "354013",
+    "Html": "<p>Support for SqlLite has been added. A beta release is available on&nbsp;<a href=\"http://fluentdata.codeplex.com/releases/view/90977\">http://fluentdata.codeplex.com/releases/view/90977</a></p>\r\n<p>I will be on holiday for the next 2 weeks but after that I will make a stable release plus add some more information to the documentation.</p>",
+    "PostedDate": "2012-07-11T11:38:55.713-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

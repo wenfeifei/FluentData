@@ -1,0 +1,34 @@
+[
+  {
+    "Id": "830232",
+    "ThreadId": "354026",
+    "Html": "<p>I won't use the<span style=\"color: blue;\"> using</span> (<span style=\"color: blue;\">var</span> context = Context().UseTransaction) to support the transaction. My old projects use the TransactionScope. I have tested FluentData with TransactionScope, it looks work.  is there any suggestion to use the TransactionScope with FLuentData?</p>",
+    "PostedDate": "2012-04-30T08:32:59.477-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "830325",
+    "ThreadId": "354026",
+    "Html": "<p>It's currently not supported, but it should be possible to add support for it. I will look into it.</p>\r\n<p>&nbsp;</p>\r\n<p>Regards,</p>\r\n<p>Lars-Erik Kindblad</p>",
+    "PostedDate": "2012-04-30T11:55:58.2-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1433796",
+    "ThreadId": "354026",
+    "Html": "It's been years since this was updated.  Was TransactionScope support ever added?  I'd like to use it to run transactions across multiple databases.\r<br />\n<br />\nThanks,\r<br />\nKyle<br />\n",
+    "PostedDate": "2015-07-09T11:47:56.517-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1433844",
+    "ThreadId": "354026",
+    "Html": "\r\n<div>No, it has not been added</div>\r\n<div><br>\r\n</div>\r\n<div>Regards,</div>\r\n<div>Lars-Erik Kindblad<br>\r\n<br>\r\n</div>\r\n<div><br>\r\n</div>\r\n",
+    "PostedDate": "2015-07-09T19:04:29.07-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

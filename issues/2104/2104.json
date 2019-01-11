@@ -1,0 +1,39 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "Hi,\n\nI have a MySQL table with a field as tinyint(1) with possible null value which will be mapped with a nullable boolean. The conversion fire an exception durant the mapping.\n\nI investigate and find the cause at the line 126 of the file AutoMapper.cs :\n\nI replace :\nvalue = Convert.ChangeType(value, property.PropertyType)\nby\nvalue = Convert.ChangeType(value, Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType);\n\nAnd it's working.\n\nBest regards,\n\nBenoit",
+    "LastUpdatedDate": "2015-05-05T07:14:06.703-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Unassigned",
+      "Severity": 0,
+      "Id": 0
+    },
+    "ProjectName": "FluentData",
+    "ReportedDate": "2015-05-05T07:14:06.703-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "bool? conversion cause an exception",
+    "Type": {
+      "Name": "Unassigned",
+      "Id": 5
+    },
+    "VoteCount": 1,
+    "Id": 2104
+  },
+  "FileAttachments": [],
+  "Comments": []
+}

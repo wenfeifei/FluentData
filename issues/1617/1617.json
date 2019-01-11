@@ -1,0 +1,50 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "Hi,\n\nTrying out FluentData and I really like it. But I have one problem. When executing a query with a list of parameters (in operation) I get the following exception:\n\n\"{\"Must declare the scalar variable \\\"@0\\\".}\"\n\nThe code I use is the one from your example page (using a different table of course):\n\nList<int> ids = new List<int>() { 1, 2, 3, 4 };\n\ndynamic products = Context.Sql(@\"select * from Product where ProductId in(@0)\", ids).QueryMany<dynamic>();\n\n/Anders",
+    "LastUpdatedDate": "2013-03-06T01:09:05.12-08:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Unassigned",
+      "Severity": 0,
+      "Id": 0
+    },
+    "ProjectName": "FluentData",
+    "ReportedDate": "2013-03-05T05:41:36.77-08:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Must declare the scalar variable",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 1617
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "What database system do you use?",
+      "PostedDate": "2013-03-05T10:52:12.9-08:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "Sql Server 2012",
+      "PostedDate": "2013-03-06T01:09:05.12-08:00",
+      "Id": -2147483648
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "Hi!\n\nI'm evaluating the FluentData library. I really like it so far. I've came across the following issue. I tried to perform an insert but wanted two columns to be ignored from the mapping. I used the code bellow. The result was that regular column names have been added twice to the BuilderData.Columns collection. Sure invoking AutoMap only once with two column names would solve the issue but I had no idea about the effects. \n\n```\ndbContext.Insert(\"Device\", data)\n.AutoMap(x => x.Assembly)\n.AutoMap(x => x.DeviceID)\n.ExecuteReturnLastId();\n```\n\nWell. That is for now.\nTibor",
+    "LastUpdatedDate": "2013-02-21T15:35:02.28-08:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "FluentData",
+    "ReportedDate": "2013-02-14T03:28:40.333-08:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Column names are added multiple times to the BuilderData.Columns collection if AutoMap is incoked multiple times",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 1600
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "Hi and thanks.\r\n\r\nYes, that's correct. If you invoke automap twice then it will add the columns twice, instead you could do dbContext.Insert(\"Device\", data).AutoMap(x => x.Assembly, x => x.DeviceId).ExecuteReturnLastId<int>();\r\n\r\nI will update the code to give an error if automap is called more than once.\r\n\r\n\r\n\r\nRegards,\nLars-Erik Kindblad",
+      "PostedDate": "2013-02-14T04:46:02.427-08:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-02-21T15:35:02.28-08:00",
+      "Id": -2147483648
+    }
+  ]
+}

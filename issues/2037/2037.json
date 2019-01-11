@@ -1,0 +1,39 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "Hi,\nI'm not able to get data from Oracle DB using stored procedure. Here is the code, but it always returns null. I couldn't make it work. Does enybody have sone idea?\n\n        public static InsuredPersonData GetInsuredPersonInfo(string jmbg)\n        {\n            InsuredPersonData temp = InitializaDbConnecton().ContextEtpm.Sql(\"PROD.GET_PERSON_FOR_JMBG\")\n                                                                        .CommandType(DbCommandTypes.StoredProcedure)\n                                                                        //.Parameter(\"CM_JMBG\", jmbg, DataTypes.String, FluentData.ParameterDirection.Input, 16)\n                                                                        //.Parameter(\"CM_IME\", CM_IME, DataTypes.String, FluentData.ParameterDirection.Output, 254)\n                                                                        //.Parameter(\"CM_PREZIME\", CM_PREZIME, DataTypes.String, FluentData.ParameterDirection.Output, 254)\n                                                                        //.Parameter(\"CM_POL\", CM_POL, DataTypes.String, FluentData.ParameterDirection.Output, 254)\n                                                                        //.Parameter(\"CM_IME_RODITELJA\", CM_IME_RODITELJA, DataTypes.String, FluentData.ParameterDirection.Output, 254)\n                                                                        //.Parameter(\"CM_DATUM_RODJENJA\", CM_DATUM_RODJENJA, DataTypes.String, FluentData.ParameterDirection.Output, 254)\n                                                                        //.Parameter(\"CM_DRZAVLJANSTVO\", CM_DRZAVLJANSTVO, DataTypes.String, FluentData.ParameterDirection.Output, 254)\n                                                                        //.Parameter(\"CM_OPSTINA\", CM_OPSTINA, DataTypes.String, FluentData.ParameterDirection.Output, 254)\n                                                                        //.Parameter(\"CM_NASELJE\", CM_NASELJE, DataTypes.String, FluentData.ParameterDirection.Output, 254)\n                                                                        //.Parameter(\"CM_ULICA\", CM_ULICA, DataTypes.String, FluentData.ParameterDirection.Output, 254)\n                                                                        //.Parameter(\"CM_BROJ\", CM_BROJ, DataTypes.String, FluentData.ParameterDirection.Output, 254)\n                                                                        //.Parameter(\"CM_PTT\", CM_PTT, DataTypes.String, FluentData.ParameterDirection.Output, 254)\n                                                                        //.Parameter(\"CM_ZANIMANJE_SSS\", CM_ZANIMANJE_SSS, DataTypes.String, FluentData.ParameterDirection.Output, 254)\n                                                                        //.Parameter(\"CM_CR_BR\", CM_CR_BR, DataTypes.String, FluentData.ParameterDirection.Output, 254)\n                                                                        //.Parameter(\"CM_LBO_BR\", CM_LBO_BR, DataTypes.String, FluentData.ParameterDirection.Output, 254)\n                                                                        .Parameter(\"CM_JMBG\", jmbg, DataTypes.String, FluentData.ParameterDirection.Input, 16)\n                                                                        .ParameterOut(\"CM_IME\", DataTypes.String, 254)\n                                                                        .ParameterOut(\"CM_PREZIME\", DataTypes.String, 254)\n                                                                        .ParameterOut(\"CM_POL\", DataTypes.String, 254)\n                                                                        .ParameterOut(\"CM_IME_RODITELJA\", DataTypes.String, 254)\n                                                                        .ParameterOut(\"CM_DATUM_RODJENJA\", DataTypes.String, 254)\n                                                                        .ParameterOut(\"CM_DRZAVLJANSTVO\", DataTypes.String, 254)\n                                                                        .ParameterOut(\"CM_OPSTINA\", DataTypes.String, 254)\n                                                                        .ParameterOut(\"CM_NASELJE\", DataTypes.String, 254)\n                                                                        .ParameterOut(\"CM_ULICA\", DataTypes.String, 254)\n                                                                        .ParameterOut(\"CM_BROJ\", DataTypes.String, 254)\n                                                                        .ParameterOut(\"CM_PTT\", DataTypes.String, 254)\n                                                                        .ParameterOut(\"CM_ZANIMANJE_SSS\", DataTypes.String, 254)\n                                                                        .ParameterOut(\"CM_CR_BR\", DataTypes.String, 254)\n                                                                        .ParameterOut(\"CM_LBO_BR\", DataTypes.String, 254)\n                                                                        .QuerySingle<InsuredPersonData>();\n            return temp;\n        }",
+    "LastUpdatedDate": "2014-09-30T07:40:16.863-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Unassigned",
+      "Severity": 0,
+      "Id": 0
+    },
+    "ProjectName": "FluentData",
+    "ReportedDate": "2014-09-30T07:40:16.863-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Stored Procedure with return type",
+    "Type": {
+      "Name": "Unassigned",
+      "Id": 5
+    },
+    "VoteCount": 1,
+    "Id": 2037
+  },
+  "FileAttachments": [],
+  "Comments": []
+}

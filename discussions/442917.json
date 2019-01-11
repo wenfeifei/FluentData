@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "1040743",
+    "ThreadId": "442917",
+    "Html": "QueryDataTable Method Removed?\r<br />\n<br />\nAdd Please...<br />\n",
+    "PostedDate": "2013-05-08T01:23:14.987-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1040745",
+    "ThreadId": "442917",
+    "Html": "The API has been simplified so QueryDataTable is now changed to this:\r<br />\nDataTable products = Context.Sql(&quot;select * from Product&quot;).QuerySingle&lt;DataTable&gt;();<br />\n",
+    "PostedDate": "2013-05-08T01:26:57.757-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

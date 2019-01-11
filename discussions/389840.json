@@ -1,0 +1,34 @@
+[
+  {
+    "Id": "894115",
+    "ThreadId": "389840",
+    "Html": "\r\n<p>Is there a way to execute a command multiple times with different parameters? For instance, I have a parent object with a child collection. I'd want to insert a row into the ParentChild join table n (=collection.Count()) number of times. Can I do it with\r\n a single expression? Without having to grab a Context() each time?</p>\r\n",
+    "PostedDate": "2012-08-01T05:18:33.37-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "894624",
+    "ThreadId": "389840",
+    "Html": "<p>Hi, today this is not possible. Since you will be doing multiple inserts I suggest you use a transaction, then if any error occur then you can rollback all the changes. For more details see&nbsp;<a href=\"http://fluentdata.codeplex.com/documentation#Transactions\">http://fluentdata.codeplex.com/documentation#Transactions</a>.</p>",
+    "PostedDate": "2012-08-02T05:26:37.803-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "896329",
+    "ThreadId": "389840",
+    "Html": "<p>Hi</p>\r\n<p>&nbsp;</p>\r\n<p>Once transaction is committed, the connection is auto closed?</p>\r\n<p>How to check connection status whether it's closed or open?</p>",
+    "PostedDate": "2012-08-06T22:46:45.157-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "896692",
+    "ThreadId": "389840",
+    "Html": "<p>No, the connection is closed when Dispose is called. When you use using() then Dispose is automatically called. If you use try and finally instead then you need to make sure that Dispose is called.</p>\r\n<pre><span>using</span> (<span>var</span> context = Context().UseTransaction(<span>true</span>))\r\n{\r\n\tcontext.Sql(<span>\"update Product set Name = @0 where ProductId = @1\"</span>)\r\n\t\t\t\t.Parameters(<span>\"The Warren Buffet Way\"</span>, 1)\r\n\t\t\t\t.Execute();\r\n\r\n\tcontext.Sql(<span>\"update Product set Name = @0 where ProductId = @1\"</span>)\r\n\t\t\t\t.Parameters(<span>\"Bill Gates Bio\"</span>, 2)\r\n\t\t\t\t.Execute();\r\n\r\n\tcontext.Commit();\r\n}</pre>\r\n<pre><br /></pre>\r\n<pre>or</pre>\r\n<pre><br /></pre>\r\n<pre><pre><span>var</span> context = Context().UseTransaction(<span>true</span>)</pre>\r\n<pre>try\r\n{\r\n\tcontext.Sql(<span>\"update Product set Name = @0 where ProductId = @1\"</span>)\r\n\t\t\t\t.Parameters(<span>\"The Warren Buffet Way\"</span>, 1)\r\n\t\t\t\t.Execute();\r\n\r\n\tcontext.Sql(<span>\"update Product set Name = @0 where ProductId = @1\"</span>)\r\n\t\t\t\t.Parameters(<span>\"Bill Gates Bio\"</span>, 2)\r\n\t\t\t\t.Execute();\r\n\r\n\tcontext.Commit();\r\n}</pre>\r\n<pre>finally</pre>\r\n<pre>{</pre>\r\n<pre><span style=\"white-space: pre;\">\t</span>context.Dispose();</pre>\r\n<pre>}</pre>\r\n<br /></pre>",
+    "PostedDate": "2012-08-07T15:18:57.5-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

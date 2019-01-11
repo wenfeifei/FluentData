@@ -1,0 +1,34 @@
+[
+  {
+    "Id": "1355807",
+    "ThreadId": "581861",
+    "Html": "Hi!<br />\n<br />\nI read this part of the documentation and all seems nice and easy:<br />\n<br />\nIgnore Attribute<br />\n<br />\nAnd sometimes you need to add some extension property in entity class, when Insert/Update,will be exception,because not find the data column.on this time,you can add the Ignore to the special property,like this:<br />\n<br />\n[Ignore]<br />\npublic int TotalCount{get;set;}<br />\n<br />\nthis will skip the property when insert or update.<br />\n<br />\n... but when I go to use this in my code, I can't find how/what I should do so that the [Ignore] attribute compiles?<br />\n<br />\nThanks in advance for the help!<br />\n",
+    "PostedDate": "2015-02-25T15:31:57.35-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1358454",
+    "ThreadId": "581861",
+    "Html": "Hi,\r<br />\nI have removed the ignore attribute from version 3 (it was a contribution) and moved it so that it potentially might be part of version 4 that is in the pipeline. However I have not decided yet if it will be included or not since some of the focus for v4 should be to reduce the size of the codebase to make FluentData more lightweight. <br />\n",
+    "PostedDate": "2015-03-01T13:50:31.56-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1359987",
+    "ThreadId": "581861",
+    "Html": "yes,kindblad decided publish it to version 4.0.\r<br />\n<br />\nand if you warried for use it,you can use the forked version:FluentDAO,it's base on FluentData,and add the ignore.\r<br />\n<br />\nyou can search FluentDAO from nuget.<br />\n",
+    "PostedDate": "2015-03-04T23:37:01.73-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1432226",
+    "ThreadId": "581861",
+    "Html": "Hi again!\r<br />\n<br />\nWas just wondering what the decision had been on the Ignore attribute. I see it's been taken out of the documentation (makes sense while it's not a real feature :), but personally I think it would be a great addition as it would be much cleaner (declarative and with the model, instead of with the data access code) than constantly adding exclusion properties to AutoMap.\r<br />\n<br />\nCheers and thanks for a great library!\r<br />\n<br />\nJuan<br />\n",
+    "PostedDate": "2015-06-28T16:58:19.347-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

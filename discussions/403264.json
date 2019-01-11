@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "941925",
+    "ThreadId": "403264",
+    "Html": "\r\n<p>string str = builder.ParameterValue&lt;string&gt;(&quot;mid&quot;);</p>\r\n<p>str is DbNull</p>\r\n<p>fix</p>\r\n<p><br>\r\n</p>\r\n<div style=\"color:black; background-color:white\">\r\n<pre> <span style=\"color:blue\">public</span> TParameterType ParameterValue&lt;TParameterType&gt;(<span style=\"color:blue\">string</span> outputParameterName)\r\n        {\r\n            outputParameterName = _data.ContextData.Provider.GetParameterName(outputParameterName);\r\n            <span style=\"color:blue\">if</span> (!_data.InnerCommand.Parameters.Contains(outputParameterName))\r\n                <span style=\"color:blue\">throw</span> <span style=\"color:blue\">new</span> FluentDataException(<span style=\"color:blue\">string</span>.Format(<span style=\"color:#a31515\">&quot;Parameter {0} not found&quot;</span>, outputParameterName));\r\n\r\n            <span style=\"color:blue\">var</span> value = (_data.InnerCommand.Parameters[outputParameterName] <span style=\"color:blue\">as</span> System.Data.IDataParameter).Value;\r\n\r\n            <span style=\"color:blue\">if</span> (value == DBNull.Value || value==<span style=\"color:blue\">null</span>)\r\n                <span style=\"color:blue\">return</span> <span style=\"color:blue\">default</span>(TParameterType);\r\n\r\n            <span style=\"color:blue\">if</span> (value.GetType() == <span style=\"color:blue\">typeof</span>(TParameterType))\r\n                <span style=\"color:blue\">return</span> (TParameterType)value;\r\n\r\n            <span style=\"color:blue\">return</span> (TParameterType)Convert.ChangeType(value, <span style=\"color:blue\">typeof</span>(TParameterType));\r\n        }\r\n</pre>\r\n</div>\r\n&nbsp;\r\n<p></p>\r\n",
+    "PostedDate": "2012-11-14T18:55:43.903-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "946804",
+    "ThreadId": "403264",
+    "Html": "\r\n<p>Thank you. This is fixed in the latest check in, however the latest source code includes some API changes/simplifications so I need to wait a few days until I make a new release in order to update the documentation. I will notify you when the release is\r\n out.</p>\r\n",
+    "PostedDate": "2012-11-25T16:27:32.79-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

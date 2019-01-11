@@ -1,0 +1,10 @@
+[
+  {
+    "Id": "1469797",
+    "ThreadId": "653481",
+    "Html": "this is a oracle procedure   for example:\r<br />\ntype cursor_page is ref cursor;\r<br />\n  procedure sp_page(p_sql      varchar2, <br />\n<pre><code>                      p_currpage in out number,  \n                      p_pagesize number,  \n                      p_order    varchar2,  \n                      p_count    out number,  \n                      p_cursor   out cursor_page);  \n</code></pre>\n\ni call  <br />\nthe DataTypes  without  “Cursor  ” type  OracleDbType.RefCursor\r<br />\n//PLS-00306: wrong number or types of arguments in call to 'SP_PAGINATION'<br />\n<pre><code>        var store = Context.StoredProcedure(&quot;sp_page&quot;)\n                                  .Parameter(&quot;p_sql&quot;, sqlstr)\n                                  .Parameter(&quot;p_currpage&quot;, pageIndex)\n                                  .Parameter(&quot;p_pagesize&quot;, pageSize)\n                                  .Parameter(&quot;p_order&quot;, order)\n                                  .ParameterOut(&quot;P_count&quot;, DataTypes.Int32)\n                                  .ParameterOut(&quot;p_cursor&quot;, DataTypes.Object); ???\n\n        DataTable dt = store.QuerySingle&lt;DataTable&gt;();\n       int aa = store.ParameterValue&lt;int&gt;(&quot;P_count&quot;);</code></pre>\n\nfor help,thanks<br />\n",
+    "PostedDate": "2016-04-12T01:43:23.877-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

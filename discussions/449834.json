@@ -1,0 +1,58 @@
+[
+  {
+    "Id": "1067623",
+    "ThreadId": "449834",
+    "Html": "Using FluentData, I've been trying to access an MS-Access db via a pre-configured ODBC connection (so, not OLEDB).  Getting no where, I dug around in the source code and found that the .NET provider names are hard-coded based on the specified FluentData provider.  So, in my case, when I specified the FluentData &quot;AccessProvider&quot;, the underlying .NET provider name is automatically set to &quot;System.Data.OleDB&quot;.\r<br />\n<br />\nI've replicated the &quot;AccessProvider&quot; class as &quot;AccessProviderODBC&quot; and (only) changed the associated .NET provider name to &quot;System.Data.ODBC&quot;.  This seems to work as expected and I can now access data via the ODBC provider.\r<br />\n<br />\nSo, two questions:<br />\n<ol>\n<li>\nDo you see anything wrong (potentially dangerous) with what I've done?<br />\n</li>\n<li>\nI'm curious why the .NET provider names are hard-coded based on the specified FluentData provider?  Since that info (the .NET provider name) is already specified in the connection string, why is the specified driver not just used directly?<br />\n</li>\n</ol>\nAnyway, FluentData looks like a really nice piece of work and I appreciate that you've made it available to the community.  So, a BIG thanks from me!\r<br />\n<br />\nAny input on the above is appreciated.\r<br />\n<br />\nJeff Godfrey<br />\n",
+    "PostedDate": "2013-07-12T11:17:25.19-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1097241",
+    "ThreadId": "449834",
+    "Html": "After more than 2 months of no response, consider this a friendly bump.  ;^)\r<br />\n<br />\nAny input on the above 2 questions would be appreciated.\r<br />\n<br />\nJeff<br />\n",
+    "PostedDate": "2013-09-20T15:03:28.387-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1097319",
+    "ThreadId": "449834",
+    "Html": "Thanks for reminding me about this topic.\r<br />\n<br />\nI haven't look into ODBC for quite some time, however as long as the ODBC component is implementing the DBProvider factory in .NET (and since you are able to execute a query then it does this) then there is no problem doing it in this way.\r<br />\n<br />\nI agree with you that it should be possible to define the provider name.\r<br />\n<br />\nThere are two places where it can be done\r<br />\n1) When calling ConnectionStringName then FluentData can check if there is a provider name defined, if so use that.\r<br />\n2) Have a constructor parameter in each provider class that takes a provider name but with a default value defined. So both of these would be valid ways:\r<br />\nnew DbContext().ConnectionString(GetConnectionString(&quot;Access&quot;), new AccessProvider()); would use System.Data.OleDb\r<br />\nand\r<br />\nnew DbContext().ConnectionString(GetConnectionString(&quot;Access&quot;), new AccessProvider(&quot;System.Data.ODBC&quot;));\r<br />\n<br />\nI will fix the first one for you now and take the 2nd one as part of a bigger update later. I will notify you when it's done.\r<br />\n<br />\n<br />\nLars-Erik<br />\n",
+    "PostedDate": "2013-09-20T23:02:27.107-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1097432",
+    "ThreadId": "449834",
+    "Html": "I have now checked in the changes:\r<br />\n1) DbContext.ConnectionString method has been changed to take one more optional parameter, the providerName. If it's not set then the one from the fluent data provider will be used.\r<br />\n2) DbContext.ConnectionStringName has been changed to use the connectionString providerName from the .config file if it's set, otherwise it uses the one from the fluent data provider.\r<br />\n<br />\nCan you please just get the latest source code and see if it's working as expected?<br />\n",
+    "PostedDate": "2013-09-21T10:20:46.753-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1097837",
+    "ThreadId": "449834",
+    "Html": "Thanks for the replies and the enhancements.  Unfortunately, I'll be traveling for the first part of the upcoming week and will be away from my development environment.  I'll be sure to check out the update as soon as I'm back though.\r<br />\n<br />\nThanks again.\r<br />\n<br />\nJeff<br />\n",
+    "PostedDate": "2013-09-22T17:37:47.26-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1099816",
+    "ThreadId": "449834",
+    "Html": "Not much time for testing today, but I was able to verify that the ConnectionStringName update is working as described for me.  I'll try to check out the ConnectionString modification soon and report back here.\r<br />\n<br />\nThanks again.\r<br />\n<br />\nJeff<br />\n",
+    "PostedDate": "2013-09-26T13:14:56.263-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1100189",
+    "ThreadId": "449834",
+    "Html": "I've done some limited testing with the new ConnectionString() changes and everything seems to be working properly.  Thanks for your efforts!\r<br />\n<br />\nJeff<br />\n",
+    "PostedDate": "2013-09-27T09:22:54.85-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

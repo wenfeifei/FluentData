@@ -1,0 +1,50 @@
+[
+  {
+    "Id": "817660",
+    "ThreadId": "350630",
+    "Html": "\r\n<p>Looking through the source code, I can see that this doesn't appear to be implemented as of yet.</p>\r\n<p>Are there any plans to implement this? If there aren't I may take a look at it myself.</p>\r\n<p>In the mean time, is there a way to access the underlying command object from a DbContext(), or the Connection, so that I could manually call a stored procedure and consume the return value, e.g a clob/blob?</p>\r\n<p>cheers</p>\r\n",
+    "PostedDate": "2012-03-30T04:10:22.82-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "818260",
+    "ThreadId": "350630",
+    "Html": "<p>Hello, so far only output parameters are supported (check the documentation tab on how to use). Now if you need support for return values then I will add it. However I'm currently on travel abroad so I will first be able to add it next Sunday.</p>\r\n<p>Until then you could try to use the OnExecuted event that you find on the Context type, and then cast the Command property to the Oracle specific Command type.</p>\r\n<p>Regards,<br />Lars-Erik Kindblad&nbsp;</p>",
+    "PostedDate": "2012-03-31T18:03:51.39-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "818266",
+    "ThreadId": "350630",
+    "Html": "<p>Actually on the Fluent Command there is support for adding return value parameters. I'm not able to test and verify it now but something like this should hopefully work:</p>\r\n<p>var command = Context().Sql(\"AnyStoredProcedure\")<br />.CommandTypes(CommandTypes.StoredProcedure)<br />.Parameter(\"AnyName\", anyValue, DataTypes.AnyType, ParameterDirection.ReturnValue);</p>\r\n<p>command.Execute();</p>\r\n<p>string name = command.ParameterValue&lt;string&gt;(\"AnyName\");<br /><br />If you want to return a blob I guess you would want to use the VarBinary datatype.</p>\r\n<p><br />Regards,<br />Lars-Erik Kindblad&nbsp;</p>",
+    "PostedDate": "2012-03-31T18:35:04.447-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "818387",
+    "ThreadId": "350630",
+    "Html": "<p>That looks like exactly what I need. I'll not be able to test it<br /> myself either for a week or so, because I'm also about to do some<br /> travelling.<br /> <br /> Thanks. I'll update this thread when I get back.<br /> <br /> -stu<br /> <br /></p>",
+    "PostedDate": "2012-04-01T07:36:35.09-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "822354",
+    "ThreadId": "350630",
+    "Html": "<p>I've just been testing this out, and it looks like what you posted won't work.</p>\r\n<p>However. I have found that if you do something like this:</p>\r\n<p>\r\n<div style=\"color: black; background-color: white;\">\r\n<pre><span style=\"color: blue;\">var</span> command = Context.Sql(\r\n                <span style=\"color: #a31515;\">\"SELECT SCHEMA.MY_FUNCTION('TEST', 'PARAM', '1') AS Data FROM DUAL\"</span>)\r\n                .CommandType(DbCommandTypes.Text);\r\n\r\n<span style=\"color: blue;\">return</span> command.QuerySingle();\r\n</pre>\r\n</div>\r\n</p>\r\n<p>Then if you access the dynamic returned from command.QuerySingle(), then you can get at the data:</p>\r\n<p>\r\n<div style=\"color: black; background-color: white;\">\r\n<pre><span style=\"color: blue;\">dynamic</span> data = <span style=\"color: blue;\">new</span> ReportLoader().MyReport(args);\r\n<span style=\"color: blue;\">var</span> document = <span style=\"color: blue;\">new</span> XmlDocument();\r\n\r\n<span style=\"color: blue;\">using</span>(<span style=\"color: blue;\">var</span> stream = <span style=\"color: blue;\">new</span> MemoryStream(data.Data))\r\n<span style=\"color: blue;\">using</span>(<span style=\"color: blue;\">var</span> reader = XmlReader.Create(stream))\r\n{\r\n    document.Load(reader);\r\n}\r\n\r\n<span style=\"color: green;\">// blob returned from the function is now in the document</span>\r\n</pre>\r\n</div>\r\n</p>\r\n<p>Notice that the alias 'Data' in the actual SQL is magically turned into the property on the dynamic data object which contains the byte[] array returned from the BLOB on the database. I assume that it will work the same for any type returned from an Oracle function, but I haven't tested it.</p>\r\n<p>Hurray for dynamic!</p>\r\n<p>One thing I have noticed is that .Parameter() doesn't seem to pass the value into the sql query, maybe it's something to do with the apostrophes (which are required). I can live with doing a simple string.format, which is slightly inelegant, but not a big deal.</p>\r\n<p>-stu</p>",
+    "PostedDate": "2012-04-11T05:49:55.17-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "828886",
+    "ThreadId": "350630",
+    "Html": "<pre><span>Regarding the problem with the parameters, doesn't the following code work?</span></pre>\r\n<pre><span>var</span> command = Context.Sql(<span>\"SELECT SCHEMA.MY_FUNCTION(@0, @1, @2) AS Data FROM DUAL\"</span>)</pre>\r\n<pre><span style=\"white-space: pre;\">\t\t</span>.Parameters(\"test\", \"param\", 1);\r\n<span>return</span> command.QuerySingle();</pre>\r\n<pre><br /></pre>\r\n<pre>Could I get the SQL to construct your table with the blob field and the function? Then I can debug and find out why it doesn't work.</pre>\r\n<pre><br /></pre>\r\n<pre><br /></pre>\r\n<pre><br /></pre>",
+    "PostedDate": "2012-04-26T05:46:04.02-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

@@ -1,0 +1,302 @@
+<div class="wikidoc"><h2>Table of Contents</h2>
+<ul><li><a href="#GettingStarted">Getting started</a>
+<ul><li><a href="#Requirements">Requirements</a></li>
+<li><a href="#SupportedDatabases">Supported databases</a></li>
+<li><a href="#Installation">Installation</a></li></ul></li></ul>
+
+<ul><li><a href="#CoreConcepts">Core concepts</a>
+<ul><li><a href="#DbContext">DbContext</a></li>
+<li><a href="#DbCommand">DbCommand</a></li>
+<li><a href="#Events">Events</a></li>
+<li><a href="#Builders">Builders</a></li>
+<li><a href="#Mapping">Mapping</a></li>
+<li><a href="#Dispose">When should you dispose&#63;</a></li></ul></li></ul>
+
+<ul><li><a href="#CodeSamples">Code samples</a>
+<ul><li><a href="#InitDbContext">Create and initialize a DbContext</a></li>
+<li><a href="#Query">Query for a list of items</a></li>
+<li><a href="#QuerySingle">Query for a single item</a></li>
+<li><a href="#QueryValue">Query for a scalar value</a></li>
+<li><a href="#QueryValues">Query for a list of scalar values</a></li>
+<li><a href="#Parameters">Parameters</a></li>
+<li><a href="#CodeSamplesMapping">Mapping</a></li>
+<li><a href="#MultiResultSets">Multiple result sets</a></li>
+<li><a href="#SelectData">Select data &#38; Paging</a></li>
+<li><a href="#InsertData">Insert data</a></li>
+<li><a href="#UpdateData">Update data</a></li>
+<li><a href="#DeleteData">Delete data</a></li>
+<li><a href="#StoredProcedures">Stored procedures</a></li>
+<li><a href="#Transactions">Transactions</a></li>
+<li><a href="#EntityFactory">Entity factory</a></li></ul></li></ul>
+
+<h1><a name="Contents"></a>Contents</h1><h2><a name="GettingStarted"></a>Getting started</h2><a name="Requirements"></a><b>Requirements</b>
+<ul><li>.NET 4.0.</li></ul>
+<br /><a name="SupportedDatabases"></a><b>Supported databases</b>
+<ul><li>MS SQL Server using the native .NET driver. </li>
+<li>MS SQL Azure using the native .NET driver.</li>
+<li>MS Access using the native .NET driver.</li>
+<li>MS SQL Server Compact 4.0 through the <a href="http://www.microsoft.com/download/en/details.aspx?id=17876">Microsoft SQL Server Compact 4.0 driver</a>.</li>
+<li>Oracle through the <a href="http://www.oracle.com/technetwork/topics/dotnet/index-085163.html">ODP.NET driver</a>.</li>
+<li>MySQL through the <a href="http://www.mysql.com/downloads/connector/net/">MySQL Connector .NET driver</a>. </li>
+<li>SQLite through the <a href="http://system.data.sqlite.org/">SQLite ADO.NET Data Provider</a>.</li>
+<li>PostgreSql through the <a href="http://pgfoundry.org/projects/npgsql/">Npgsql</a> provider.</li>
+<li>IBM DB2</li>
+<li>Sybase through the <a href="https://github.com/FredoKapo/FLUENT-ORM-ASE-PROVIDER">https://github.com/FredoKapo/FLUENT-ORM-ASE-PROVIDER</a> provider.</li></ul>
+<br /><a name="Installation"></a><b>Installation</b><br />If you are using NuGet: 
+<ul><li>Search for FluentData and click Install.</li></ul>
+If you are not using NuGet:
+<ol><li>Download the zip with the binary files.</li>
+<li>Extract it, and copy the files to your solution or project folder.</li>
+<li>Add a project reference to FluentData.dll.</li></ol>
+
+<h2><a name="CoreConcepts"></a>Core concepts</h2><a name="DbContext"></a><b>DbContext</b><br />This class is the starting point for working with FluentData. It has properties for defining configurations such as the connection string to the database, and operations for querying the database.<br /><br /><a name="DbCommand"></a><b>DbCommand</b><br />This is the class that is responsible for performing the actual query against the database.<br /><br /><a name="Events"></a><b>Events</b><br />The DbContext class has support for the following events:
+<ul><li>OnConnectionClosed</li>
+<li>OnConnectionOpened</li>
+<li>OnConnectionOpening</li>
+<li>OnError</li>
+<li>OnExecuted</li>
+<li>OnExecuting</li></ul>
+By using any of these then you can for instance write to the log if an error has occurred or when a query has been executed.<br /><br /><a name="Builders"></a><b>Builders</b><br />A builder provides a nice fluent API for generating SQL for insert, update and delete queries.<br /><br /><a name="Mapping"></a><b>Mapping</b><br />FluentData can automap the result from a SQL query to either a dynamic type (new in .NET 4.0) or to your own .NET entity type (POCO - Plain Old CLR Object) by using the following convention:<br /><br /><u>Automap to an entity type:</u>
+<ol><li>If the field name does not contain an underscore (&quot;_&quot;) then it will try to try to automap to a property with the same name. For instance a field named &quot;Name&quot; would be automapped to a property also named &quot;Name&quot;.</li>
+<li>If a field name does contain an underscore (&quot;<i>&quot;) then it will try to map to a nested property. For instance a field named &quot;Category</i>Name&quot; would be automapped to the property &quot;Category.Name&quot;.</li></ol>
+If there is a mismatch between the fields in the database and in the entity type then the alias keyword in SQL can be used or you can create your own mapping method. Check the mapping section below for code samples.<br /><br /><u>Automap to a dynamic type:</u>
+<ol><li>For dynamic types every field will be automapped to a property with the same name. For instance the field name Name would be automapped to the Name property.</li></ol>
+<br /><a name="Dispose"></a><b>When should you dispose?</b>
+<ul><li>DbContext must be disposed if you have enabled UseTransaction or UseSharedConnection.</li>
+<li>DbCommand must be disposed if you have enabled UseMultiResult (or MultiResultSql).</li>
+<li>StoredProcedureBuilder must be disposed if you have enabled UseMultiResult.</li></ul>
+In all the other cases dispose will be handled automatically by FluentData. This means that a database connection is opened just before a query is executed and closed just after the execution has been completed.<br />
+<h2><a name="CodeSamples"></a>Code samples</h2><a name="InitDbContext"></a><b>Create and initialize a DbContext</b><br />The connection string on the DbContext class can be initialized either by giving the connection string name in the *.config file or by sending in the entire connection string.<br /><br /><b>Important configurations</b>
+<ul><li>IgnoreIfAutoMapFails - Calling this prevents automapper from throwing an exception if a column cannot be mapped to a corresponding property due to a name mismatch.</li></ul>
+<br /><b>Create and initialize a DbContext</b><br />The DbContext can be initialized by either calling ConnectionStringName which will read the connection string from the *.config file:<br /><div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">public</span> IDbContext Context()
+{
+	<span style="color:Blue;">return</span> <span style="color:Blue;">new</span> DbContext().ConnectionStringName(<span style="color:#A31515;">&quot;MyDatabase&quot;</span>,
+			<span style="color:Blue;">new</span> SqlServerProvider());
+}
+</pre></div><br />or by calling the ConnectionString method to set the connection string explicitly:<br /><div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">public</span> IDbContext Context()
+{
+	<span style="color:Blue;">return</span> <span style="color:Blue;">new</span> DbContext().ConnectionString(
+	<span style="color:#A31515;">&quot;Server=MyServerAddress;Database=MyDatabase;Trusted_Connection=True;&quot;</span>, <span style="color:Blue;">new</span> SqlServerProvider());
+}
+</pre></div><br /><b>Providers</b><br />If you want to work against another database than SqlServer then simply replace the new SqlServerProvider() in the sample code above with any of the following:<br />AccessProvider, DB2Provider, OracleProvider, MySqlProvider, PostgreSqlProvider, SqliteProvider, SqlServerCompact, SqlAzureProvider, SqlServerProvider.<br /><br /><a name="Query"></a><b>Query for a list of items</b><br />Return a list of dynamic objects (new in .NET 4.0):<br /><div style="color:Black;background-color:White;"><pre>
+List&lt;<span style="color:Blue;">dynamic</span>&gt; products = Context.Sql(<span style="color:#A31515;">&quot;select * from Product&quot;</span>).QueryMany&lt;<span style="color:Blue;">dynamic</span>&gt;();
+</pre></div><br />Return a list of strongly typed objects:<br /><div style="color:Black;background-color:White;"><pre>
+List&lt;Product&gt; products = Context.Sql(<span style="color:#A31515;">&quot;select * from Product&quot;</span>).QueryMany&lt;Product&gt;();
+</pre></div><br />Return a list of strongly typed objects in a custom collection:<br /><div style="color:Black;background-color:White;"><pre>
+ProductionCollection products = Context.Sql(<span style="color:#A31515;">&quot;select * from Product&quot;</span>).QueryMany&lt;Product, ProductionCollection&gt;();
+</pre></div><br />Return a DataTable:<br />See Query for a single item.<br /><br /><a name="QuerySingle"></a><b>Query for a single item</b><br /><br />Return as a dynamic object:<br /><div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">dynamic</span> product = Context.Sql(<span style="color:#A31515;">@&quot;select * from Product
+				where ProductId = 1&quot;</span>).QuerySingle&lt;<span style="color:Blue;">dynamic</span>&gt;();
+</pre></div><br />Return as a strongly typed object:<br /><div style="color:Black;background-color:White;"><pre>
+Product product = Context.Sql(<span style="color:#A31515;">@&quot;select * from Product
+			where ProductId = 1&quot;</span>).QuerySingle&lt;Product&gt;();
+</pre></div><br />Return as a DataTable:<br /><div style="color:Black;background-color:White;"><pre>
+DataTable products = Context.Sql(<span style="color:#A31515;">&quot;select * from Product&quot;</span>).QuerySingle&lt;DataTable&gt;();
+</pre></div>Both QueryMany&lt;DataTable&gt; and QuerySingle&lt;DataTable&gt; can be called to return a DataTable, but since QueryMany returns a List&lt;DataTable&gt; then it&#39;s more convenient to call QuerySingle which returns just DataTable. Eventhough the method is called QuerySingle then multiple rows will still be returned as part of the DataTable.<br /><br /><a name="QueryValue"></a><b>Query for a scalar value</b><br /><div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">int</span> numberOfProducts = Context.Sql(<span style="color:#A31515;">@&quot;select count(*)
+			from Product&quot;</span>).QuerySingle&lt;<span style="color:Blue;">int</span>&gt;();
+</pre></div><br /><a name="QueryValues"></a><b>Query for a list of scalar values</b><br /><div style="color:Black;background-color:White;"><pre>
+List&lt;<span style="color:Blue;">int</span>&gt; productIds = Context.Sql(<span style="color:#A31515;">@&quot;select ProductId
+				from Product&quot;</span>).QueryMany&lt;<span style="color:Blue;">int</span>&gt;();
+</pre></div><br /><a name="Parameters"></a><b>Parameters</b><br />Indexed parameters:<br /><div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">dynamic</span> products = Context.Sql(<span style="color:#A31515;">@&quot;select * from Product
+			where ProductId = @0 or ProductId = @1&quot;</span>, 1, 2).QueryMany&lt;<span style="color:Blue;">dynamic</span>&gt;();
+</pre></div><br />or:<br /><div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">dynamic</span> products = Context.Sql(<span style="color:#A31515;">@&quot;select * from Product
+			where ProductId = @0 or ProductId = @1&quot;</span>)
+			.Parameters(1, 2).QueryMany&lt;<span style="color:Blue;">dynamic</span>&gt;();
+</pre></div><br />Named parameters:<br /><div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">dynamic</span> products = Context.Sql(<span style="color:#A31515;">@&quot;select * from Product
+			where ProductId = @ProductId1 or ProductId = @ProductId2&quot;</span>)
+			.Parameter(<span style="color:#A31515;">&quot;ProductId1&quot;</span>, 1)
+			.Parameter(<span style="color:#A31515;">&quot;ProductId2&quot;</span>, 2)
+			.QueryMany&lt;<span style="color:Blue;">dynamic</span>&gt;();
+</pre></div><br />Output parameter:<br /><div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">var</span> command = Context.Sql(<span style="color:#A31515;">@&quot;select @ProductName = Name from Product
+			where ProductId=1&quot;</span>)
+			.ParameterOut(<span style="color:#A31515;">&quot;ProductName&quot;</span>, DataTypes.String, 100);
+command.Execute();
+
+<span style="color:Blue;">string</span> productName = command.ParameterValue&lt;<span style="color:Blue;">string</span>&gt;(<span style="color:#A31515;">&quot;ProductName&quot;</span>);
+</pre></div><br />List of parameters - in operator:<br /><div style="color:Black;background-color:White;"><pre>
+List&lt;<span style="color:Blue;">int</span>&gt; ids = <span style="color:Blue;">new</span> List&lt;<span style="color:Blue;">int</span>&gt;() { 1, 2, 3, 4 };
+<span style="color:Green;">//becareful here,don&#39;t leave any whitespace around in(...) syntax.</span>
+<span style="color:Blue;">dynamic</span> products = Context.Sql(<span style="color:#A31515;">@&quot;select * from Product
+			where ProductId in(@0)&quot;</span>, ids).QueryMany&lt;<span style="color:Blue;">dynamic</span>&gt;();
+</pre></div><br />like operator:<br /><div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">string</span> cens = <span style="color:#A31515;">&quot;%abc%&quot;</span>;
+Context.Sql(<span style="color:#A31515;">&quot;select * from Product where ProductName like @0&quot;</span>,cens);
+</pre></div><br /><a name="CodeSamplesMapping"></a><b>Mapping</b><br />Automapping - 1:1 match between the database and the .NET object:<br /><div style="color:Black;background-color:White;"><pre>
+List&lt;Product&gt; products = Context.Sql(<span style="color:#A31515;">@&quot;select *
+			from Product&quot;</span>)
+			.QueryMany&lt;Product&gt;();
+</pre></div><br />Automap to a custom collection:<br /><div style="color:Black;background-color:White;"><pre>
+ProductionCollection products = Context.Sql(<span style="color:#A31515;">&quot;select * from Product&quot;</span>).QueryMany&lt;Product, ProductionCollection&gt;();
+</pre></div><br />Automapping - Mismatch between the database and the .NET object, use the alias keyword in SQL:<br />Weakly typed:<br /><div style="color:Black;background-color:White;"><pre>
+List&lt;Product&gt; products = Context.Sql(<span style="color:#A31515;">@&quot;select p.*,
+			c.CategoryId as Category_CategoryId,
+			c.Name as Category_Name
+			from Product p
+			inner join Category c on p.CategoryId = c.CategoryId&quot;</span>)
+				.QueryMany&lt;Product&gt;();
+</pre></div>Here the p.* which is ProductId and Name would be automapped to the properties Product.Name and Product.ProductId, and Category_CategoryId and Category_Name would be automapped to Product.Category.CategoryId and Product.Category.Name.<br /><br />Custom mapping using dynamic:<br /><div style="color:Black;background-color:White;"><pre>
+List&lt;Product&gt; products = Context.Sql(<span style="color:#A31515;">@&quot;select * from Product&quot;</span>)
+			.QueryMany&lt;Product&gt;(Custom_mapper_using_dynamic);
+
+<span style="color:Blue;">public</span> <span style="color:Blue;">void</span> Custom_mapper_using_dynamic(Product product, <span style="color:Blue;">dynamic</span> row)
+{
+	product.ProductId = row.ProductId;
+	product.Name = row.Name;
+}
+</pre></div><br />Custom mapping using a datareader:<br /><div style="color:Black;background-color:White;"><pre>
+List&lt;Product&gt; products = Context.Sql(<span style="color:#A31515;">@&quot;select * from Product&quot;</span>)
+			.QueryMany&lt;Product&gt;(Custom_mapper_using_datareader);
+
+<span style="color:Blue;">public</span> <span style="color:Blue;">void</span> Custom_mapper_using_datareader(Product product, IDataReader row)
+{
+	product.ProductId = row.GetInt32(<span style="color:#A31515;">&quot;ProductId&quot;</span>);
+	product.Name = row.GetString(<span style="color:#A31515;">&quot;Name&quot;</span>);
+}
+</pre></div><br />Or if you have a complex entity type where you need to control how it is created then the QueryComplexMany/QueryComplexSingle can be used:<br /><div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">var</span> products = <span style="color:Blue;">new</span> List&lt;Product&gt;();
+Context.Sql(<span style="color:#A31515;">&quot;select * from Product&quot;</span>).QueryComplexMany&lt;Product&gt;(products, MapComplexProduct);
+
+<span style="color:Blue;">private</span> <span style="color:Blue;">void</span> MapComplexProduct(IList&lt;Product&gt; products, IDataReader reader)
+{
+	<span style="color:Blue;">var</span> product = <span style="color:Blue;">new</span> Product();
+	product.ProductId = reader.GetInt32(<span style="color:#A31515;">&quot;ProductId&quot;</span>);
+	product.Name = reader.GetString(<span style="color:#A31515;">&quot;Name&quot;</span>);
+	products.Add(product);
+}
+</pre></div><br /><a name="MultiResultSets"></a><b>Multiple result sets</b><br />FluentData supports multiple resultsets. This allows you to do multiple queries in a single database call. When this feature is used it&#39;s important to wrap the code inside a using statement as shown below in order to make sure that the database connection is closed.<br /><div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">using</span> (<span style="color:Blue;">var</span> command = Context.MultiResultSql)
+{
+	List&lt;Category&gt; categories = command.Sql(
+			<span style="color:#A31515;">@&quot;select * from Category;
+			select * from Product;&quot;</span>).QueryMany&lt;Category&gt;();
+
+	List&lt;Product&gt; products = command.QueryMany&lt;Product&gt;();
+}
+</pre></div>The first time the Query method is called it does a single query against the database. The second time the Query is called, FluentData already knows that it&#39;s running in a multiple result set mode, so it reuses the data retrieved from the first query.<br /><br /><a name="SelectData"></a><b>Select data and Paging</b><br />A select builder exists to make selecting data and paging easy:<br /><div style="color:Black;background-color:White;"><pre>
+List&lt;Product&gt; products = Context.Select&lt;Product&gt;(<span style="color:#A31515;">&quot;p.*, c.Name as Category_Name&quot;</span>)
+			       .From(<span style="color:#A31515;">@&quot;Product p 
+					inner join Category c on c.CategoryId = p.CategoryId&quot;</span>)
+			       .Where(<span style="color:#A31515;">&quot;p.ProductId &gt; 0 and p.Name is not null&quot;</span>)
+			       .OrderBy(<span style="color:#A31515;">&quot;p.Name&quot;</span>)
+			       .Paging(1, 10).QueryMany();
+</pre></div>By calling Paging(1, 10) then the first 10 products will be returned.<br /><br /><a name="InsertData"></a><b>Insert data</b><br />Using SQL:<br /><div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">int</span> productId = Context.Sql(<span style="color:#A31515;">@&quot;insert into Product(Name, CategoryId)
+			values(@0, @1);&quot;</span>)
+			.Parameters(<span style="color:#A31515;">&quot;The Warren Buffet Way&quot;</span>, 1)
+			.ExecuteReturnLastId&lt;<span style="color:Blue;">int</span>&gt;();
+</pre></div><br />Using a builder:<br /><div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">int</span> productId = Context.Insert(<span style="color:#A31515;">&quot;Product&quot;</span>)
+			.Column(<span style="color:#A31515;">&quot;Name&quot;</span>, <span style="color:#A31515;">&quot;The Warren Buffet Way&quot;</span>)
+			.Column(<span style="color:#A31515;">&quot;CategoryId&quot;</span>, 1)
+			.ExecuteReturnLastId&lt;<span style="color:Blue;">int</span>&gt;();
+</pre></div><br />Using a builder with automapping:<br /><div style="color:Black;background-color:White;"><pre>
+Product product = <span style="color:Blue;">new</span> Product();
+product.Name = <span style="color:#A31515;">&quot;The Warren Buffet Way&quot;</span>;
+product.CategoryId = 1;
+
+product.ProductId = Context.Insert&lt;Product&gt;(<span style="color:#A31515;">&quot;Product&quot;</span>, product)
+			.AutoMap(x =&gt; x.ProductId)
+			.ExecuteReturnLastId&lt;<span style="color:Blue;">int</span>&gt;();
+</pre></div>We send in ProductId to the AutoMap method to get AutoMap to ignore and not map the ProductId since this property is an identity field where the value is generated in the database.<br /><br /><a name="UpdateData"></a><b>Update data</b><br />Using SQL:<br /><div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">int</span> rowsAffected = Context.Sql(<span style="color:#A31515;">@&quot;update Product set Name = @0
+			where ProductId = @1&quot;</span>)
+			.Parameters(<span style="color:#A31515;">&quot;The Warren Buffet Way&quot;</span>, 1)
+			.Execute();
+</pre></div><br />Using a builder:<br /><div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">int</span> rowsAffected = Context.Update(<span style="color:#A31515;">&quot;Product&quot;</span>)
+			.Column(<span style="color:#A31515;">&quot;Name&quot;</span>, <span style="color:#A31515;">&quot;The Warren Buffet Way&quot;</span>)
+			.Where(<span style="color:#A31515;">&quot;ProductId&quot;</span>, 1)
+			.Execute();
+</pre></div><br />Using a builder with automapping:<br /><div style="color:Black;background-color:White;"><pre>
+Product product = Context.Sql(<span style="color:#A31515;">@&quot;select * from Product
+			where ProductId = 1&quot;</span>)
+			.QuerySingle&lt;Product&gt;();
+product.Name = <span style="color:#A31515;">&quot;The Warren Buffet Way&quot;</span>;
+
+<span style="color:Blue;">int</span> rowsAffected = Context.Update&lt;Product&gt;(<span style="color:#A31515;">&quot;Product&quot;</span>, product)
+			.AutoMap(x =&gt; x.ProductId)
+			.Where(x =&gt; x.ProductId)
+			.Execute();
+</pre></div>We send in ProductId to the AutoMap method to get AutoMap to ignore and not map the ProductId since this is the identity field that should not get updated.<br /><br /><br /><b>IgnoreIfAutoMapFails</b><br />When read from database,If some data columns not mappinged with entity class,by default ,will throw exception.<br /><br />if you want ignore the exception, or the property not used for map data table,then you can use the IgnoreIfAutoMapFails(true),this will ignore the exception when read mapping error.<br /><div style="color:Black;background-color:White;"><pre>
+context.IgnoreIfAutoMapFails(<span style="color:Blue;">true</span>);
+</pre></div> <br /><b>Insert and update  - common Fill method</b><br /><div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">var</span> product = <span style="color:Blue;">new</span> Product();
+product.Name = <span style="color:#A31515;">&quot;The Warren Buffet Way&quot;</span>;
+product.CategoryId = 1;
+
+<span style="color:Blue;">var</span> insertBuilder = Context.Insert&lt;Product&gt;(<span style="color:#A31515;">&quot;Product&quot;</span>, product).Fill(FillBuilder);
+
+<span style="color:Blue;">var</span> updateBuilder = Context.Update&lt;Product&gt;(<span style="color:#A31515;">&quot;Product&quot;</span>, product).Fill(FillBuilder);
+
+<span style="color:Blue;">public</span> <span style="color:Blue;">void</span> FillBuilder(IInsertUpdateBuilder&lt;Product&gt; builder)
+{
+	builder.Column(x =&gt; x.Name);
+	builder.Column(x =&gt; x.CategoryId);
+}
+</pre></div><br /><a name="DeleteData"></a><b>Delete data</b><br />Using SQL:<br /><div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">int</span> rowsAffected = Context.Sql(<span style="color:#A31515;">@&quot;delete from Product
+			where ProductId = 1&quot;</span>)
+			.Execute();
+</pre></div><br />Using a builder:<br /><div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">int</span> rowsAffected = Context.Delete(<span style="color:#A31515;">&quot;Product&quot;</span>)
+			.Where(<span style="color:#A31515;">&quot;ProductId&quot;</span>, 1)
+			.Execute();
+</pre></div><br /><a name="StoredProcedures"></a><b>Stored procedure</b><br />Using SQL:<br /><div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">var</span> rowsAffected = Context.Sql(<span style="color:#A31515;">&quot;ProductUpdate&quot;</span>)
+			.CommandType(DbCommandTypes.StoredProcedure)
+			.Parameter(<span style="color:#A31515;">&quot;ProductId&quot;</span>, 1)
+			.Parameter(<span style="color:#A31515;">&quot;Name&quot;</span>, <span style="color:#A31515;">&quot;The Warren Buffet Way&quot;</span>)
+			.Execute();
+</pre></div><br />Using a builder:<br /><div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">var</span> rowsAffected = Context.StoredProcedure(<span style="color:#A31515;">&quot;ProductUpdate&quot;</span>)
+			.Parameter(<span style="color:#A31515;">&quot;Name&quot;</span>, <span style="color:#A31515;">&quot;The Warren Buffet Way&quot;</span>)
+			.Parameter(<span style="color:#A31515;">&quot;ProductId&quot;</span>, 1).Execute();
+</pre></div><br />Using a builder with automapping:<br /><div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">var</span> product = Context.Sql(<span style="color:#A31515;">&quot;select * from Product where ProductId = 1&quot;</span>)
+			.QuerySingle&lt;Product&gt;();
+
+product.Name = <span style="color:#A31515;">&quot;The Warren Buffet Way&quot;</span>;
+
+<span style="color:Blue;">var</span> rowsAffected = Context.StoredProcedure&lt;Product&gt;(<span style="color:#A31515;">&quot;ProductUpdate&quot;</span>, product)
+			.AutoMap(x =&gt; x.CategoryId).Execute();
+</pre></div><br />Using a builder with automapping and expressions:<br /><div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">var</span> product = Context.Sql(<span style="color:#A31515;">&quot;select * from Product where ProductId = 1&quot;</span>)
+			.QuerySingle&lt;Product&gt;();
+product.Name = <span style="color:#A31515;">&quot;The Warren Buffet Way&quot;</span>;
+
+<span style="color:Blue;">var</span> rowsAffected = Context.StoredProcedure&lt;Product&gt;(<span style="color:#A31515;">&quot;ProductUpdate&quot;</span>, product)
+			.Parameter(x =&gt; x.ProductId)
+			.Parameter(x =&gt; x.Name).Execute();
+</pre></div><br /><a name="Transactions"></a><b>Transactions</b><br />FluentData supports transactions. When you use transactions its important to wrap the code inside a using statement to make sure that the database connection is closed. By default, if any exception occur or if Commit is not called then Rollback will automatically be called.<br /><div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">using</span> (<span style="color:Blue;">var</span> context = Context.UseTransaction(<span style="color:Blue;">true</span>))
+{
+	context.Sql(<span style="color:#A31515;">&quot;update Product set Name = @0 where ProductId = @1&quot;</span>)
+				.Parameters(<span style="color:#A31515;">&quot;The Warren Buffet Way&quot;</span>, 1)
+				.Execute();
+
+	context.Sql(<span style="color:#A31515;">&quot;update Product set Name = @0 where ProductId = @1&quot;</span>)
+				.Parameters(<span style="color:#A31515;">&quot;Bill Gates Bio&quot;</span>, 2)
+				.Execute();
+
+	context.Commit();
+}
+</pre></div><br /><a name="EntityFactory"></a><b>Entity factory</b><br />The entity factory is responsible for creating object instances during automapping. If you have some complex business objects that require special actions during creation, you can create your own custom entity factory:<br /><div style="color:Black;background-color:White;"><pre>
+List&lt;Product&gt; products = Context.EntityFactory(<span style="color:Blue;">new</span> CustomEntityFactory())
+			.Sql(<span style="color:#A31515;">&quot;select * from Product&quot;</span>)
+			.QueryMany&lt;Product&gt;();
+
+<span style="color:Blue;">public</span> <span style="color:Blue;">class</span> CustomEntityFactory : IEntityFactory
+{
+	<span style="color:Blue;">public</span> <span style="color:Blue;">virtual</span> <span style="color:Blue;">object</span> Resolve(Type type)
+	{
+		<span style="color:Blue;">return</span> Activator.CreateInstance(type);
+	}
+}
+</pre></div></div><div class="ClearBoth"></div>

@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "898124",
+    "ThreadId": "391018",
+    "Html": "\r\n<p>Hi.</p>\r\n<p>When I try to install FluentData 2.3.0 with NuGet 2.0.x Package Manager Console in Microsoft Visual Web Developer 2010 Express the reply only says [Successfully installed 'FluentData 2.3.0'] and not [Successfully added 'FluentData 2.3.0' to ...].</p>\r\n<p>FluentData is also not added to References and the Packages\\FluentData 2.3.0 folder only contains FluentData.2.3.0.nupkg and FluentData.dll.</p>\r\n<p>When I install version 2.2.0 there seems to be no problem. Both messages are displayed in the Console, FluentData is added to References, and the dll is contained in a lib\\net40 folder.</p>\r\n<p>Is it only me or could someone confirm the problems described above?</p>\r\n<p>Thanks in advance and regards,</p>\r\n<p>Ronald.</p>\r\n",
+    "PostedDate": "2012-08-10T09:19:10.357-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "898886",
+    "ThreadId": "391018",
+    "Html": "<p>Hi, sorry about this. This should now be fixed. I just replaced my PC and the NuGet files was in the wrong folder during build + CodePlex didn't give me a notification about your post until now.</p>\r\n<p>&nbsp;</p>\r\n<p>Regards,<br />Lars-Erik Kindblad&nbsp;</p>",
+    "PostedDate": "2012-08-13T12:06:16.697-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "899216",
+    "ThreadId": "391018",
+    "Html": "<p>No problem. Glad that it's sorted out.</p>\r\n<p>Thank you for creating and maintaining FluentData.</p>\r\n<p>Regards,<br /><br /><br />Ronald.</p>",
+    "PostedDate": "2012-08-14T09:31:12.047-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

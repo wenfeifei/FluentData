@@ -1,0 +1,45 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "Hi.\n\n i have a problem when i try to update and insert using a builder with automapping.\n\nI try to use the code in VB.NET. the error is in the AutoMap.\n\ncan anyone help me with this error?\n\nthanks\n\n\"Out could not be carried overload resolution because you can not call Public ' AutoMap ' with these arguments : 'Public Overrides Function AutoMap ( ParamArray ignoreProperties As System.Linq.Expressions.Expression`1 [ [ System.Func (Of Func (Of broker_futuros , Object) ) () ) As FluentData.IUpdateBuilder (Of broker_futuros ) ' : The parameter ' ignoreProperties ' for the argument can not be converted to ' VB $ AnonymousDelegate_1 (Of Object , Object) \"in\" Expression (Of Func (Of broker_futuros , Object) ) ' \"",
+    "LastUpdatedDate": "2015-12-15T17:39:20.443-08:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Unassigned",
+      "Severity": 0,
+      "Id": 0
+    },
+    "ProjectName": "FluentData",
+    "ReportedDate": "2015-07-22T10:40:51.373-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "C# code to VB.NET code",
+    "Type": {
+      "Name": "Unassigned",
+      "Id": 5
+    },
+    "VoteCount": 1,
+    "Id": 2120
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "use C# better.....",
+      "PostedDate": "2015-12-15T17:39:20.443-08:00",
+      "Id": -2147483648
+    }
+  ]
+}

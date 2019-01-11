@@ -1,0 +1,66 @@
+[
+  {
+    "Id": "829312",
+    "ThreadId": "353795",
+    "Html": "\r\n<p>&nbsp;</p>\r\n<div style=\"color:black; background-color:white\">\r\n<pre><span style=\"color:#888888\">entity</span>:\r\n\r\n<span style=\"color:blue\">public</span> <span style=\"color:blue\">class</span> Note\r\n{\r\n    <span style=\"color:blue\">public</span> <span style=\"color:blue\">int</span> ID { <span style=\"color:blue\">get</span>; <span style=\"color:blue\">set</span>; }\r\n    <span style=\"color:blue\">public</span> ModifyType ModifyType { <span style=\"color:blue\">get</span>; <span style=\"color:blue\">set</span>; }\r\n}\r\n\r\n<span style=\"color:#888888\">enum</span>:\r\n\r\n    <span style=\"color:blue\">public</span> <span style=\"color:blue\">enum</span> ModifyType\r\n    {\r\n        Normal = 0,\r\n        New = 1,\r\n        Edit = 2,\r\n        Delete = 3\r\n    }\r\n</pre>\r\n</div>\r\n<p>&nbsp;</p>\r\n<p>then I insert a record:</p>\r\n<p>&nbsp;</p>\r\n<div style=\"color:black; background-color:white\">\r\n<pre>context.Insert(<span style=\"color:#a31515\">&quot;Note&quot;</span>, note).AutoMap(x =&gt; x.ID).Execute();\r\n</pre>\r\n</div>\r\n<p>&nbsp;</p>\r\n<p>It failed.</p>\r\n<p>I got an error : ModifyType has no default value.</p>\r\n<p>I thought internal map is failed, so there is no value insert into&nbsp;ModifyType column.</p>\r\n<p>then I change the code like this:</p>\r\n<pre>context.Insert(<span>&quot;Note&quot;</span>, note).Column(&quot;ModifyType&quot;, (int)note.ModifyType).AutoMap(x =&gt; x.ID).Execute();</pre>\r\n<p>It works.</p>\r\n<p>It's terrible to cast all enum to int manually. Can you sovle this problem in the next version.</p>\r\n<p>Thank you.</p>\r\n",
+    "PostedDate": "2012-04-27T04:28:22.6-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "829314",
+    "ThreadId": "353795",
+    "Html": "<p>Enums are supported for the select queries, but currently not supported for the insert and update builders. But I totally agree with you, I will fix it.</p>",
+    "PostedDate": "2012-04-27T04:34:16.247-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "831874",
+    "ThreadId": "353795",
+    "Html": "<p>I have just checked in a fix for this. I have not created a build yet, I will do that on Sunday.</p>",
+    "PostedDate": "2012-05-03T13:21:43.537-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "831960",
+    "ThreadId": "353795",
+    "Html": "<p>Great!</p>",
+    "PostedDate": "2012-05-03T18:16:58.85-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "833872",
+    "ThreadId": "353795",
+    "Html": "<p>The issue seems still exists...</p>",
+    "PostedDate": "2012-05-09T01:23:55.537-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "834866",
+    "ThreadId": "353795",
+    "Html": "<p>Hopefully this should be fixed now. I've checked in the fix + made a new release. Can you verify that it works?</p>",
+    "PostedDate": "2012-05-10T16:18:41.733-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "834901",
+    "ThreadId": "353795",
+    "Html": "<p>Yeah, it is OK now.</p>\r\n<p>But I find that the AutoMap behavior changed.</p>\r\n<div style=\"color: black; background-color: white;\">\r\n<pre><span style=\"color: blue;\">foreach</span> (<span style=\"color: blue;\">var</span> c <span style=\"color: blue;\">in</span> ignoreColumns)\r\n{\r\n    updateBuilder.AutoMap(c);\r\n}\r\n</pre>\r\n</div>\r\n<p>not equals</p>\r\n<pre>updateBuilder.AutoMap(ignoreColumns);</pre>\r\n<p>My repository method do not work now:</p>\r\n<p>\r\n<div style=\"color: black; background-color: white;\">\r\n<pre><span style=\"color: blue;\">public</span> <span style=\"color: blue;\">virtual</span> <span style=\"color: blue;\">int</span> UpdateIgnore(T entity, <span style=\"color: blue;\">params</span> Expression&lt;Func&lt;T, <span style=\"color: blue;\">object</span>&gt;&gt;[] ignoreColumns)\r\n        {\r\n            <span style=\"color: blue;\">var</span> updateBuilder = GetCurrentContext().Update&lt;T&gt;(_EntityType.Name, entity);\r\n\r\n            <span style=\"color: blue;\">foreach</span> (<span style=\"color: blue;\">var</span> c <span style=\"color: blue;\">in</span> ignoreColumns)\r\n            {\r\n                updateBuilder.AutoMap(c);\r\n            }\r\n            <span style=\"color: blue;\">return</span> updateBuilder.Where(_KeyColumnName, _KeyColumnPropertyInfo.GetValue(entity, <span style=\"color: blue;\">null</span>)).Execute();\r\n        }\r\n</pre>\r\n</div>\r\n</p>\r\n<p>It is not a big problem, I just get a little confuse about AutoMap and Column methods. when I use them together, the behavior sometimes be strange...</p>",
+    "PostedDate": "2012-05-10T19:48:59.963-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "834981",
+    "ThreadId": "353795",
+    "Html": "<p>The difference between AutoMap and Column is that AutoMap will automatically take all the scalar properties (int, string etc)&nbsp;on the entity type and internally call Column(propertyName, propertyValue) for those, while if you use the Column then you manually have to do it yourself.</p>\r\n<p>Looking at your code I see that you call AutoMap multiple times, for each ignore column and thats incorrect. AutoMap should only be called once. So try this:</p>\r\n<div style=\"color: black; background-color: white;\">\r\n<pre><span style=\"color: blue;\">public</span> <span style=\"color: blue;\">virtual</span> <span style=\"color: blue;\">int</span> UpdateIgnore(T entity, <span style=\"color: blue;\">params</span> Expression&lt;Func&lt;T, <span style=\"color: blue;\">object</span>&gt;&gt;[] ignoreColumns)\r\n{\r\n\t<span style=\"color: blue;\">var</span> updateBuilder = GetCurrentContext().Update&lt;T&gt;(_EntityType.Name, entity).AutoMap(ignoreColumns);\r\n\r\n\t<span style=\"color: blue;\">return</span> updateBuilder.Where(_KeyColumnName, _KeyColumnPropertyInfo.GetValue(entity, <span style=\"color: blue;\">null</span>)).Execute();\r\n}\r\n\r\n</pre>\r\n</div>",
+    "PostedDate": "2012-05-11T01:18:21.73-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

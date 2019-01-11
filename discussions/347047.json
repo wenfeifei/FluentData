@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "804483",
+    "ThreadId": "347047",
+    "Html": "\r\n<p>Would be nice to have...</p>\r\n",
+    "PostedDate": "2012-03-02T08:29:54.763-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "804651",
+    "ThreadId": "347047",
+    "Html": "<p>Thank you for the post. NuGet support has now been added, search for FluentData and you will find it :)</p>\r\n<p><br />Regards,<br />Lars-Erik Kindblad</p>",
+    "PostedDate": "2012-03-02T13:18:03.75-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

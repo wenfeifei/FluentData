@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "832074",
+    "ThreadId": "354516",
+    "Html": "<p>this ormis very&nbsp;good,but &nbsp; it&nbsp;Supports multi-table queries? <span>I very much</span><span>&nbsp;</span><span>look forward to your</span><span>&nbsp;</span><span>answer</span></p>",
+    "PostedDate": "2012-05-04T01:55:31.807-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "832080",
+    "ThreadId": "354516",
+    "Html": "<p>Do you mean multiple result sets? Then yes, it's supported:</p>\r\n<p>&nbsp;</p>\r\n<p>\r\n<pre>using (var command = Context().MultiResultSql())\r\n{\r\n\tList categories = command.Sql(\r\n\t\t\t@\"select * from Category;\r\n\t\t\tselect * from Product;\").Query();\r\n\r\n\tList products = command.Query();\r\n}</pre>\r\n</p>\r\n<p>Regards,</p>\r\n<p>Lars-Erik Kindblad</p>",
+    "PostedDate": "2012-05-04T02:12:44.467-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

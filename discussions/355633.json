@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "835844",
+    "ThreadId": "355633",
+    "Html": "\r\n<p>The Dapper ORM has some performance metrics posted at&nbsp;<a href=\"http://code.google.com/p/dapper-dot-net/\">http://code.google.com/p/dapper-dot-net/</a>. They provide a link to the test code:</p>\r\n<p style=\"padding-left:60px\"><strong>Performance benchmarks are available here:&nbsp;<a rel=\"nofollow\" href=\"http://code.google.com/p/dapper-dot-net/source/browse/Tests/PerformanceTests.cs\">http://code.google.com/p/dapper-dot-net/source/browse/Tests/PerformanceTests.cs</a>&nbsp;,\r\n Feel free to submit patches that include other ORMs -&nbsp;</strong><span>when running benchmarks, be sure to compile in Release and not attach a debugger (ctrl F5)</span></p>\r\n<p>It would be interesting to see how FluentData holds up.</p>\r\n",
+    "PostedDate": "2012-05-13T17:52:29.33-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "835932",
+    "ThreadId": "355633",
+    "Html": "<p>The current focus is to implement the features that is important to make FluentData into an even more efficient and easy to use framework (<a href=\"https://trello.com/board/fluentdata/4e9e67b519c2820000029f57\">the road map is available here</a>). This phase will last until July or August. The next phase will be performance monitoring and improvements, and that will be started in August and should take about a month. When that phase is done I will post a comparison report against other ORMs.</p>",
+    "PostedDate": "2012-05-14T01:04:17.057-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

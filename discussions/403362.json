@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "942196",
+    "ThreadId": "403362",
+    "Html": "\r\n<p>Hi,</p>\r\n<p>When I implement the equivalent of the code below I get this exception message:</p>\r\n<p>An expression of non-boolean type specified in a context where a condition is expected, near ')'.</p>\r\n<p>Unfortunately I can't see the sql that's being generated to see what's up.</p>\r\n<p>Cheers</p>\r\n<p>&nbsp;</p>\r\n<div style=\"color:black; background-color:white\">\r\n<pre>List&lt;<span style=\"color:blue\">int</span>&gt; ids = <span style=\"color:blue\">new</span> List&lt;<span style=\"color:blue\">int</span>&gt;() { 1, 2, 3, 4 };\n\n<span style=\"color:blue\">dynamic</span> products = Context().Sql(<span style=\"color:#a31515\">@&quot;select * from Product\n\t\t\twhere ProductId in(@0)&quot;</span>, ids).Query();\n\n\n</pre>\r\n</div>\r\n",
+    "PostedDate": "2012-11-15T09:40:48.547-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "946805",
+    "ThreadId": "403362",
+    "Html": "\r\n<p>Can you give me your SQL and database schema? Then I will try it locally and fix it.</p>\r\n",
+    "PostedDate": "2012-11-25T16:29:07.48-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

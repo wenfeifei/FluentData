@@ -1,0 +1,55 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "I believe you have a bug in your FluentData.DbCommand.QuerySingle<TEntity>(Action<Tentity, dynamic> customMapper) method.\n\nYou call QueryHandler like this:\nitem = new QueryHandler<TEntity>(Data).ExecuteSingle(customMapper, null)\n\nbut that is incorrect for the \"Action<Tentity, dynamic> customMapper\" type.\n\nIt should be \nitem = new QueryHandler<TEntity>(Data).ExecuteSingle(null, customMapper)\njust like it is in FluentData.DbCommand.QueryMany.\n\nThis causes code like this to not work at all:\n```\nProduct products = Context.Sql(@\"select * from Product where ProductId = 1\")\n\t\t\t.QuerySingle<Product>(Custom_mapper_using_dynamic);\n\npublic void Custom_mapper_using_dynamic(Product product, dynamic row)\n{\n\tproduct.ProductId = row.ProductId;\n\tproduct.Name = row.Name;\n}\n```\n\nInside Custom_mapper_using_dynamic, you will get an exception on the 1st line because the row object does not contain that data.\n\nA workaround for is to use QueryMany and then just get back a List<> of size 1. But it would be better to fix QuerySingle.",
+    "LastUpdatedDate": "2014-09-03T23:14:07.543-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Unassigned",
+      "Severity": 0,
+      "Id": 0
+    },
+    "ProjectName": "FluentData",
+    "ReportedDate": "2013-07-02T08:10:39.05-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Issue with QuerySingle and custom mapping",
+    "Type": {
+      "Name": "Unassigned",
+      "Id": 5
+    },
+    "VoteCount": 2,
+    "Id": 1731
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "I see the same issue.\r\n\r\nWhen I step in to debugger there, row is of type FluentData.DataReader. Since I'm using SQL, the InnerReader is System.Data.SqlClient.SqlDataReader. When I enumerate Results View of the Inner Reader, I get \"Enumeration yielded no results\".\r\n\r\nWhen I use QueryMany() instead, the datatype of row is FluentData.DynamicDataReader.",
+      "PostedDate": "2014-01-15T17:17:34.563-08:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2014-04-03T04:01:33.093-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "Yes, I got the same issue, i spent almost the whole day trying to debug my code and see the problem.\nThe problem was with the error msg:\r\n\r\n'object' does not contain a definition for (field name).\r\n\r\nbut if you do QueryMany<>().FirstOrDefault() its works like a charm.\r\n\r\nBut if you insist to use the QuerySingle<> then you can use custom mapping with IDataReader row like the code below:\r\n\r\n        public static product Get_ProductInfo(int proId)\n        {\n            using (var _db = FluentContext.Context())\n            {\n                return _db.Sql(SQL.Get_ProductInfo).Parameters(proId).QuerySingle<product >(CustomMapper.Custom_mapper_product);\n            }\n        }\r\n\r\n\n        public static void Custom_mapper_product (product _product, FluentData.IDataReader  row)\n        {\n            _product .product _Type = Convert.ToInt32(row.GetValue(\"product _Type\"));\n            _product .Book_Title = (string)row.GetValue(\"product _Title\");\n            _product .Book_Summary = (string)row.GetValue(\"product _Summary\");\n            _product .Book_Content = (string)row.GetValue(\"product _Content\");\n            _product .Book_Date = Convert.ToDateTime(row.GetValue(\"product _Date\"));\n        }",
+      "PostedDate": "2014-09-03T23:14:07.543-07:00",
+      "Id": -2147483648
+    }
+  ]
+}

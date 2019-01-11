@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "941927",
+    "ThreadId": "403266",
+    "Html": "\r\n<p></p>\r\n<div style=\"color:black; background-color:white\">\r\n<pre> <span style=\"color:blue\">public</span> <span style=\"color:blue\">string</span> GetString(<span style=\"color:blue\">string</span> name)\r\n        {\r\n            <span style=\"color:blue\">return</span> _innerReader.GetString(GetOrdinal(name));\r\n        }\r\n</pre>\r\n</div>\r\n<p></p>\r\n<p>if value is DbNull for error</p>\r\n<p>fix&nbsp;</p>\r\n<p></p>\r\n<div style=\"color:black; background-color:white\">\r\n<pre>  <span style=\"color:blue\">public</span> <span style=\"color:blue\">virtual</span> <span style=\"color:blue\">string</span> GetString(<span style=\"color:blue\">int</span> i)\r\n        {\r\n            <span style=\"color:blue\">if</span> (_dataReader.IsDBNull(i))\r\n                <span style=\"color:blue\">return</span> <span style=\"color:blue\">string</span>.Empty;\r\n            <span style=\"color:blue\">else</span>\r\n                <span style=\"color:blue\">return</span> _dataReader.GetString(i);\r\n        }\r\n</pre>\r\n</div>\r\nGetInt32&nbsp;GetDouble all bug\r\n<p></p>\r\n",
+    "PostedDate": "2012-11-14T19:05:30.217-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "946806",
+    "ThreadId": "403266",
+    "Html": "\r\n<p>Thank you. This is partly fixed in the latest check in, DBNull has been replaced by the default value of the returning type, in this case that is null and not string.empty (I will consider creating an setting for this where you can choose between string.empty\r\n or null). However the latest source code includes some API changes/simplifications so I need to wait a few days until I make a new release in order to update the documentation. I will notify you when the release is out.</p>\r\n",
+    "PostedDate": "2012-11-25T16:31:04.603-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

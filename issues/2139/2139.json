@@ -1,0 +1,39 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "There is a demo in the document for IN clause:\n\n```\nList<int> ids = new List<int>() { 1, 2, 3, 4 };\n//becareful here,don't leave any whitespace around in(...) syntax.\ndynamic products = Context.Sql(@\"select * from Product\n\t\t\twhere ProductId in(@0)\", ids).QueryMany<dynamic>();\n```\n\nThis will only work if the in keyword is lowercase. \n\nRoot cause is that Command\\PartialClasses\\Parameters.cs (Line 58) is using String.Replace to modify the old sql statement but this method is case sensitive, as a result it will not replace either \"IN(@0)\" nor \"In(@0)\"\n\nCan this get fixed? I can submit a patch for this if it's ok.",
+    "LastUpdatedDate": "2016-08-29T00:08:29.26-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Unassigned",
+      "Severity": 0,
+      "Id": 0
+    },
+    "ProjectName": "FluentData",
+    "ReportedDate": "2016-08-23T23:31:45.92-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Bug in IN Operator handler",
+    "Type": {
+      "Name": "Unassigned",
+      "Id": 5
+    },
+    "VoteCount": 2,
+    "Id": 2139
+  },
+  "FileAttachments": [],
+  "Comments": []
+}

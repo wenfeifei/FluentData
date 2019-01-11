@@ -1,0 +1,85 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "table：T_City\nCould not map: T_City_CityId",
+    "LastUpdatedDate": "2013-06-14T00:21:17.947-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "FluentData",
+    "ReportedDate": "2012-05-20T04:19:37.65-07:00",
+    "Status": {
+      "Name": "Resolved",
+      "Id": 7
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "多表连接 不能映射  表名称 有“_”时",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 1257
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "What columns does the T_City table have and what does your .NET code look like?",
+      "PostedDate": "2012-05-20T09:56:14.413-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "table:Business_Login\r\npublic int BusinessId { get; set; }\r\npublic string BusinessName { get; set; }\r\npublic int CityID { get; set; }\r\npublic virtual T_City T_City { get; set; }\r\n\r\ntable:T_City\r\npublic int CityId { get; set; }\r\npublic string CityName { get; set; }\r\n\r\nTest:\r\n var product = Contextt()\r\n                            .Sql(\"select a.*,b.CityId as T_City_CityId,b.CityName as T_City_CityName from Business_Login a left join T_City b on a.CityID=b.CityId where BusinessId = @0\")\r\n                            .Parameters(productId)\r\n                            .QuerySingle<Business_Login>();\r\n\r\n            return product;\r\n\r\n异常：Could not map: T_City_CityId",
+      "PostedDate": "2012-05-20T20:44:10.71-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "Underscore is used as the convention for auto mapping to nested properties, and having underscore in the property name causes a conflict with this convention. However we did a fix not long ago where we added support for having underscore in the first level property name, but your scenario is more complex. Anyways I'm working on a fix for this now, I will make a new release when it's done. Until then you can optionally use the QuerySingleNoAutoMap method, it takes in a method where you can do the mapping manually (more information on this in the documentation).",
+      "PostedDate": "2012-05-22T13:58:58.287-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "I have created a new release now where this should be fixed.",
+      "PostedDate": "2012-06-03T07:36:22.697-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2012-06-03T07:36:59.14-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-02-21T15:35:11.34-08:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-05-16T03:24:27.697-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-05-16T03:24:27.857-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-06-14T00:21:17.947-07:00",
+      "Id": -2147483648
+    }
+  ]
+}

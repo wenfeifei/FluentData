@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "958571",
+    "ThreadId": "407361",
+    "Html": "\r\n<p>Hi,</p>\r\n<p>in the class&nbsp;ExecuteQueryHandler &nbsp;in&nbsp;PrepareDbCommand method</p>\r\n<p>there is an if on&nbsp;_queryAlreadyExecuted.</p>\r\n<p>i wanted to know why is that?</p>\r\n<p>this prevents from changing the parameters from a created query and running it again.</p>\r\n<p>(for example running an insert command multiple times with different parameters)</p>\r\n<p>thanks,</p>\r\n<p>gil</p>\r\n",
+    "PostedDate": "2012-12-19T09:47:35.317-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "981801",
+    "ThreadId": "407361",
+    "Html": "\r\n<p>Hi Gil, the reason for this is that FluentData disposes and cleans up the connection etc after the query has been executed. Also it was a simple prevention against supporting the feature you need since it would make the code more complex and require a change\r\n to many methods on the command object.</p>\r\n<p>I've had some others request the same feature, so I will look into it after the vacation to see how much work it is to fix. But for now I suggest you create a method that creates a new command object every time you call it.</p>\r\n<p>Regards,</p>\r\n<p>Lars-Erik</p>\r\n",
+    "PostedDate": "2012-12-30T09:31:08.753-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "1102802",
+    "ThreadId": "460949",
+    "Html": "I'm experimenting with loading a DB table into a DataTable object using something like:<br />\n<pre><code>Context.Sql(_sql).QuerySingle&lt;DataTable&gt;();</code></pre>\n\nThe resulting data is placed into a GridView for interactive User modification.  Once a row has been modified, I need to update the DB with the changes.\r<br />\n<br />\nI have access to the original row data and the updated row data. Does FD have any specific functionalities for DataTable driven modifications?  If not, what's the recommended way of doing this with FD?\r<br />\n<br />\nThanks,\r<br />\n<br />\nJeff Godfrey<br />\n",
+    "PostedDate": "2013-10-02T08:49:19.547-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1104158",
+    "ThreadId": "460949",
+    "Html": "DataTable updates are not supported.\r<br />\n<br />\nHowever I don't recommend using DataTables in general, instead it's better to use a strongly typed object (such as a Product class) and the update and insert builders.<br />\n",
+    "PostedDate": "2013-10-06T01:18:23.073-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1112279",
+    "ThreadId": "460949",
+    "Html": "Thanks for the response, and sorry for the late reply\r<br />\n<br />\nIn my case, I can't use strongly typed objects as I'm building a &quot;generic&quot; table editor.  So, it needs to be able to successfully perform basic CRUD operations on any random table it's pointed at.  That's why I'm experimenting with loading data into a DataTable object.  Based on the need for the app to interact with unknown table schemas, do you have any general advice or recommendations for performing CRUD via FD?\r<br />\n<br />\nThanks,\r<br />\n<br />\nJeff<br />\n",
+    "PostedDate": "2013-10-25T15:09:16.13-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "1070785",
+    "ThreadId": "450676",
+    "Html": "Hi guys am new to the fluentdata &amp; also to mvc.but earlier i have worked using entityframe work.\r<br />\nbt nw i have to use FluentData for my coming project.please share some useful information.<br />\n",
+    "PostedDate": "2013-07-20T05:38:52.073-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1074060",
+    "ThreadId": "450676",
+    "Html": "You can give a try to Fluency Template. <a href=\"https://fluentdata.codeplex.com/wikipage?title=Fluency&amp;referringTitle=Home\" rel=\"nofollow\">https://fluentdata.codeplex.com/wikipage?title=Fluency&referringTitle=Home</a>\r<br />\nIn order to make it simple instead of registering the external tool for template simply include the template in your Visual Studio Project. Then update it somthing like below where all you need is to hardcode the namespace, connection string and connection string name values in template. Finally when you will save the changes it will ask you to exectue the template. If every thing goes smooth it will generate the Domain layer code. You can read more about using the generated code in WIKI article I mentioned above.<br />\n<pre><code>string ns = &quot;Your.Domain&quot;; //Host.ResolveParameterValue(null, null, &quot;ns&quot;);\nstring connectionString = &quot;Server=.;Database=YOUR_DB_NAME;Trusted_Connection=true&quot;; //Host.ResolveParameterValue(null, null, &quot;cs&quot;);\nstring connectionStringName = &quot;YOUR_CONNECTION_STRING_NAME&quot;; //Host.ResolveParameterValue(null, null, &quot;csn&quot;);</code></pre>\n\n",
+    "PostedDate": "2013-07-28T09:14:48.57-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1077094",
+    "ThreadId": "450676",
+    "Html": "Hi Folks i am retrieving Name from database to drop down list. Now i want to display the selected  value from DropDown in a page. My code is like follows to retrieve data,am using Fluent data as a framework.\r<br />\nMy COntroller Action is\r<br />\n<br />\n<br />\nvar query = Abc.GetProducts();<br />\n<pre><code>        ViewBag.EnterpriseId = new SelectList(query.AsEnumerable(), &quot;EnterpriseId&quot;, &quot;Name&quot;);\n        return View();\n</code></pre>\n\nMy view is ,\r<br />\n<a href=\"mailto:@Html.DropDownList(&quot;EnterpriseID&quot;,\" rel=\"nofollow\">@Html.DropDownList(\"EnterpriseID\",</a> (SelectList) ViewBag.EnterpriseID, &quot;--Select Resource--&quot;)<br />\n",
+    "PostedDate": "2013-08-06T00:28:56.02-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

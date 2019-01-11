@@ -1,0 +1,39 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "#First\nI implement my CustomEntityFactory, so when I use QuerySingle<TEntityInterface>()\nI can create the Entity by my CustomerEntityFactory\n\nSo I change the code of   QueryHandler<TEntity> to support I needs\n\nIf use the origin code ,  use QuerySingle<TEntityInterface>()  will throw a excepiton Object must implement IConvertible\n\nPlease consider joining these codes\n\n```\n public QueryHandler(DbCommandData data)\n        {\n            _data = data;\n            if (typeof(TEntity) == typeof(object) || typeof(TEntity) == typeof(ExpandoObject))\n                _typeHandler = new QueryDynamicHandler<TEntity>(data);\n            else if (typeof(TEntity) == typeof(DataTable))\n                _typeHandler = new QueryDataTableHandler<TEntity>(data);\n            else if (ReflectionHelper.IsCustomEntity<TEntity>())\n                _typeHandler = new QueryCustomEntityHandler<TEntity>(data);\n            /***************************************the code*******************************************/\n            else if (data.Context.Data.EntityFactory.GetType() != typeof(EntityFactory))\n                _typeHandler = new QueryCustomEntityHandler<TEntity>(data);\n              /*****************************************************************************************/\n            else\n                _typeHandler = new QueryScalarHandler<TEntity>(data);\n        }\n```\n\nthis is the code of my entityfactory\n```\npublic class CustomEntityFactory : IEntityFactory\n        { \n            public object Create(Type type)\n            {\n                if (!type.IsInterface)\n                    throw new Exception(\"my EntityFactory 非接口类型\");\n\n                var implType = GetImplTypeMethod(type);  //GetImplTypeMethod is Pseudocode\n\n                return Activator.CreateInstance(implType);\n            }\n        }\n```\n#Second\n\nwhen I use my CustomEntityFactory,  the real type  is a subclass of the the query type\n\nbut the automap use ReflectionHelper.GetProperties(itemType) to get the properties of the query type.\nso if  the subclass has some of the properties of the query type does not, automap will miss these  properties\n\nso I use the code like this \n```\ninternal class AutoMapper\n\t{\n\t\tprivate readonly DbCommandData _dbCommandData;\n\t\t//private readonly Dictionary<string, PropertyInfo> _properties;  //__delete by me__\n\t\tprivate readonly List<DataReaderField> _fields;\n\t\tprivate readonly System.Data.IDataReader _reader;\n\n        //__should remove the  parameter  named itemType__\n\t\tinternal AutoMapper(DbCommandData dbCommandData, Type itemType)\n\t\t{\n\t\t\t_dbCommandData = dbCommandData;\n\t\t\t_reader = dbCommandData.Reader.InnerReader;\n\t\t\t//_properties = ReflectionHelper.GetProperties(itemType); //__delete by me__\n\t\t\t_fields = DataReaderHelper.GetDataReaderFields(_reader);\n\t\t}\n\n\t\tpublic void AutoMap(object item)\n\t\t{ \n            // add by me  :__use the real type__ \n            var _properties = ReflectionHelper.GetProperties(item.GetType());\n\n\t\t\tforeach (var field in _fields)\n\t\t\t{\n                        ...............................\n\t\t\t}\n\t\t}\n\t}\n```",
+    "LastUpdatedDate": "2016-08-29T00:18:30.16-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Unassigned",
+      "Severity": 0,
+      "Id": 0
+    },
+    "ProjectName": "FluentData",
+    "ReportedDate": "2013-08-08T01:05:19.787-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "QueryHandler<TEntity>:Object must implement IConvertible",
+    "Type": {
+      "Name": "Unassigned",
+      "Id": 5
+    },
+    "VoteCount": 2,
+    "Id": 1754
+  },
+  "FileAttachments": [],
+  "Comments": []
+}

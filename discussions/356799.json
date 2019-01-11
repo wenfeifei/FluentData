@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "839745",
+    "ThreadId": "356799",
+    "Html": "\r\n<p></p>\r\n<div style=\"color:black; background-color:white\">\r\n<pre>context.Insert(<span style=\"color:#a31515\">&quot;Book&quot;</span>, item).Execute();\r\n</pre>\r\n</div>\r\n<p></p>\r\n<p>When I do it like this, it will cause an exception. 'XXX has not a default value.'</p>\r\n<p>It forces me to invole automap or column method.</p>\r\n<p>But my Id is not auto-increment, so i just want to insert everything into db.</p>\r\n<p>How could I do?</p>\r\n",
+    "PostedDate": "2012-05-22T23:13:51.38-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "839776",
+    "ThreadId": "356799",
+    "Html": "<p>The insert builder supports manual mapping and auto mapping.</p>\r\n<p>The manual mapping approach is basically an include approach where you define what columns you would like to include in the insert query:<br />context.Insert(\"Book\", item).Column(x =&gt; x.CategoryId).Column(x =&gt; x.Name).Execute();&nbsp;</p>\r\n<p>While the auto mapping will automatically include all the columns into the insert query:<br />context.Insert(\"Book\", item).AutoMap().Execute();</p>\r\n<p>or all the columns except one or more:<br />context.Insert(\"Book\", item).AutoMap(x =&gt; x.CategoryId).Execute();</p>\r\n<p>The reasons for supporting these approaches is that one might have slightly different business models and needs. For instance the auto mapping approach with or without excludes is perfect to use in a project with few developers where the developers have 100% track of the source code. Because if you add a new property to your .NET entity class and you forget or do not want this property to be part of your insert query then you need to remember to add an exclude otherwise the insert query will fail (if the new property do not have a matching column in the database).<br />However for the manual approach, if you have a many developers and few integration tests, then explicitly defining all the columns to be part of the insert query is safer since the insert query will be unaffected and will not fail when you add a new property that do not have a matching column in the database.</p>\r\n<p>Calling AutoMap whenever you want to auto map is one extra operations but it gives you much more flexibility.</p>\r\n<p>So the answer:&nbsp;context.Insert(\"Book\", item).AutoMap().Execute();</p>",
+    "PostedDate": "2012-05-23T00:57:44.903-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "839795",
+    "ThreadId": "356799",
+    "Html": "<p>&nbsp;</p>\r\n<div style=\"color: black; background-color: white;\">\r\n<pre>context.Insert(<span style=\"color: #a31515;\">\"Book\"</span>, item).AutoMap().Execute();</pre>\r\n<p>It works! Thank you!</p>\r\n</div>",
+    "PostedDate": "2012-05-23T01:56:10.293-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

@@ -1,0 +1,27 @@
+Index: Source/Main/FluentData/Providers/PostgreSqlProvider.cs
+===================================================================
+--- Source/Main/FluentData/Providers/PostgreSqlProvider.cs	(revision 41404)
++++ Source/Main/FluentData/Providers/PostgreSqlProvider.cs	(working copy)
+@@ -105,16 +105,16 @@
+ 		}
+ 
+ 		public object ExecuteReturnLastId<T>(IDbCommand command, string identityColumnName = null)
+-		{
+-			if(command.Data.Sql[command.Data.Sql.Length - 1] != ';')
+-				command.Sql(";");
+-			command.Data.InnerCommand.CommandText += "select lastval();";
+-
++		{			         
+ 			object lastId = null;
+ 
+ 			command.Data.ExecuteQueryHandler.ExecuteQuery(false, () =>
+ 			{
+-				lastId = command.Data.InnerCommand.ExecuteScalar();
++               // if (command.Data.Sql[command.Data.Sql.Length - 1] != ';')
++                //    command.Sql(";");
++                command.Data.InnerCommand.CommandText += ";select lastval();";
++
++                lastId = command.Data.InnerCommand.ExecuteScalar();
+ 			});
+ 
+ 			return lastId;

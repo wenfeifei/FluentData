@@ -1,0 +1,10 @@
+[
+  {
+    "Id": "1453783",
+    "ThreadId": "648049",
+    "Html": "I tried to create a WinForm project and use the MySQL and FluentData. Results showed that cannot connect to MySQL, run-time prompts: &quot;the request could not be found. Net Framework Data Provider, and may not be installed. ”<br />\n<br />\n1) I downloaded and installed the Oracle website MySQL Connector Net and MySQL Connector ODBC, MySQL.Data.dll was also referenced in the project.<br />\n<br />\n2) MySQL.Data.dll referenced in my WinForm project and effectively through ADO.NET to access MySQL, but FluentData is not accessible.<br />\n<br />\nCan provide simple examples for FluentData access to MySQL, including how to configure MySQL development environment using FluentData.<br />\n<br />\nThank you so much.<br />\n",
+    "PostedDate": "2015-11-25T19:18:39.953-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

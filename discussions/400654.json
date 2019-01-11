@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "931858",
+    "ThreadId": "400654",
+    "Html": "\r\n<p>Hello.</p>\r\n<p>I've been using the FluentData API for a few days now and I'm very happy with it. &nbsp;However, I've run into one problem. &nbsp;My updates are very very slow.</p>\r\n<p>I'm using the same construct I do for inserts. &nbsp;But, this contstruct is too slow for the updates. &nbsp;Simply put I have a list of objects and I want to use that list to update a table in the data base.</p>\r\n<p>Here is what I'm doing.</p>\r\n<p>using (var command = Context())&nbsp;</p>\r\n<p>{</p>\r\n<p><span>&nbsp;</span>foreach (var employee in employees)&nbsp;<span> </span></p>\r\n<p><span style=\"white-space:pre\">&nbsp;</span>{&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>\r\n<p><span style=\"white-space:pre\">&nbsp;</span>int rowsAffected =</p>\r\n<p>&nbsp; &nbsp; &nbsp; &nbsp; Context().Update&lt;Some.Table&gt;(&quot;Some.Tabe&quot;, employee)&nbsp;<span>\r\n</span>.Column(x =&gt; x.FirstName)&nbsp;<span style=\"white-space:pre\"> </span>.Where(x =&gt; x.EmployeeNumber)</p>\r\n<p>.Execute();</p>\r\n<p>}<br>\r\n}</p>\r\n<p>&nbsp;</p>\r\n<p>35k records are taking about 20mins to update.</p>\r\n<p>Thank you so much for any input.</p>\r\n<p>&nbsp;</p>\r\n<p>M.</p>\r\n",
+    "PostedDate": "2012-10-24T10:01:19.2-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "932224",
+    "ThreadId": "400654",
+    "Html": "<p>Can you try to change:<br /><span>using (var command = Context())&nbsp;</span></p>\r\n<p><span>&nbsp;</span>into:<br />using (var command = Context().UseSharedConnection(true))&nbsp;&nbsp;</p>\r\n<p>since you do many updates then this will tell fluentdata to use the same connection for all of them.</p>\r\n<p>&nbsp;</p>\r\n<p>Regards,</p>\r\n<p>Lars-Erik Kindblad</p>",
+    "PostedDate": "2012-10-25T01:41:46.59-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

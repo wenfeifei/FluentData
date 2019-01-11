@@ -1,0 +1,114 @@
+[
+  {
+    "Id": 1030,
+    "Title": "Ability to specify Command Timeout"
+  },
+  {
+    "Id": 1179,
+    "Title": "Missing files in Changeset 15380."
+  },
+  {
+    "Id": 1256,
+    "Title": "conversion problem"
+  },
+  {
+    "Id": 1257,
+    "Title": "多表连接 不能映射  表名称 有“_”时"
+  },
+  {
+    "Id": 1328,
+    "Title": "can you give me the file\"D:\\Google Drive\\AppSettings\\FluentData.IntegrationTests\\App.config\""
+  },
+  {
+    "Id": 1329,
+    "Title": "ExecuteReturnLastId seems broken"
+  },
+  {
+    "Id": 1600,
+    "Title": "Column names are added multiple times to the BuilderData.Columns collection if AutoMap is incoked multiple times"
+  },
+  {
+    "Id": 1617,
+    "Title": "Must declare the scalar variable"
+  },
+  {
+    "Id": 1638,
+    "Title": "SQL parameter problem when used with LIKE..."
+  },
+  {
+    "Id": 1653,
+    "Title": "Can't access multiple result sets using List<Dynamic>"
+  },
+  {
+    "Id": 1679,
+    "Title": "oracle parameter issue"
+  },
+  {
+    "Id": 1723,
+    "Title": "Problem with QueryComplexMany and dynamic?"
+  },
+  {
+    "Id": 1731,
+    "Title": "Issue with QuerySingle and custom mapping"
+  },
+  {
+    "Id": 1742,
+    "Title": "conversion problem"
+  },
+  {
+    "Id": 1747,
+    "Title": "FluentData.IDbCommand does not contain definition for 'Query' error"
+  },
+  {
+    "Id": 1753,
+    "Title": "Too many parameters were provided in this RPC request. The maximum is 2100"
+  },
+  {
+    "Id": 1754,
+    "Title": "QueryHandler<TEntity>:Object must implement IConvertible"
+  },
+  {
+    "Id": 1953,
+    "Title": "Unable to find the requested .Net Data Provider."
+  },
+  {
+    "Id": 1992,
+    "Title": "Automatically Detect Table Schema/Namespace"
+  },
+  {
+    "Id": 2033,
+    "Title": "Support for Oracle Managed Data Access Client"
+  },
+  {
+    "Id": 2037,
+    "Title": "Stored Procedure with return type"
+  },
+  {
+    "Id": 2052,
+    "Title": "Supports the Sybase"
+  },
+  {
+    "Id": 2070,
+    "Title": "Support for Parallel ?"
+  },
+  {
+    "Id": 2104,
+    "Title": "bool? conversion cause an exception"
+  },
+  {
+    "Id": 2120,
+    "Title": "C# code to VB.NET code"
+  },
+  {
+    "Id": 2122,
+    "Title": "ExecuteReturnLastId within postgres"
+  },
+  {
+    "Id": 2139,
+    "Title": "Bug in IN Operator handler"
+  },
+  {
+    "Id": 2141,
+    "Title": "About QuerySingle<DataTable>()"
+  }
+]

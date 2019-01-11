@@ -1,0 +1,45 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "Please, very urgent\n\nparameters are not working with OracleProvider\n\ndynamic result = Context().Sql(\n\"select * from sup_equipements where rownum < @ProductId\").Parameter(\"@ProductId\", 50).QueryMany<dynamic>();\n\nORA-00936: expression absente\n\nis it possible to trace the SQL that is generated ?",
+    "LastUpdatedDate": "2013-05-17T04:41:59.413-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Unassigned",
+      "Severity": 0,
+      "Id": 0
+    },
+    "ProjectName": "FluentData",
+    "ReportedDate": "2013-05-16T07:32:39.357-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "oracle parameter issue",
+    "Type": {
+      "Name": "Unassigned",
+      "Id": 5
+    },
+    "VoteCount": 1,
+    "Id": 1679
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "Sorry i am a bit dumdum...oracle parameters have to be writen :PARAM\nClose the issue\r\n\r\nis it possible to trace the SQL that is generated ?\r\n\r\nperhaps a small doc about that....write your sql as you would do in a product editor\r\n\r\nthanks",
+      "PostedDate": "2013-05-17T04:41:59.413-07:00",
+      "Id": -2147483648
+    }
+  ]
+}

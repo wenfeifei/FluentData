@@ -1,0 +1,75 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "When I try to insert/update something that is null I got an exception\nI use this construction  \nvar builder = context.Insert(\"Orders\");\nbuilder = builder.Column(\"Comments\", order.Comments);\nthen builder.ExecuteReturnLastId<long>(); fails with the exception below:\n \nImplicit conversion from data type sql_variant to nvarchar is not allowed. Use the CONVERT function to run this query.\n \nThe same problem occur when I have a Nullable<decimal>\n \nImplicit conversion from data type sql_variant to decimal is not allowed. Use the CONVERT function to run this query.\n \nThe workaround for insert was :\n if(order.Comments != null)\n                builder = builder.Column(\"Comments\", order.Comments);\n \nBut now I have to update and don't know what to do",
+    "LastUpdatedDate": "2013-06-14T00:21:18.14-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "FluentData",
+    "ReportedDate": "2012-05-16T01:17:03.947-07:00",
+    "Status": {
+      "Name": "Resolved",
+      "Id": 7
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "conversion problem",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 1256
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "This should be fixed now. I've checked in the code but i did not make a new release yet. However the Single Source File has been updated, so if you want the latest then you can just copy and paste the entire source code into your own project:\r\nhttp://fluentdata.codeplex.com/SourceControl/changeset/view/17166#263251\r\n\r\nCan you please verify that its working?",
+      "PostedDate": "2012-05-17T06:19:39.543-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2012-05-17T06:20:00.72-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "Seems to work! Thanks a lot!",
+      "PostedDate": "2012-05-17T07:16:44.99-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-02-21T15:35:11.54-08:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-05-16T03:24:28.003-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-05-16T03:24:28.193-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-06-14T00:21:18.14-07:00",
+      "Id": -2147483648
+    }
+  ]
+}

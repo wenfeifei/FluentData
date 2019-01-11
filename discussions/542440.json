@@ -1,0 +1,66 @@
+[
+  {
+    "Id": "1234761",
+    "ThreadId": "542440",
+    "Html": "I am using PostgreSql database. I want to use the SQL IN Operator. I have an SQL Statement:<br />\n<pre><code>SELECT u.id, u.username, u.name\nFROM users u\nWHERE u.username IN ('name1', 'name2','name3’);</code></pre>\n\n<pre><code>unames = “name1, name2,name3&quot;;</code></pre>\n\nThe Fluent data command I am using is:<br />\n<pre><code>var managerId = context.Sql(GET_MANAGERS_IDS)\n    .Parameter(&quot;Usernames&quot;,unames)\n    .QueryMany&lt;ReportStructure&gt;();</code></pre>\n\nIs there a way to do this? I have tried multiple ways to do this. When I run the query it fails and the sql generated is:<br />\n<pre><code>SELECT … u.username IN ((‘name1,name2,name3')::text)</code></pre>\n\nCan this be done?<br />\n",
+    "PostedDate": "2014-04-16T08:58:01.837-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1234766",
+    "ThreadId": "542440",
+    "Html": "Yes, have a look at this sample code:\r<br />\n<br />\nvar ids = new List&lt;int&gt;() { 1, 2, 3, 4 };\r<br />\n<br />\nvar products = Context.Sql(&quot;select * from Product where ProductId in(:0)&quot;, ids).QueryMany&lt;Product&gt;();\r<br />\n<br />\nDoes it work?<br />\n",
+    "PostedDate": "2014-04-16T09:20:16.097-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1234786",
+    "ThreadId": "542440",
+    "Html": "\r\n<div>\r\n<p><span style=\"font-size:11.0pt; font-family:\">Still have problems I have cut down my sql to:</span></p>\r\n<p><span style=\"font-size:11.0pt; font-family:\">SELECT u.id, u.username FROM users u WHERE u.username IN (:0);</span></p>\r\n<p><span style=\"font-size:11.0pt; font-family:\"></span></p>\r\n<p><span style=\"font-size:10.0pt; font-family:Consolas; color:#1F497D\">unames is a list&lt;string&gt; of two values</span></p>\r\n<p><span style=\"font-size:10.0pt; font-family:Consolas; color:#1F497D\">users[0] = &quot;sheryloleniczak1&quot;</span></p>\r\n<p><span style=\"font-size:10.0pt; font-family:Consolas; color:#1F497D\">users[1] = &quot;Schildwachter&quot;</span></p>\r\n<p><span style=\"font-size:10.0pt; font-family:Consolas; color:#1F497D\"></span></p>\r\n<p><span style=\"font-size:10.0pt; font-family:Consolas; color:#1F497D\">My Fluent Data query is:</span></p>\r\n<p><span style=\"font-size:10.0pt; font-family:Consolas; color:#1F497D\">var reterivedUsers =\r\n</span></p>\r\n<p><span style=\"font-size:10.0pt; font-family:Consolas; color:#1F497D\">context.Sql(&quot;SELECT u.id, u.username FROM users u WHERE u.username IN (:0)&quot;, unames)</span></p>\r\n<p><span style=\"font-size:10.0pt; font-family:Consolas; color:#1F497D\">.QueryMany&lt;ReportStructure&gt;();</span></p>\r\n<p><span style=\"font-size:10.0pt; font-family:Consolas; color:#1F497D\">When I run this I get the following\r\n</span></p>\r\n<p><span style=\"font-size:10.0pt; font-family:Consolas; color:#1F497D\">Message=ERROR: 42601: syntax error at or near &quot;:&quot;</span></p>\r\n<p><span style=\"font-size:10.0pt; font-family:Consolas; color:#1F497D\">ErrorSql=SELECT u.id, u.username FROM users u WHERE u.username IN (:0)</span></p>\r\n<p><span style=\"font-size:10.0pt; font-family:Consolas; color:#1F497D\">Hint=&quot;&quot;</span></p>\r\n<p><span style=\"font-size:10.0pt; font-family:Consolas; color:#1F497D\"></span></p>\r\n<p><span style=\"font-size:10.0pt; font-family:Consolas; color:#1F497D\">When I chnage to SQL statement to\r\n</span></p>\r\n<p><span style=\"font-size:10.0pt; font-family:Consolas; color:#1F497D\">SELECT u.id, u.username FROM users u WHERE u.username IN (@0)</span></p>\r\n<p><span style=\"font-size:10.0pt; font-family:Consolas; color:#1F497D\">like the example in the documentation</span></p>\r\n<p><span style=\"font-size:10.0pt; font-family:Consolas; color:#1F497D\">I get the following\r\n</span></p>\r\n<p><span style=\"font-size:10.0pt; font-family:Consolas; color:#1F497D\">Message = ERROR: 42883: operator does not exist: character varying = integer</span></p>\r\n<p><span style=\"font-size:10.0pt; font-family:Consolas; color:#1F497D\">ErrorSql = SELECT u.id, u.username FROM users u WHERE u.username IN (@0)\r\n</span></p>\r\n<p><span style=\"font-size:10.0pt; font-family:Consolas; color:#1F497D\">Hint = No operator matches the given name and argument type(s). You might need to add explicit type casts</span></p>\r\n<p><span style=\"font-size:10.0pt; font-family:Consolas; color:#1F497D\"></span></p>\r\n<p><span style=\"font-size:10.0pt; font-family:Consolas; color:#1F497D\">If I run the SQL in pgAdmin\r\n</span></p>\r\n<p><span style=\"font-size:10.0pt; font-family:Consolas; color:#1F497D\">SELECT u.id, u.username FROM users u WHERE u.username IN ('sheryloleniczak1', 'Schildwachter')</span></p>\r\n<p><span style=\"font-size:10.0pt; font-family:Consolas; color:#1F497D\">I get two results returned.</span></p>\r\n<p><span style=\"font-size:11.0pt; font-family:\"></span></p>\r\n<div>\r\n<div style=\"border:none; border-top:solid #B5C4DF 1.0pt; padding:3.0pt 0in 0in 0in\">\r\n<p><b><span style=\"font-size:10.0pt; font-family:\"></span></b></p>\r\n</div>\r\n</div>\r\n</div>\r\n",
+    "PostedDate": "2014-04-16T10:12:54.67-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1234794",
+    "ThreadId": "542440",
+    "Html": "Can you try to remove the space between IN and the parenthese so it should instead be in(:0)\r<br />\n<br />\nDoes that help?<br />\n",
+    "PostedDate": "2014-04-16T10:29:57.527-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1234803",
+    "ThreadId": "542440",
+    "Html": "\r\n<div>\r\n<p><span style=\"font-size:11.0pt; font-family:\">Removing the space changes nothing I still get the same error (see previous email).</span></p>\r\n<p><span style=\"font-size:11.0pt; font-family:\">I have solved the problem by building the sql with the parameters embedded and not using Fluent Data to pass parameters.</span></p>\r\n<p><span style=\"font-size:11.0pt; font-family:\"></span></p>\r\n<p><span style=\"font-size:11.0pt; font-family:\">Thank you for your help</span></p>\r\n<p><span style=\"font-size:11.0pt; font-family:\">Roy</span></p>\r\n<p><span style=\"font-size:11.0pt; font-family:\"></span></p>\r\n<p><span style=\"font-size:11.0pt; font-family:\"></span></p>\r\n<div>\r\n<div style=\"border:none; border-top:solid #B5C4DF 1.0pt; padding:3.0pt 0in 0in 0in\">\r\n<p><b><span style=\"font-size:10.0pt; font-family:\"></span></b></p>\r\n</div>\r\n</div>\r\n</div>\r\n",
+    "PostedDate": "2014-04-16T10:45:54.403-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1234823",
+    "ThreadId": "542440",
+    "Html": "This should work, in in lowercase and no space.\r<br />\ncontext.Sql(&quot;SELECT u.id, u.username FROM users u WHERE u.username in(:0)&quot;, unames)<br />\n",
+    "PostedDate": "2014-04-16T11:51:02.277-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1234841",
+    "ThreadId": "542440",
+    "Html": "\r\n<div>\r\n<p><span style=\"font-size:11.0pt; font-family:\">This works but returns nothing. The sql generated by fluent data is:</span></p>\r\n<p><span style=\"font-size:11.0pt; font-family:\">SELECT u.id, u.username FROM users u WHERE u.username in((('''sheryloleniczak1''')::text),(('''posymoe''')::text),(('''mbmbt4''')::text),(('''Schildwachter''')::text))</span></p>\r\n<p><span style=\"font-size:11.0pt; font-family:\"></span></p>\r\n<p><span style=\"font-size:11.0pt; font-family:\">If I replace the ''' with ' it works</span></p>\r\n<p><span style=\"font-size:11.0pt; font-family:\"></span></p>\r\n<p><span style=\"font-size:11.0pt; font-family:\">Roy</span></p>\r\n<p><span style=\"font-size:11.0pt; font-family:\"></span></p>\r\n<p><span style=\"font-size:11.0pt; font-family:\"></span></p>\r\n<div>\r\n<div style=\"border:none; border-top:solid #B5C4DF 1.0pt; padding:3.0pt 0in 0in 0in\">\r\n<p><b><span style=\"font-size:10.0pt; font-family:\"></span></b></p>\r\n</div>\r\n</div>\r\n</div>\r\n",
+    "PostedDate": "2014-04-16T12:55:29.983-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1234843",
+    "ThreadId": "542440",
+    "Html": "\r\n<div>\r\n<p><span style=\"font-size:11.0pt; font-family:\">Please disregard the pervious email. It works and returns the correct data. The problem I listed was my fault.\r\n</span></p>\r\n<p><span style=\"font-size:11.0pt; font-family:\"></span></p>\r\n<p><span style=\"font-size:11.0pt; font-family:\">Thank you for the help</span></p>\r\n<p><span style=\"font-size:11.0pt; font-family:\"></span></p>\r\n<p><span style=\"font-size:11.0pt; font-family:\">Roy</span></p>\r\n<p><span style=\"font-size:11.0pt; font-family:\"></span></p>\r\n<p><span style=\"font-size:11.0pt; font-family:\"></span></p>\r\n<div>\r\n<div style=\"border:none; border-top:solid #B5C4DF 1.0pt; padding:3.0pt 0in 0in 0in\">\r\n<p><b><span style=\"font-size:10.0pt; font-family:\"></span></b></p>\r\n</div>\r\n</div>\r\n</div>\r\n",
+    "PostedDate": "2014-04-16T12:59:49.53-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

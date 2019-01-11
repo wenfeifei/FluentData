@@ -1,0 +1,42 @@
+[
+  {
+    "Id": "914390",
+    "ThreadId": "396014",
+    "Html": "\r\n<p>how to use the SelectBuilder? Please giveme an example. Thank you.</p>\r\n<p></p>\r\n<div style=\"color:black; background-color:white\">\r\n<pre><span style=\"color:blue\">return</span> GetCurrentContext().Select&lt;Domain.Personnel&gt;(<span style=\"color:#a31515\">&quot;Id&quot;</span>).OrderBy(<span style=\"color:#a31515\">&quot;Id&quot;</span>).Paging(pageNum, pageSize).Query();\n</pre>\r\n</div>\r\n<p></p>\r\n<p>It will occur an error.</p>\r\n",
+    "PostedDate": "2012-09-18T18:55:36.613-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "914803",
+    "ThreadId": "396014",
+    "Html": "<p>You are missing From, try:</p>\r\n<pre><span>return</span> GetCurrentContext().Select&lt;Domain.Personnel&gt;(<span>\"Id\"</span>).From(\"YourTable\").OrderBy(<span>\"Id\"</span>).Paging(pageNum, pageSize).Query();</pre>",
+    "PostedDate": "2012-09-19T13:20:14.507-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "914910",
+    "ThreadId": "396014",
+    "Html": "<p>Thanks.</p>\r\n<p>And does SelectBuilder support inner/left join?</p>",
+    "PostedDate": "2012-09-19T18:01:15.37-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "915174",
+    "ThreadId": "396014",
+    "Html": "<p>Sorry that the documentation hasn't been updated yet, it will be soon.</p>\r\n<p>Yes, joins are supported:</p>\r\n<p>GetCurrentContext()<br /><span style=\"white-space: pre;\"> </span>.Select&lt;Product&gt;(\"p.ProductId, c.Name\")<br /><span style=\"white-space: pre;\"> </span>.From(\"Product p inner join Category c on c.CategoryId = p.CategoryId)<br /><span style=\"white-space: pre;\"> </span>.Where(\"ProductId = @ProductId\")<br /><span style=\"white-space: pre;\"> </span>.Parameter(\"ProductId\", productIdVariable)<br /><span style=\"white-space: pre;\"> </span>.OrderBy(\"p.ProductId\")<br /><span style=\"white-space: pre;\"> </span>.Paging(pageNum, pageSize).Query();</p>\r\n<p>So you can basically do whatever you want to within the Select clause and Where clause since FluentData do not enforce any restrictions there. So you can use inner joins, left joins etc.</p>",
+    "PostedDate": "2012-09-20T06:51:04.243-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "915467",
+    "ThreadId": "396014",
+    "Html": "<p>Thank you, it's helpful.</p>",
+    "PostedDate": "2012-09-20T17:53:55.78-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

@@ -1,0 +1,50 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "Using 2.2.2\n\nThere doesn't seem to be any way at all to access the separate result sets from a MultiResultStoredProcedure without serialising the output. \n\nIs there no way to simply index into the results? When I do .Query()[1] I just get one row from the first table (which is to be expected if Query is just returning the first set of data)",
+    "LastUpdatedDate": "2013-04-21T02:30:24.083-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Unassigned",
+      "Severity": 0,
+      "Id": 0
+    },
+    "ProjectName": "FluentData",
+    "ReportedDate": "2013-04-16T05:29:43.433-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Can't access multiple result sets using List<Dynamic>",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 1653
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "No, there is no way to simply index into the result. You would have to do this (v3 code sample, similar concept in v2.2):\nusing (var proc = Context.StoredProcedure(\"GetProductsAndCategories\").UseMultiResult(true))\n{\n\tvar products = proc.QueryMany<dynamic>();\n\tvar categories = proc.QueryMany<dynamic>();\n}\r\n\r\n",
+      "PostedDate": "2013-04-21T02:28:33.91-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "Though your proposed feature is interesting and something I will look into.",
+      "PostedDate": "2013-04-21T02:30:24.083-07:00",
+      "Id": -2147483648
+    }
+  ]
+}

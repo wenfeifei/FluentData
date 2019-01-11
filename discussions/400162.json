@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "929847",
+    "ThreadId": "400162",
+    "Html": "\r\n<p>Any plans to make FluentData work with the Oracle Instant Client? I&nbsp;really&nbsp;liked this project but the need to install the entire data provider is a show&nbsp;stopper&nbsp;to me.&nbsp;</p>\r\n<p>Thx in advance!</p>\r\n",
+    "PostedDate": "2012-10-20T11:57:34.993-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "931037",
+    "ThreadId": "400162",
+    "Html": "<p>I haven't heard about the Oracle Instant Client until you mention it. FluentData is based on the ADO.NET provider model. The disadvantage of this model is as you say that you need to install the entire data provider, but I see no other way around it since I don't want a tight coupling between any Oracle component and FluentData.</p>\r\n<p>&nbsp;</p>\r\n<p>Regards,<br />Lars-Erik kindblad&nbsp;</p>",
+    "PostedDate": "2012-10-23T06:01:14.293-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

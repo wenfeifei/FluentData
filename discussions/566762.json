@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "1302310",
+    "ThreadId": "566762",
+    "Html": "Hi.\r<br />\n<br />\nIs there a way to run compact &amp; repair by using <strong><em>FluentData</em></strong> alone - without using COM or MS Office Object Library?\r<br />\n<br />\nthanks :-)<br />\n",
+    "PostedDate": "2014-09-08T00:05:57.647-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1307723",
+    "ThreadId": "566762",
+    "Html": "Hi, not that I know of. With FluentData you can only execute SQL, but for compact and repair you would need some office object<br />\n",
+    "PostedDate": "2014-09-24T05:02:53.833-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": "2014-09-27T23:16:24.687-07:00"
+  },
+  {
+    "Id": "1308681",
+    "ThreadId": "566762",
+    "Html": "that's what I ended up with eventually.\r<br />\n<br />\nThanks. :-)<br />\n",
+    "PostedDate": "2014-09-27T23:16:10.273-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

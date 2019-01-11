@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "1021848",
+    "ThreadId": "438188",
+    "Html": "Hi,\r<br />\n<br />\nI also posted at stackoverflow, but i think i will have more chance for a reply here (since i can not add a fluentdata tag).\r<br />\n<br />\nSo, can i pass a user-defined table type to a stored procedure using fluentdata ?<br />\n<pre><code>.dbContext().Sql(&quot;MyStoredProcedureName&quot;).Parameter(&quot;MyUserDefinedTableType&quot;, myObject, DbTypes. ?????)</code></pre>\n\nThanks in advance<br />\n",
+    "PostedDate": "2013-03-27T09:00:15.617-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1022860",
+    "ThreadId": "438188",
+    "Html": "User-defines table type is a SQL Server specific type that is not available through the generic ADO.NET provider that FluentData depends on. This means that you need to do this:\r<br />\n<br />\nvar builder = dbContext.StoredProcedure(&quot;DeleteProductsByIds&quot;);\r<br />\nvar sqlCommand = (SqlCommand)builder.Data.Command.Data.InnerCommand;\r<br />\nsqlCommand.Parameters.Add(&quot;@ProductIds&quot;, SqlDbType.Structured).Value = productIds;\r<br />\nbuilder.Execute();\r<br />\n<br />\nThe productIds would be a datatable:\r<br />\nvar productIds = new DataTable();\r<br />\nproductIds.Columns.Add(&quot;ProductId&quot;, typeof(int));\r<br />\nproductIds.Rows.Add(productIds.NewRow()[&quot;ProductId&quot;] = 1);\r<br />\nproductIds.Rows.Add(productIds.NewRow()[&quot;ProductId&quot;] = 2);\r<br />\nproductIds.Rows.Add(productIds.NewRow()[&quot;ProductId&quot;] = 3);<br />\n",
+    "PostedDate": "2013-03-29T04:13:30.83-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

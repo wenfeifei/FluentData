@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "1211426",
+    "ThreadId": "533230",
+    "Html": "I've created the following FluentData-based method to insert a list of DataRow's into a SQLite database.<br />\n<div style=\"color:Black;background-color:White;\"><pre>\r\n<span style=\"color:Blue;\">public</span> <span style=\"color:Blue;\">int</span> InsertNewRows(List&lt;DataRow&gt; rowsList)\n{\n    <span style=\"color:Blue;\">try</span>\n    {\n        VerifyTableName();\n        <span style=\"color:Blue;\">int</span> rowID = -1;\n\n        <span style=\"color:Blue;\">if</span> (rowsList == <span style=\"color:Blue;\">null</span> || rowsList.Count &lt; 1) { <span style=\"color:Blue;\">return</span> -1; }\n\n        <span style=\"color:Green;\">// Use a transaction as we&#39;re likely to be inserting multiple rows</span>\n        <span style=\"color:Green;\">// Create a local context as it&#39;ll be disposed of due to the transaction</span>\n        <span style=\"color:Blue;\">using</span> (<span style=\"color:Blue;\">var</span> context = Context().UseTransaction(<span style=\"color:Blue;\">true</span>))\n        {\n            <span style=\"color:Blue;\">string</span> rowNames = GetFieldNamesAsCSV(rowsList[0]);\n            <span style=\"color:Blue;\">string</span> valueParms = GetValueParamsAsCSV(rowsList[0]);\n\n            <span style=\"color:Blue;\">foreach</span> (DataRow row <span style=\"color:Blue;\">in</span> rowsList)\n            {\n                <span style=\"color:Blue;\">string</span> sql = String.Format(<span style=\"color:#A31515;\">&quot;INSERT INTO {0}({1}) VALUES({2});&quot;</span>, _tableName,\n                    rowNames, valueParms);\n                rowID = _context.Sql(sql)\n                        .Parameters(GetFieldValuesAsList(row).ToArray())\n                        .ExecuteReturnLastId&lt;<span style=\"color:Blue;\">int</span>&gt;();\n            }\n            context.Commit();\n        }\n\n        SendDbChangedMessage(TableChangeType.Insert);\n        <span style=\"color:Blue;\">return</span> rowID;\n    }\n    <span style=\"color:Blue;\">catch</span> { <span style=\"color:Blue;\">throw</span>; }\n}\n\r\n</pre></div>However, in the event of an error during the insertion loop (such as a DB constraint violation), any changes that were made prior to the error are not rolled back.  Watching in the debugger, the code jumps from the errored insertion line straight to the catch and the Commit code is never called (as expected).<br />\n<br />\nAccording to the FluentData docs, this case should automatically roll back the changes, but that doesn't seem to be the case. <br />\n<br />\nThoughts?<br />\n<br />\nJeff<br />\n",
+    "PostedDate": "2014-02-20T14:36:20.437-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1211430",
+    "ThreadId": "533230",
+    "Html": "Guh... \r<br />\n<br />\nNever mind.  While cleaning up the code to paste into the above message, I see that I'm using 2 different contexts (_context and context).  Replacing the &quot;_context&quot; reference with &quot;context&quot; seems to have cleared things up.  Sorry for the noise.\r<br />\n<br />\nJeff<br />\n",
+    "PostedDate": "2014-02-20T14:42:15.977-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": "2014-02-20T14:42:23.057-08:00"
+  }
+]

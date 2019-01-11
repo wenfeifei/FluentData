@@ -1,0 +1,10 @@
+[
+  {
+    "Id": "941926",
+    "ThreadId": "403265",
+    "Html": "\r\n<p>&nbsp;var value = reader[index];</p>\r\n<p>if value is Null</p>\r\n<p>var type =value.GetType() is&nbsp;<span>null reference</span></p>\r\n<p><span>fix&nbsp;&nbsp; var type = reader.GetFieldType(index);</span></p>\r\n",
+    "PostedDate": "2012-11-14T19:00:23.5-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

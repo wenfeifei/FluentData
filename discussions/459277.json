@@ -1,0 +1,58 @@
+[
+  {
+    "Id": "1099345",
+    "ThreadId": "459277",
+    "Html": "I can see that there is an open Issue on this (<a href=\"https://fluentdata.codeplex.com/workitem/1753\" rel=\"nofollow\">https://fluentdata.codeplex.com/workitem/1753</a>), but I cannot figure out how to work around this problem.<br />\n<br />\nThe problem:<br />\n<pre><code>imageOverride.ID = this.context.Insert(&quot;ImageOverrides&quot;)\n                                    .Column(&quot;ID&quot;, imageOverride.ID)\n                                    .Column(&quot;TenantID&quot;, imageOverride.TenantID)\n                                    .Column(&quot;ImageOverrideDefinitionID&quot;, imageOverride.ImageOverrideDefinition.ID)\n                                    .Column(&quot;Image&quot;, imageOverride.Image)\n                                    .ExecuteReturnLastId&lt;int&gt;();</code></pre>\n\nimageOverride.Image is a byte array (byte[]).<br />\nI want to store that array into a column in my DB.<br />\nBut FluentData, probably due to ReflectionHelper.IsList(value) returning true for a byte array, is calling DbCommand.AddListParameterToInnerCommand() rather than DbCommand.AddParameterToInnerCommand().<br />\nIs there any way to force FluentData to see the byte array as a single item to put into 1 column in my DB?<br />\nI just moved off NHibernate to FluentData (because I hate NHibernate), and I really don't want to have to go back, but if there is no workaround for this, I will have to undo all the work that I have done...<br />\n",
+    "PostedDate": "2013-09-25T13:16:36.93-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1099377",
+    "ThreadId": "459277",
+    "Html": "This should hopefully be fixed now. Can you grab the latest source code, compile and see if its working for you now?\r<br />\n<br />\n<br />\nLars-Erik<br />\n",
+    "PostedDate": "2013-09-25T14:19:27.46-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1099382",
+    "ThreadId": "459277",
+    "Html": "Ok. I found a workaround.<br />\n<pre><code>            string thisIsDumb = &quot;0x&quot; + BitConverter.ToString(imageOverride.Image).Replace(&quot;-&quot;, string.Empty);\n\n            imageOverride.ID = this.context.Sql(&quot;insert into ImageOverrides (TenantID, ImageOverrideDefinitionID, Image) values ('&quot; \n                            + imageOverride.TenantID + &quot;', '&quot; +\n                             imageOverride.ImageOverrideDefinition.ID + &quot;', &quot; + thisIsDumb + &quot;)&quot;).ExecuteReturnLastId&lt;int&gt;();</code></pre>\n\nI really want to use parameters, but at least I don't have to go back to NHibernate.<br />\n",
+    "PostedDate": "2013-09-25T14:23:58.52-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1099384",
+    "ThreadId": "459277",
+    "Html": "Well if you take the latest then your first code example should work:\r<br />\nimageOverride.ID = this.context.Insert(&quot;ImageOverrides&quot;)<br />\n<pre><code>                                .Column(&quot;ID&quot;, imageOverride.ID)\n                                .Column(&quot;TenantID&quot;, imageOverride.TenantID)\n                                .Column(&quot;ImageOverrideDefinitionID&quot;, imageOverride.ImageOverrideDefinition.ID)\n                                .Column(&quot;Image&quot;, imageOverride.Image)\n                                .ExecuteReturnLastId&lt;int&gt;();\n</code></pre>\n\nOptionally if you aren't able to get a latest and compile then I can build the dll...<br />\n",
+    "PostedDate": "2013-09-25T14:27:00.14-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1099387",
+    "ThreadId": "459277",
+    "Html": "Sorry, I didn't see your response before I posted the workaround.\r<br />\nI'll download the latest and post back with my results.<br />\n",
+    "PostedDate": "2013-09-25T14:37:26.917-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1101030",
+    "ThreadId": "459277",
+    "Html": "I'm happy to report that downloading the latest code fixes the problem I was having. :)<br />\n",
+    "PostedDate": "2013-09-30T12:31:00.467-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1221648",
+    "ThreadId": "459277",
+    "Html": "I am having the same issue. I downloaded the code and rebuilt it and it is still giving the same error. Any ideas?<br />\n",
+    "PostedDate": "2014-03-11T17:00:38.697-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

@@ -1,0 +1,34 @@
+[
+  {
+    "Id": "1062904",
+    "ThreadId": "448649",
+    "Html": "I using FluentData 3.0 from nuget.<br />\n<br />\nIn page <a href=\"https://fluentdata.codeplex.com/documentation#UpdateData\" rel=\"nofollow\">https://fluentdata.codeplex.com/documentation#UpdateData</a><br />\n<br />\nthere's some words like this:<br />\n<br />\n<img src=\"http://www.leadnt.com/wp-content/uploads/2013/06/SpxImage.jpg\" alt=\"Image\" /><br />\n<br />\nthe update code wil be throw exceptions.because some code in fluentdata like this:<br />\n<pre><code>public int Execute()\n        {\n            if (Data.Columns.Count == 0\n                       || Data.Where.Count == 0)\n                throw new FluentDataException(&quot;Columns or where filter have not yet been added.&quot;);\n\n            Data.Command.ClearSql.Sql(Data.Command.Data.Context.Data.Provider.GetSqlForUpdateBuilder(Data));\n        \n            return Data.Command.Execute();\n        }</code></pre>\n\nif only AutoMap,the Data.Where.Count is always equals zero,and throw new FluentDataException.<br />\n<br />\nso,the correct way to update model is like this:<br />\n<pre><code>int rowsAffected = Context.Update&lt;Product&gt;(&quot;Product&quot;, product)\n            .AutoMap(x =&gt; x.ProductId)\n            .Where(x =&gt; x.ProductId,DataTypes.Int32)\n            .Execute();\n</code></pre>\n\nor like this:<br />\n<pre><code>int rowsAffected = Context.Update&lt;Product&gt;(&quot;Product&quot;, product)\n            .AutoMap(x =&gt; x.ProductId)\n            .Where(&quot;ProductId&quot;,product.ProductId)\n            .Execute();\n</code></pre>\n\nThe above code I have been test,and success.<br />\n<br />\nI hope someone can correct the document's description. : -)<br />\n",
+    "PostedDate": "2013-06-30T02:56:15.783-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1062909",
+    "ThreadId": "448649",
+    "Html": "Great, thanks for the feedback. The documentation has been updated now.<br />\n",
+    "PostedDate": "2013-06-30T04:33:15.753-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1062910",
+    "ThreadId": "448649",
+    "Html": "so quickly.<br />\n",
+    "PostedDate": "2013-06-30T04:51:53.507-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1070718",
+    "ThreadId": "448649",
+    "Html": "Fluency template also suffered this issue. I made updates in TableDataGateway.tt to fix the update method where clause.  Nice catch roydx!<br />\n",
+    "PostedDate": "2013-07-19T18:27:26.653-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

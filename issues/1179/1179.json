@@ -1,0 +1,65 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": "2012-04-25T10:34:25.043-07:00",
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "Missing files IDbColumnInfo.cs and IDbTableInfo.cs. They аre referenced in the csproj project file.",
+    "LastUpdatedDate": "2013-05-16T03:24:28.537-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "FluentData",
+    "ReportedDate": "2012-04-17T09:36:14.227-07:00",
+    "Status": {
+      "Name": "Closed",
+      "Id": 4
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Missing files in Changeset 15380.",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 1179
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "Thanks for reporting this. I think it should be fixed now. Can you try again?\r\n\r\nRegards,\r\nLars-Erik Kindblad",
+      "PostedDate": "2012-04-17T11:44:46.423-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "Thanks Lars-Erik, problem solved.\r\n\r\nRegards,\r\nPawel",
+      "PostedDate": "2012-04-17T21:51:48.75-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2012-04-25T10:34:25.043-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-02-21T15:35:11.69-08:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-05-16T03:24:28.537-07:00",
+      "Id": -2147483648
+    }
+  ]
+}

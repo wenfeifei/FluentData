@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "853529",
+    "ThreadId": "360904",
+    "Html": "\r\n<p>There no plan to support Ibm db2?</p>\r\n<p>I crave so....</p>\r\n<p>&nbsp;</p>\r\n",
+    "PostedDate": "2012-06-25T19:12:15.977-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "854022",
+    "ThreadId": "360904",
+    "Html": "<p>Hi, I plan to add support for IBM DB2 since I also use it at work sometimes. The support will be done in two phases, first I will create a generic dataprovider which will make FluentData support all the databases with an ADO.NET driver. The next step will be to add extended support (like delete, update, insert builders) for DB2, PostgreSQL and SqlLite</p>\r\n<p>Currently I'm busy with a new important feature, but when it's done then I will start on the database support.</p>\r\n<p>Is it a new project or an existing project where you want to use FluentData to access a DB2 database? Can you tell if its a big or a small system, and when do you need it?</p>\r\n<p>&nbsp;</p>\r\n<p>Regards,</p>\r\n<p>Lars-Erik Kindblad</p>",
+    "PostedDate": "2012-06-26T13:06:53.127-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "860477",
+    "ThreadId": "360904",
+    "Html": "<p>DB2 support has been added. A beta release is available on&nbsp;<a href=\"http://fluentdata.codeplex.com/releases/view/90977\">http://fluentdata.codeplex.com/releases/view/90977</a></p>\r\n<p>I will be on holiday for the next 2 weeks but after that I will make a stable release plus add some more information to the documentation.</p>",
+    "PostedDate": "2012-07-11T11:37:59.837-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

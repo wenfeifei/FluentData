@@ -1,0 +1,50 @@
+[
+  {
+    "Id": "855760",
+    "ThreadId": "361481",
+    "Html": "\r\n<p></p>\r\n<div style=\"color:black; background-color:white\">\r\n<pre>context.Update(<span style=\"color:#a31515\">&quot;Table&quot;</span>).Column(<span style=\"color:#a31515\">&quot;Col1&quot;</span>, value).Where(<span style=\"color:#a31515\">&quot;ID&quot;</span>, 1).Execute();\r\n</pre>\r\n</div>\r\n<p></p>\r\n<p>if value is nullable like decimal?, float?, it will cause an error.</p>\r\n<p>and value is float or double type, it will cause an error too...</p>\r\n",
+    "PostedDate": "2012-06-30T04:37:34.277-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "855922",
+    "ThreadId": "361481",
+    "Html": "<p>I have checked the code. It seems the fix I did to solve this issue was not optimal. I have a better fix that will finally solve this, but I'm on holiday until Thursday so I won't get to fix this until Thursday evening. I will notify you when it's fixed.</p>",
+    "PostedDate": "2012-07-01T02:17:11.407-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "860165",
+    "ThreadId": "361481",
+    "Html": "<p>What database do you use? Can you please paste your database table and your .NET code? Then I can verify that the fix works...</p>",
+    "PostedDate": "2012-07-10T23:25:10.477-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "860198",
+    "ThreadId": "361481",
+    "Html": "<p>Mysql5.5 and Sql Server 2005.</p>\r\n<p>Example:</p>\r\n<p>Table Structure:</p>\r\n<p>----MySql-----</p>\r\n<p>&nbsp;</p>\r\n<div style=\"color: black; background-color: white;\">\r\n<pre><span style=\"color: blue;\">CREATE</span> <span style=\"color: blue;\">TABLE</span> `table1` (\r\n  `ID` <span style=\"color: blue;\">int</span>(11) <span style=\"color: blue;\">NOT</span> <span style=\"color: blue;\">NULL</span> AUTO_INCREMENT,\r\n  `C1` <span style=\"color: blue;\">float</span> <span style=\"color: blue;\">DEFAULT</span> <span style=\"color: blue;\">NULL</span>,\r\n  <span style=\"color: blue;\">PRIMARY</span> <span style=\"color: blue;\">KEY</span> (`ID`)\r\n)\r\n</pre>\r\n</div>\r\n<p>&nbsp;</p>\r\n<p>-----Sql Server----</p>\r\n<p>C1 is a Real.</p>\r\n<p>Code:</p>\r\n<p>&nbsp;</p>\r\n<div style=\"color: black; background-color: white;\">\r\n<pre>FluentData.IDbContext context = <span style=\"color: blue;\">new</span> FluentData.DbContext().ConnectionString(<span style=\"color: #a31515;\">\"server=localhost;User Id=root;password=111;Persist Security Info=True;database=test\"</span>, FluentData.DbProviderTypes.MySql);\r\n\r\n<span style=\"color: blue;\">float</span> c1 = 12.12F;\r\ncontext.Insert(<span style=\"color: #a31515;\">\"Table1\"</span>).Column(<span style=\"color: #a31515;\">\"C1\"</span>, c1).ExecuteReturnLastId();\r\n</pre>\r\n</div>\r\n<p>&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p>Error:&nbsp;The parameter c0 is of a type that is not supported.</p>\r\n<p>Besides, InsertBuilder has no method 'Execute' ? I always use Guid for the key..</p>",
+    "PostedDate": "2012-07-11T01:38:03.07-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "860476",
+    "ThreadId": "361481",
+    "Html": "<p>This issue should hopefully be fixed now. I tested it against SQL-Server and it works. I've made a new release for you, it's marked as beta since there are some new functionality in there (a Select builder that might not be 100% stable yet). Get it from:<br /><a href=\"http://fluentdata.codeplex.com/releases/view/90977\">http://fluentdata.codeplex.com/releases/view/90977</a></p>\r\n<p><a href=\"http://fluentdata.codeplex.com/releases/view/90977\"></a>I will be on holiday for the next 2 weeks. When I'm back I will will make a new stable release.</p>",
+    "PostedDate": "2012-07-11T11:37:04.96-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "860521",
+    "ThreadId": "361481",
+    "Html": "<p>... And Execute() has been added to the InsertBuilder.</p>",
+    "PostedDate": "2012-07-11T13:11:13.517-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

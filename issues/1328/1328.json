@@ -1,0 +1,55 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "public static string GetConnectionStringValue(string key)\n\t\t{\n\t\t\tvar appSettings = XDocument.Load(@\"D:\\Google Drive\\AppSettings\\FluentData.IntegrationTests\\App.config\");\n\t\t\tvar addElements = appSettings.Element(\"configuration\").Element(\"connectionStrings\").Elements(\"add\");\n\t\t\tvar addElement = addElements.Single(x => x.Attribute(\"name\").Value == key);\n\t\t\treturn addElement.Attribute(\"connectionString\").Value;\n\t\t}",
+    "LastUpdatedDate": "2013-02-21T15:35:11.133-08:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "FluentData",
+    "ReportedDate": "2012-08-05T19:23:30.767-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "can you give me the file\"D:\\Google Drive\\AppSettings\\FluentData.IntegrationTests\\App.config\"",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 1328
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "my eamail is 550867507@qq.com \r\nthanks!",
+      "PostedDate": "2012-08-05T19:24:47.607-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "This file contains a list of connection strings to databases that I have installed locally in order to test the entire FluentData featureset on the different databases that FluentData supports. Since it contains username and passwords I cant share it.",
+      "PostedDate": "2012-08-28T05:41:51.953-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-02-21T15:35:11.133-08:00",
+      "Id": -2147483648
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": "2012-04-15T12:18:33.91-07:00",
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "I've not gone through the code myself, but have looked in the documentation and browsed the API via the Object Browser. I'm looking for a way to specify a longer than normal Command Timeout. Normally I would do this in the DbCommand, but this is not exposed.\nAny way that I'm missing of doing this? Please keep in mind that this is for Sql Server. It does not support setting the Command Timeout via the connection string.",
+    "LastUpdatedDate": "2013-05-16T03:24:28.72-07:00",
+    "PlannedForRelease": "FluentData version 2.0",
+    "ReleaseVisibleToPublic": true,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "FluentData",
+    "ReportedDate": "2012-03-08T04:54:29.59-08:00",
+    "Status": {
+      "Name": "Closed",
+      "Id": 4
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Ability to specify Command Timeout",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 1030
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "OK, give me a day and I will add it and put out a new version.\r\n\r\nRegards,\r\nLars-Erik Kindblad",
+      "PostedDate": "2012-03-08T06:10:56.153-08:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "Just some more info. It would be great if one can set the timeout on the context and that every query using that context use that timeout. The other option is to somehow set the timeout on the Query<T>, but that means you have to set it on every query you exexute.\r\nI would prefer the first option.",
+      "PostedDate": "2012-03-08T23:14:15.407-08:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "I have just added a CommandTimeout property on the Context. The code is checked in and a new release has been made. In this release support for events that gives you direct access to the DbCommand and DbConnection have also been added: OnConnectionClosed, OnConnectionOpened, OnConnectionOpening, OnError, OnExecuted, OnExecuting.",
+      "PostedDate": "2012-03-11T17:27:01.793-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2012-03-11T17:27:24.747-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2012-03-11T17:27:45.5-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2012-04-15T12:18:33.91-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-02-21T15:35:11.86-08:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-05-16T03:24:28.72-07:00",
+      "Id": -2147483648
+    }
+  ]
+}

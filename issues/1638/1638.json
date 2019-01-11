@@ -1,0 +1,65 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "I had some slight difficulty setting a parameter for a SQL select when the parameter was used as part of a \"like\" for a varchar column.  The string value in the SQL looked like this: '@DbName%'.  I worked around the issue by changing the code to use this instead: '@DbName', and then set the value so that it included the %.\n\nPerhaps this is a user error.\n\nWhat is the correct way for handling parameters used as part of a LIKE?",
+    "LastUpdatedDate": "2013-06-14T00:21:17.467-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Unassigned",
+      "Severity": 0,
+      "Id": 0
+    },
+    "ProjectName": "FluentData",
+    "ReportedDate": "2013-03-25T08:49:22.367-07:00",
+    "Status": {
+      "Name": "Resolved",
+      "Id": 7
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "SQL parameter problem when used with LIKE...",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 1638
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "To get all the products beginning with \"The\" this would be the correct way to do it:\r\n\r\nvar products = Context.Sql(\"select * from Product where Name like @Name\")\n\t\t\t.Parameter(\"Name\", \"The%\").QueryMany<Product>();\r\n\r\n\nThe reason for this is that the engine replaces @Name with single quotes and the value, so we want:\nwhere Name like 'The%'\nand not:\nwhere Name like 'The'%",
+      "PostedDate": "2013-03-25T11:49:27.65-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-03-25T11:49:56.253-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-05-16T03:24:26.967-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-05-16T03:24:27.52-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-06-14T00:21:17.467-07:00",
+      "Id": -2147483648
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "825809",
+    "ThreadId": "352793",
+    "Html": "<pre><em style=\"color: red;\">Could not map: Year</em></pre>\n<pre><span style=\"color: red;\"><pre><span>return CreateContext().Sql(\"select Year from Inquisition group by Year order by Year desc\").Query&lt;int&gt;();</span></pre>\n<br /></span></pre>\n<p>the database is mysql. year is int.</p>\n<p>what should i do?</p>",
+    "PostedDate": "2012-04-19T00:55:07.797-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "825813",
+    "ThreadId": "352793",
+    "Html": "<p>Hi, try this instead:</p>\n<div style=\"color: black; background-color: white;\">\n<pre><span style=\"color: blue;\">return</span> CreateContext().Sql(<span style=\"color: #a31515;\">\"select Year from Inquisition group by Year order by Year desc\"</span>).QueryValues&lt;<span style=\"color: blue;\">int</span>&gt;();\n</pre>\n</div>\n<p>&nbsp;</p>\n<p>The reason to use QueryValues instead of just Query is that int is a scalar type and not an entity type.<br /> <br /> Does it work?&nbsp;</p>\n<p>Regards,<br /> Lars-Erik Kindblad&nbsp;</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>",
+    "PostedDate": "2012-04-19T01:04:59.993-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "825817",
+    "ThreadId": "352793",
+    "Html": "<p>it works! :)</p>\r\n<p>thank you!</p>",
+    "PostedDate": "2012-04-19T01:12:35.903-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

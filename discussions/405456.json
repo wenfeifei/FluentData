@@ -1,0 +1,42 @@
+[
+  {
+    "Id": "950845",
+    "ThreadId": "405456",
+    "Html": "\r\n<p>What is the proper lifespan of the&nbsp;IDbContext? Should a new database context be instantiated every time a new query to the database is executed? I have two scenarios below, which is the proper usage? Note that I am querying MS SQL as well as MySQL servers.\r\n So, I would like to know if either have any implications as far as reaching the max connections. And yes, I am calling the database on multiple threads. Are both scenarios thread safe?</p>\r\n<p>Scenario A:</p>\r\n<p>My repository class implements IDisposable and holds a private variable of type&nbsp;IDbContext. This variable gets instantiated at the constructor and disposed when the class is disposed. There is only one instance of the context in the repository.</p>\r\n<p>Scenario B:</p>\r\n<p>My repository class has a private method that returns a new instance of IDbContext. Whenever another method makes a call to the database, they call this method to get a new database context.</p>\r\n",
+    "PostedDate": "2012-12-03T15:25:38.42-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "951133",
+    "ThreadId": "405456",
+    "Html": "\r\n<p>Hi,</p>\r\n<p>scenario A and B are thread safe if you have not enabled UseTransaction or UseSharedConnection. Also if those 2 features are not enabled then you do not need to call Dispose in Scenario A and B. Disposing the DbContext is only needed when a shared connection\r\n is used. When a non-shared connection is used (which is default behavior) then FluentData creates and opens the connection just before the query is executed and closes it just after or if any exception has&nbsp;occurred.</p>\r\n<p>&nbsp;</p>\r\n",
+    "PostedDate": "2012-12-04T05:45:21.36-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1037198",
+    "ThreadId": "405456",
+    "Html": "I was wondering about the DbContext usage as well. Since DbContext implemented the IDisposable interface I wrote the code with using block to make sure it will be disposed in repository.<br />\n<pre><code>using(IDbContext context = Context())\n{\n        // EXECUTE SOME COMMAND HERE\n}</code></pre>\n\nBTW with respect to peformance does it makes sense to make GetContext method singleton ? This maybe tricky since in some cases you do need to dispose the context.<br />\n",
+    "PostedDate": "2013-04-29T08:52:54.573-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1040010",
+    "ThreadId": "405456",
+    "Html": "1) DbContext implements IDisposable however calling Dispose is only needed when using transactions or a shared connection. So if you dont use a transaction or shared connection then you dont need to use using or call dispose.\r<br />\n2) If you are creating a web app then the DbContext could be a singleton per request, but not a singleton for all requests (this would make the DbContext be shared across all requests/users, you dont want this).<br />\n",
+    "PostedDate": "2013-05-06T11:19:26.833-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1040094",
+    "ThreadId": "405456",
+    "Html": "Thanks for the explaination. Seems like I need to do some more experiments with framework.<br />\n",
+    "PostedDate": "2013-05-06T14:31:34.377-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

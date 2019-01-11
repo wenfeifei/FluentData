@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "930882",
+    "ThreadId": "400417",
+    "Html": "\r\n<p>Hi,</p>\r\n<p>is it supported to use sql function in column value?</p>\r\n<p>like</p>\r\n<p></p>\r\n<div style=\"color:black; background-color:white\">\r\n<pre><span style=\"color:blue\">int</span> pointId = DBContext.Insert(<span style=\"color:#a31515\">&quot;points&quot;</span>).Column(<span style=\"color:#a31515\">&quot;the_geom&quot;</span>, <span style=\"color:#a31515\">&quot;ST_GeomFromText('POINT(0,0)' , 900913)&quot;</span>).ExecuteReturnLastId();\r\n</pre>\r\n</div>\r\n<p></p>\r\n<p>Thanks,</p>\r\n<p>Kamal</p>\r\n",
+    "PostedDate": "2012-10-23T01:14:42.607-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "931036",
+    "ThreadId": "400417",
+    "Html": "<p>This is currently not supported, until it is then you need to use the Sql(\"insert into points ....\").ExecuteReturnLastId();<br /><br />I'm working on version 3 now where I'm looking into adding the option of having SQL in the column.</p>\r\n<p>&nbsp;</p>\r\n<p>Regards,</p>\r\n<p>Lars-Erik Kindblad</p>",
+    "PostedDate": "2012-10-23T05:56:51.64-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

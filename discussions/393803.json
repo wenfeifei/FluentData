@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "906509",
+    "ThreadId": "393803",
+    "Html": "\r\n<p>Is this library compatible with MySql 4? I am using MySql&nbsp;<span>Connector/Net 5.1.</span></p>\r\n",
+    "PostedDate": "2012-08-30T12:29:07.923-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "906813",
+    "ThreadId": "393803",
+    "Html": "<p>Yes, should be since FluentData doesnt use any version specific features in MySql.</p>\r\n<p>&nbsp;</p>\r\n<p>Regards,</p>\r\n<p>Lars-Erik Kindblad</p>",
+    "PostedDate": "2012-08-31T05:09:30.587-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

@@ -1,0 +1,55 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": "2014-04-12T00:24:02.96-07:00",
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "I am using a PostgreSql Database and I ma getting the following Error:\nUnable to find the requested .Net Framework Data Provider.  It may not be installed.\n\nNpgsql.dll is referenced in the project. SqlServer Provider works.\nMy Context method looks like this:\nprivate IDbContext Context() {\n    return new DbContext().ConnectionStringName(\"ApplicationCS\", new  PostgreSqlProvider());\n}\n\nIt fails at ConnectionString.cs line 11\n DbProviderFactory adoNetProvider = System.Data.Common.DbProviderFactories.GetFactory(providerName);\n\nRW Bradley",
+    "LastUpdatedDate": "2014-04-12T00:24:03.52-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Unassigned",
+      "Severity": 0,
+      "Id": 0
+    },
+    "ProjectName": "FluentData",
+    "ReportedDate": "2014-04-09T11:50:20.12-07:00",
+    "Status": {
+      "Name": "Closed",
+      "Id": 4
+    },
+    "ReasonClosed": {
+      "Name": "Fixed"
+    },
+    "Summary": "Unable to find the requested .Net Data Provider.",
+    "Type": {
+      "Name": "Unassigned",
+      "Id": 5
+    },
+    "VoteCount": 1,
+    "Id": 1953
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "This was solved through e-mail communication however the solution was:\nIt's not enough to just reference the postgresql provider, you also\nneed to set it up as a ADO.NET provider. This can be done either\nthrough an installer (cant remember if npgsql has one) or in the\n.config file. For the config file would be something like this:\n<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n<configuration>\n<system.data>\n<DbProviderFactories>\n<add name=\"Npgsql Data Provider\" invariant=\"Npgsql\" support=\"FF\"\ndescription=\".Net Framework Data Provider for Postgresql Server\"\ntype=\"Npgsql.NpgsqlFactory, Npgsql, Version=2.0.11.94,\nCulture=neutral, PublicKeyToken=5d8b90d52f46fda7\" />\n  </DbProviderFactories>\n</system.data>\r\n\r\nSo change the version and publickeytoken to the correct one for your\nnpgsql version.",
+      "PostedDate": "2014-04-12T00:23:27.69-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2014-04-12T00:24:02.96-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2014-04-12T00:24:03.52-07:00",
+      "Id": -2147483648
+    }
+  ]
+}

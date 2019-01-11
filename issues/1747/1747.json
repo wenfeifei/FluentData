@@ -1,0 +1,39 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "Hello; \nI'm new to using FluentData and working with an existing application that is using it. \n\nWhen I'm trying to build in Visual Studio I first downloaded the dll and added it as a reference. \n\nNow I get the following error: \n'FluentData.IDbCommand' does not contain a definition for 'Query' and no extension method 'Query' accepting a first argument of type 'FluentData.IDbCommand' could be found (are you missing a using directive or an assembly reference?) \n\nThe line of code is as follows:\n                var result = Proxy.Context.Sql(query.ToString()).Query<T>().FirstOrDefault();\n\nI've also tried to delete the reference. Then open NuGet and searched for fluentdata and clicked the install button and I still get the same error. When installed if from NuGet it added the following line of code to the .config file:\n\n  <package id=\"FluentData\" version=\"3.0.0.0\" targetFramework=\"net45\" />\nAny assistance will be greatly appreciated.\n\nAny assistance will be greatly appreciated. \n\nThanks; \nCatto",
+    "LastUpdatedDate": "2013-07-30T07:24:37.173-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Unassigned",
+      "Severity": 0,
+      "Id": 0
+    },
+    "ProjectName": "FluentData",
+    "ReportedDate": "2013-07-30T07:24:37.173-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "FluentData.IDbCommand does not contain definition for 'Query' error",
+    "Type": {
+      "Name": "Unassigned",
+      "Id": 5
+    },
+    "VoteCount": 1,
+    "Id": 1747
+  },
+  "FileAttachments": [],
+  "Comments": []
+}

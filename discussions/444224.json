@@ -1,0 +1,66 @@
+[
+  {
+    "Id": "1045788",
+    "ThreadId": "444224",
+    "Html": "I have spent some time playing with fluent data and so far I am loving it :). I have noticed that if you are working with bottom to top apprach means you created your database first and then you are writing your domain objects. Then this maybe boring work provided that you have lot of tables. Also most of the time you will be doing simple insert, update or load again and again. In order to speed up the things and place these common operations at one place I am working on a T4 template. I followed <a href=\"http://martinfowler.com/eaaCatalog/tableDataGateway.html\" rel=\"nofollow\">Table Data Gateway Pattern</a> explained by Martin Fowler. This means there will an entity class and a gateway class for each table in database. The gateway class will contain all common CURD operations as static methods. Gateway class will support select single by primary key, select all entities, select by foreign key, insert, update and delete. Also all load multiple methods will support sorting and paging and will be able to bind with object data source easily.\r<br />\n<br />\nI hope once finished this T4 template will provide the ability to jump start BBL with one click. I am going to post the generated code for one entity from my sample project here.<br />\n<pre><code> #region Product\n\n    /// &lt;summary&gt;\n    /// Product entity class\n    /// &lt;/summary&gt;\n    public partial class Product    \n    {\n        public int Id { get; set; }\n        public string Name { get; set; }\n        public decimal Price { get; set; }\n        public string Sku { get; set; }\n        public string Description { get; set; }\n        public int ManufacturerId { get; set; }\n        public DateTime CreatedOn { get; set; }\n        public DateTime ModifiedOn { get; set; }\n    }\n    \n    /// &lt;summary&gt;\n    /// Product gateway class\n    /// &lt;/summary&gt;\n    public partial class ProductGateway\n    {\n        private static IDbContext Context()\n        {\n            return new DbContext().ConnectionStringName(&quot;MyDb&quot;,\n                    new SqlServerProvider());\n        }\n\n        public static Product Select(int id)\n        {\n            using(var context = Context())\n            {\n                return context.Sql(&quot; SELECT * FROM Product WHERE Id = @id &quot;)\n                    .Parameter(&quot;id&quot;, id)\n                    .QuerySingle&lt;Product&gt;();\n            }\n        }\n\n        public static List&lt;Product&gt; SelectAll()\n        {\n            return SelectAll(string.Empty);\n        }\n\n        public static List&lt;Product&gt; SelectAll(string sortExpression)\n        {\n            return SelectAll(0, 0, sortExpression);\n        }\n\n        public static List&lt;Product&gt; SelectAll(int startRowIndex, int maximumRows, string sortExpression)\n        {\n            using (var context = Context())\n            {\n                var select = context.Select&lt;Product&gt;(&quot; * &quot;)\n                    .From(&quot; Product &quot;);\n\n                if (maximumRows &gt; 0)\n                {\n                    if (startRowIndex == 0) \n                        startRowIndex = 1;\n\n                    select.Paging(startRowIndex, maximumRows);\n                }\n\n                if (!string.IsNullOrEmpty(sortExpression))\n                    select.OrderBy(sortExpression);\n\n                return select.QueryMany();\n            }\n        }\n\n        public static int CountAll()\n        {\n            using (var context = Context())\n            {\n                return context.Sql(&quot; SELECT COUNT(*) FROM Product &quot;)\n                    .QuerySingle&lt;int&gt;();\n            }\n        }\n\n        \n        public static List&lt;Product&gt; SelectByManufacturer(int manufacturerId)\n        {\n            return SelectByManufacturer(manufacturerId, string.Empty);\n        }\n\n        public static List&lt;Product&gt; SelectByManufacturer(int manufacturerId, string sortExpression)\n        {\n            return SelectByManufacturer(manufacturerId, 0, 0, sortExpression);\n        }\n\n        public static List&lt;Product&gt; SelectByManufacturer(int manufacturerId, int startRowIndex, int maximumRows, string sortExpression)\n        {\n            using (var context = Context())\n            {\n                var select = context.Select&lt;Product&gt;(&quot; * &quot;)\n                    .From(&quot; Product &quot;)\n                    .Where(&quot; ManufacturerId = @manufacturerid &quot;)\n                    .Parameter(&quot;manufacturerid&quot;, manufacturerId);\n\n                if (maximumRows &gt; 0)\n                {\n                    if (startRowIndex == 0) \n                        startRowIndex = 1;\n\n                    select.Paging(startRowIndex, maximumRows);\n                }\n\n                if (!string.IsNullOrEmpty(sortExpression))\n                    select.OrderBy(sortExpression);\n\n                return select.QueryMany();\n            }\n        }\n\n        public static int CountByManufacturer(int manufacturerId)\n        {\n            using (var context = Context())\n            {\n                return context.Sql(&quot; SELECT COUNT(*) FROM Product WHERE ManufacturerId = @manufacturerid&quot;)\n                    .Parameter(&quot;manufacturerid&quot;, manufacturerId)\n                    .QuerySingle&lt;int&gt;();\n            }\n        }\n        \n        public static bool Insert(Product product) \n        {\n            using (var context = Context())\n            {\n                int id = context.Insert&lt;Product&gt;(&quot;Product&quot;, product)\n                    .AutoMap(x =&gt; x.Id)\n                    .ExecuteReturnLastId&lt;int&gt;();\n\n                product.Id = id;\n                return id &gt; 0;\n            }\n        }\n        public static bool Update(Product product)\n        {\n            using (var context = Context())\n            {\n                return context.Update&lt;Product&gt;(&quot;Product&quot;, product)\n                    .AutoMap(x =&gt; x.Id)\n                    .Execute() &gt; 0;\n            }\n        }\n\n        public static bool Delete(Product product) \n        {\n            return Delete(product.Id);\n        }\n\n        public static bool Delete(int id)\n        {\n            using (var context = Context())\n            {\n                return context.Sql(&quot; DELETE FROM Product WHERE Id = @id &quot;)\n                    .Parameter(&quot;id&quot;, id)\n                    .Execute() &gt; 0;\n            }\n        }\n    }\n    \n    #endregion</code></pre>\n\n",
+    "PostedDate": "2013-05-19T15:36:57.203-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1048562",
+    "ThreadId": "444224",
+    "Html": "This is great work. Please keep us updated about the progress and when the T4 template is done.\r<br />\n<br />\nSome feedback:\r<br />\n1) To allow for better unit-testability it would be better to have the methods as instances instead of statics, then the Gateway classes can be injected using constructor injection. \r<br />\n2) Any particular reason why you choose the Table Gateway Pattern over the Repository pattern (<a href=\"http://martinfowler.com/eaaCatalog/repository.html\" rel=\"nofollow\">http://martinfowler.com/eaaCatalog/repository.html</a>)?<br />\n",
+    "PostedDate": "2013-05-25T00:38:51.1-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1048714",
+    "ThreadId": "444224",
+    "Html": "<blockquote>\n1) To allow for better unit-testability it would be better to have the methods as instances instead of statics, then the Gateway classes can be injected using constructor injection. <br />\n</blockquote>\nJust to keep it simple and save a line to instantiate since I wasn't considering the UNIT testing of gateways.<br />\n<blockquote>\n2) Any particular reason why you choose the Table Gateway Pattern over the Repository pattern <br />\n</blockquote>\nYes simplicity. I think repository patterns makes more sense when you are considering to mock and UNIT test the objects. I was trying to create very simple and straight BLL that having minimum learning curve and can be used by any one with basic programming skills. I think repository pattern will result three code items per table entity class, repository interface and then repository implementation class? <br />\n",
+    "PostedDate": "2013-05-25T14:16:10.43-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1057130",
+    "ThreadId": "444224",
+    "Html": "I am done with the template and I think it can be shared now. What is the best way to share the template? I am thinking to share the template undername &quot;fluency&quot;. It is design time template which requires three parameters. The preferred approch is to use it along with texttransform.exe by registering one new external tool in visual studio. This way you don't need to include the template to project source code. Three required parameters will be\r<br />\n<br />\nns =&gt; Namespace\r<br />\ncs =&gt; Connection String\r<br />\ncsn =&gt; Connection String Name\r<br />\n<br />\nAlternativly the tempalte can be included to source code and can be executed from within Visual Studio. This wil need you to make some changes to template by removing the parameters by hardcoding the namespace, connection string and connection string name. I think this will be more suitable when some one will be looking to extend or update the template.<br />\n",
+    "PostedDate": "2013-06-14T17:20:59.783-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1060189",
+    "ThreadId": "444224",
+    "Html": "Great. I have created a Contributions folder at the project root in TFS and added you as a contributor/developer. You can create a folder below it with the name of your contribution and then just put the code there, and then we can create some documentation for it on a separate page with a link from the main documentation page.<br />\n",
+    "PostedDate": "2013-06-23T14:54:22.4-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1060614",
+    "ThreadId": "444224",
+    "Html": "<strong>kindblad wrote:</strong><br />\n<blockquote>\nGreat. I have created a Contributions folder at the project root in TFS and added you as a contributor/developer. You can create a folder below it with the name of your contribution and then just put the code there, and then we can create some documentation for it on a separate page with a link from the main documentation page.<br />\n</blockquote>\nThanks! I have created the folder Fluency under contributions and made checkin. I have also made updates to WIKI where I created a new page about how to use the Fluency Template and also linked it to home page under Contributions list right above the Getting started section. The new page can be found here <a href=\"https://fluentdata.codeplex.com/wikipage?title=Fluency\" rel=\"nofollow\">Fluency</a>. It would be great if some one can follow the instructions I left there just to confirm that guidelines I posted there are understandable and functional.<br />\n",
+    "PostedDate": "2013-06-24T15:45:26.177-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1062879",
+    "ThreadId": "444224",
+    "Html": "Great work. I will test it in 2 weeks when I'm back from my vacation.<br />\n",
+    "PostedDate": "2013-06-29T22:27:59.05-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1097321",
+    "ThreadId": "444224",
+    "Html": "I'm currently using this in a project and it works great. Saves me a lot of time since Fluency generates all the code that I need.\r<br />\n<br />\nGreat work!\r<br />\n<br />\n<br />\nLars-Erik<br />\n",
+    "PostedDate": "2013-09-20T23:06:10.157-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]
