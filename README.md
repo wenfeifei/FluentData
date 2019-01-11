@@ -63,6 +63,16 @@ var productId = QueryDB().Insert(\"Product\").Column(\"Name\", \"The Warren Buff
  参数化:
  QueryDB().Sql(" update Product set IsDelete=1 where id=@id ").Parameter("id", id).Execute() > 0;
  
+ 使用自定义映射
+List<Product> products = Context.Sql(@"select * from Product")
+.QueryMany<Product>(Custom_mapper_using_dynamic);
+
+public void Custom_mapper_using_dynamic(Product product, dynamic row)
+{
+    product.ProductId = row.ProductId;
+    product.Name = row.Name;
+}
+
 具体使用看参考 :
 https://www.cnblogs.com/babietongtianta/p/4365195.html
 
