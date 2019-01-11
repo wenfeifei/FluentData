@@ -1,26 +1,24 @@
-News
-March 2015: Version 3.0.1 is released on CodePlex and NuGuet, and a version 4 is currently in the pipeline. Sybase supported has been added, see the documentation tab for more information.
-December 30th: Version 3.0 is released on CodePlex and NuGet. The documentation has been updated.
-August 8th: Version 2.3 is released on CodePlex and NuGet. This release is available both as an assembly file and as a single source code file. PostgreSQL, SQLite and IBM DB2 are now supported. A select builder with paging support has been added. The documentation will soon be updated with more information on the new features.
-June 3rd: Version 2.2.2 is released.
-May 8th: Version 2.2 is released.
-April 15th: Version 2.1 is out with support for MS Access.
-Mar 12th: Version 2.0 is now out on CodePlex and NuGet.
-Mar 3rd: FluentData is now available on NuGet.
-Feb 28th: Version 1.2 of FluentData is out with support for QueryValues and automapping to enumerations.
-Feb 19th: Version 1.1 of FluentData is out with support for MySQL.
-Feb 14th: The first version (1.0) of FluentData is out on CodePlex.
-Roadmap
-Click here to view the backlog.
-About
-Are you tired of fighting with overly complex ORMs such as Entity Framework and NHibernate? Are you tired of poorly generated SQL or having to change your business objects to work with your ORM? Do you miss the power and performance of ADO.NET and SQL, but not the manual tedious work? If so FluentData might be the framework for you.
+原作者 https://archive.codeplex.com/?p=fluentdata
 
-FluentData is a Micro ORM that makes it simple to select, insert, update and delete data in a database. It gives the developer the power of ADO.NET but with the convenience of an ORM. It has a simple to use fluent API that uses SQL - the best and most suitable language to query data, and SQL or fluent builders to insert, update and delete data.
-Features
-Basic features
-Supports the following databases
+
+新闻
+2015 年 3 月 ： 版本 3.0. 1 发布在 CodePlex nuguet 和、以及版本 4 目前正在酝酿中。支持 Sybase ， 请参见文档选项卡。
+十二月三十日 ： 是 3.0 版本发布在 CodePlex 和 “NuGet 。该文件已被更新。
+8 月 8 日 ： 2.3 版本被发布在 CodePlex 和 “NuGet 。该释放组件可作为一个单一文件 ， 作为源代码文件。PostgreSQL 、 SQLite 、 IBM DB2 支持。寻呼生成器的选择与支持。该文件将很快被更新的信息更多的新功能。
+6 月 3 日 ： 版本 2.2. 2 释放。
+5 月 8 日 ： 2.2 版发布。
+4 月 15 日 ： 2.1 版本不支持 MS 接入。
+3 月 12 日 ： 版本 2.0 现在和 “NuGet CodePlex 上。
+3 标记 ：现在 “NuGet fluentdata。
+2 月 28 日 ： fluentdata 1.2 版本的不支持和 queryvalues automapping 来枚举。
+2 月 19 ： 1.1 版本的不支持 fluentdata MySQL 。
+2 月 14 日 ： 在第一个版本 (1.0) 的 fluentdata 在 CodePlex 上。
+
+特征
+基本特点
+支持下列的数据库
 MS SQL Server
-MS SQL Server Compact 4.0
+MS SQL Server 4.0
 MS SQL Azure
 MS Access
 Oracle
@@ -37,13 +35,3 @@ Secure, use indexed or named parameters to prevent SQL injection.
 Great performance.
 Can work against any existing business objects and the business layer do not need any references to FluentData.
 Available both as an assembly (.DLL) and as a single source code file.
-Advanced features
-Transactions
-Multiple result set - Execute multiple queries as a single database hit for improved performance.
-Custom return collections, e.g. ProductCollection instead of List<Product>.
-Supports creation of complex entity objects through a custom Entity Factory.
-Provider model that makes it easy to add support for other databases.
-Contributions
-Fluency (Code Generation Templates)
-Getting started
-FluentData is easy to use,and more useful description,see the document here:
